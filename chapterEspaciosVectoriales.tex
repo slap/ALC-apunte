@@ -1,0 +1,1140 @@
+\chapter{Nociones básicas de álgebra lineal}
+
+\section{Vectores y matrices}
+
+\subsection{Vectores}
+Para $n \in \N$, definimos un vector de $n$ coordenadas como una sucesión de $n$ n\'umeros reales o complejos $\vb = (v_1, \dots, v_n)$.
+Denotamos $\R^n$ al conjunto de todos los vectores reales de $n$ coordenadas y $\C^n$ al conjunto de todos los vectores complejos de $n$ coordenadas.
+Ya que la mayoría de los resultados que veremos valen tanto en $\R$ como en $\C$, los enunciamos usando la letra $\K$. En los casos en que debamos restringirnos a $\R$ o $\C$ lo señalaremos explícitamente. Solo haremos uso de  definiciones y propiedades elementales de los complejos, antes de continuar recordamos algunas de ellas que aparecerán más adelante 
+\begin{enumerate}
+\item $i^2=-1$.
+ \item Si $z=a+ib$ el conjugado se define como $\overline{z}=a-ib$.
+ \item $\forall z,w\in \C$,  $\overline{zw}=\overline{z}\,\overline{w}$.
+ \item El módulo de $z$, se define como $|z|=\sqrt{a^2+b^2}$ y representa la distancia del complejo $z$ al origen.
+ \item $\forall z,w\in \C$, $|zw|=|z||w|$
+ \item $|z|^2=z\overline{z}$, en particular se observa que si $z\neq 0$, $z\frac{\overline{z}}{|z|^2}=1$. Llamamos $z^{-1}=\frac{\overline{z}}{|z|^2}$.
+ \item $\forall \theta\in \R$, se define $e^{i\theta}=\cos(\theta)+i\sen(\theta)$, en particular $|e^{i\theta}|=1$. Por otro lado, usando trigonometría elemental, se ve que si $|w|=1$, existe $\theta\in \R$ tal que $w=e^{i\theta}$.
+ \item Ya que si $z\neq 0$ se tiene que $\left| \frac{z}{|z|}\right|=1$, del ítem previo se observa que si $z\neq 0$, puede escribirse $z=|z|e^{i\theta}$ con $\theta\in \R$.
+ \item Todo polinomio a coeficientes en $\mathbb{C}$ de grado $n\ge 1$ tiene exactamente $n$ raíces -contadas con su multiplicidad- en $\C$ (resultado que suele llamarse Teorema Fundamental del Álgebra). 
+\end{enumerate}
+
+
+ 
+\begin{ejemplo}\leavevmode
+\begin{itemize}
+\item   $\R^2$ es el plano coordenado.
+\item   $\R^3$ es el espacio de 3 dimensiones.
+\end{itemize}
+\end{ejemplo}
+
+\begin{ejemplo}\leavevmode
+\begin{itemize}
+\item $\vb = (1,2) \in \mathbb{R}^2$.
+\item $\ub = (2, -1, \pi, 3/2) \in \mathbb{R}^4$.
+\item $\wb = (1-2i,3e^{3i})\in \C^2 $.
+\end{itemize}
+\end{ejemplo}
+
+En \python definimos vectores con el comando \texttt{array} (arreglo) del paquete \texttt{numpy}.
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+import numpy as np
+v1 = np.array([10, 5, -7, 1])
+print(v1)
+
+v2 = np.array([5, 0, 3/2, 2])
+print(v2)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% v1 =  [10  5 -7  1]
+%% v2 =  [5.  0.  1.5 2. ]
+\end{verbatim}
+
+\subsection{Matrices}
+
+Denotamos $\K^{m \times n}$ al espacio de matrices de números reales o complejos de $m$ filas y $n$ columnas, que podemos considerar como un vector de $m \times n$ coordenadas agrupadas en $m$ filas de $n$ coordenadas.
+
+\begin{ejemplo}\leavevmode\noindent
+\begin{enumerate}
+\begin{minipage}{0.3\linewidth}
+\item   $\begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix} \in \mathbb{R}^{2 \times 3}$
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+\item   $\begin{pmatrix} 1 \\ 7 \\ 0.6 \\ -1 \end{pmatrix} \in \mathbb{R}^{4 \times 1}$
+\end{minipage}
+\begin{minipage}{0.4\linewidth}
+\item   $\begin{pmatrix} 1 & 5 + i \\ 7 -2i & 0 \\ i & 3 \end{pmatrix} \in \C^{3 \times 2}$
+\end{minipage}
+\end{enumerate}
+\end{ejemplo}
+
+Es común considerar a los vectores en $\K^n$ como matrices columna. Es decir, al vector $v=(1,2,3)$ lo pensamos como matriz $\begin{pmatrix} 1 \\ 2 \\ 3\end{pmatrix}$ cuando trabajamos con matrices.
+
+En \python definimos matrices usando el mismo comando \texttt{array} que utilizamos para vectores, pero ingresando cada fila como un vector, es decir para \python una matriz es un arreglo de dos dimensiones, que se guarda como un arreglo de arreglos de dimensión 1.
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A = np.array([[1,2],[3,4]]) # Matriz de 2 x 2
+print("A = \n", A)
+
+B = np.array([[1,2,3,4],[7,1,2,-1]]) # Matriz de 4 x 2
+print("B = \n", B)
+
+C = np.array([[1], [7], [1/3]]) # Matriz columna de 1 x 3
+print("C = \n", C)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% A =
+%%  [[1 2]
+%%  [3 4]]
+%% B =
+%%  [[ 1  2  3  4]
+%%  [ 7  1  2 -1]]
+%% C =
+%%  [[1.        ]
+%%  [7.        ]
+%%  [0.33333333]]
+\end{verbatim}
+
+Podemos acceder a las casillas de un vector o matriz usando los índices de las casillas,
+teniendo en cuenta que en \python los índices se numeran siempre empezando en 0.
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+v1 = np.array([1,2,5,10])
+print("v1[2] = ", v1[2])
+
+A = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
+print("A[2,3] = ", A[2,3])
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% v1[2] = 5
+%% A[2,3] = 12
+\end{verbatim}
+
+\subsection{Suma y producto por escalar}
+Tanto en vectores como en matrices podemos realizar las siguientes operaciones, que como veremos m\'as adelante corresponden a operaciones de espacio vectorial:
+
+\begin{itemize}
+\item Suma de vectores o matrices del mismo tamaño coordenada a coordenada.
+Si $\vb = (v_1, v_2, \dots, v_n)$ y $\ub = (u_1, u_2, \dots, u_n)$,
+$$
+\vb + \ub = (v_1 + u_1, v_2 + u_2, \dots, v_n + u_n).
+$$
+
+\item Producto de vectores o matrices por un escalar.
+Si $a \in \R$ o $\C$ y $\vb = (v_1, v_2, \dots, v_n)$,
+$$
+a \vb = (av_1, av_2, \dots, av_n).
+$$
+
+\end{itemize}
+
+En \python realizamos estas operaciones con los símbolos usuales $+$ y $*$.
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+import numpy as np
+v1 = np.array([10, 5, -7, 1])
+v2 = np.array([5, 0, 7, 2])
+print("v1 + v2 = ", v1 + v2)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+## [15 5 0 3]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A1 = np.array([[1,2],[3,4]])
+print("A1 = \n", A1)
+
+A2 = np.array([[2,7],[1,0]])
+print("A2 = \n", A2)
+
+A3 = np.array([[2,7,1,0]])
+print("A3 = \n", A3)
+
+print("A1 + A2 = \n", A1 + A2) # Matriz de 2 x 2
+
+# No podemos sumar matrices de distinto tamaño
+#print("A1 + A3 = \n", A1 + A3)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+## A1 =
+## [[1 2]
+## [3 4]]
+## A2 =
+## [[2 7]
+## [1 0]]
+## A3 =
+## [2 7 1 0]
+## A1 + A2 =
+## [[3 9]
+## [4 4]]
+## [15 5 0 3]
+\end{verbatim}
+
+\section{Sistemas lineales de ecuaciones}
+
+\subsection{Resolución de sistemas de ecuaciones por triangulación (eliminación gaussiana)}
+
+La eliminación gaussiana es un método muy eficiente para resolver sistemas de ecuaciones lineales en forma directa (es decir, sin utilizar métodos iterativos que aproximan la solución).
+
+A modo de ejemplo, resolvemos el siguiente sistema de ecuaciones.
+
+$$
+\left\{ {\begin{alignedat}{7}
+x&&\;+\;&&5y&&\;+\;&&5z&&\;=\;&&2&\\
+2x&&\;+\;&&2y&&\;-\;&&3z&&\;=\;&&-1&\\
+-x&&\;-\;&&9y&&\;+\;&&2z&&=\;&&9&.
+\end{alignedat}} \right.
+$$
+
+A partir del sistema, construimos la \textbf{matriz ampliada} de coeficientes y términos independientes:
+$$
+\left(
+\begin{array}{rrr|r}1&5&5&2\\2&2&-3&-1\\-1&-9&2&9\end{array}
+\right).
+$$
+
+Triangulamos la matriz realizando operaciones de filas. Las operaciones permitidas (que no afectan las soluciones del sistema) son:
+\begin{itemize}
+\item  sumarle o restarle a una fila un múltiplo de otra fila,
+\item  intercambiar dos filas entre si.
+\item  multiplicar una fila por un escalar distinto de 0.
+\end{itemize}
+
+El algoritmo de eliminación gaussiana consiste en triangular o escalonar la matriz obteniendo 0's abajo de los elementos de la diagonal, o más generalmente, produciendo que en cada fila la cantidad de 0's iniciales sea mayor que en la fila anterior.
+
+Realizamos las siguientes operaciones:
+
+\begin{align*}
+\left(
+\begin{array}{rrr|r}1&5&5&2\\2&2&-3&-1\\-1&-9&2&9\end{array}
+\right)
+\xrightarrow{f_2 - 2 f_1 \rightarrow f_2}
+\left(
+\begin{array}{rrr|r}1&5&5&2\\0&-8&-13&-5\\-1&-9&2&9\end{array}
+\right)
+\rightarrow  \\
+\xrightarrow{f_3 + f_1 \rightarrow f_3}
+\left(
+\begin{array}{rrr|r}1&5&5&2\\0&-8&-13&-5\\0&-4&7&11\end{array}
+\right)
+\xrightarrow{f_3 - \frac12 f_2 \rightarrow f_3}
+\left(
+\begin{array}{rrr|r}1&5&5&2\\0&-8&-13&-5\\0&0&\frac{27}{2}&\frac{27}{2}\end{array}
+\right)
+\end{align*}
+
+
+Ahora podemos obtener los valores de $x, y, z$ por "sustitución hacia atrás". Primero calculamos $z = 1$, luego $y = -1$ y finalmente $x = 2$. La segunda ecuación queda
+
+$$
+-8y -13 \cdot (1)=-5
+$$
+
+entonces, $y = -1$.
+
+%Algorítmicamente podemos describir el proceso con los siguientes pasos para resolver el sistema $\Ab \xb = \bb$, con $\Ab \in \R^{m \times n}$ y $\bb \in \R^n$:
+%\begin{enumerate}
+%\item Construimos la matriz ampliada $\Ab_1$, agregando a $\Ab$ el vector $\bb$ como \'ultima columna.
+%\item Para $k = 1, \dots, m-1$:
+%\begin{enumerate}
+%\item \label{ciclo}Consideramos la primer $\Ab_k$ formada por las filas desde la fila $k$ hasta la fila $m$ de $\Ab_1$.
+%\item Consideramos la primer columna no nula de la matriz $\Ab_k$.
+%\item Realizando operaciones permitidas de filas, obtenemos 0's abajo de la primera casilla de esa columna.
+%\end{enumerate}
+%\item Devolvemos la matriz escalonada $\Ab_{m-1}$.
+%\end{enumerate}
+%
+\begin{ejemplo}
+Resolvemos escalonando el sistema
+$$
+\left\{
+\begin{aligned}
+x_1 + 2x_2 &= -1 \\
+2x_1 + 4x_2 + 3 x_3 &= 4 \\
+3 x_3 &= 6.
+\end{aligned}
+\right.
+$$
+%$\begin{pmatrix} 1 & 2 & 0 \\ 2 & 4 & 3 \\ 0 & 0 & 3 \end{pmatrix} x = \begin{pmatrix} -1 \\ 4 \\ 6 \end{pmatrix}$.
+
+\begin{enumerate}
+\item Construimos la matriz ampliada
+$$\tilde \Ab = \left( \begin{array}{ccc|c}
+1 & 2 & 0 & -1 \\ 2 & 4 & 3 & 4 \\ 0 & 0 & 3 & 6 \end{array} \right).$$
+\item Para conseguir 0's abajo de la casilla $(1,1)$, realizamos la operación $f_2 - 2f_1 \rightarrow f_2$.  Obtenemos
+$$\tilde \Ab_1 = \left( \begin{array}{ccc|c}
+1 & 2 & 0 & -1 \\ 0 & 0 & 3 & 6 \\ 0 & 0 & 3 & 6 \end{array} \right).$$
+
+\item Como deseamos tener en cada fila m\'as ceros que en la anterior, debemos ahora obtener un 0 abajo de la casilla $(2, 3)$. Para eso realizamos la operaci\'on $f_3 - f_2 \rightarrow f_3$.  Obtenemos la matriz
+$$
+\tilde \Ab_2 = \left( \begin{array}{ccc|c} 1 & 2 & 0 & -1 \\ 0 & 0 & 3 & 6 \\ 0 & 0 & 0 & 0 \end{array}\right),
+$$
+que es una matriz escalonada, por lo que finalizamos el proceso.
+\end{enumerate}
+
+Observar que si bien la matriz $\tilde \Ab_1$ tiene 0's abajo de la diagonal, no es un matriz escalonada porque las filas 2 y 3 tienen la misma cantidad de 0's iniciales.
+
+Ahora podemos resolver el sistema despejando las ecuaciones que obtuvimos:
+$$ \left\{
+\begin{aligned}
+x_1 + 2 x_2 - x_3 &= -1 \\
+3 x_3 &= 6,
+\end{aligned}
+\right.
+$$
+de donde despejamos $x_3 = 2$ y $x_1 = -1 - 2 x_2 + x_3 = 1-2x_2$. El conjunto de soluciones del sistema es
+$$
+S = \{(1-2x_2, x_2, 2): x_2 \in \R\}.
+$$
+\end{ejemplo}
+
+
+En los paquetes comunes de \python no existe un comando para realizar eliminación gaussiana (aunque sí existen comandos para resolver sistemas lineales eficientemente). Más adelante, cuando avancemos con las técnicas de programación y desarrollo de algoritmos, podremos programar nuestro propio programa de eliminación gaussiana. Por el momento, utilizaremos el siguiente programa, extraido de la página \url{https://math.stackexchange.com/questions/3073083/how-to-reduce-matrix-into-row-echelon-form-in-python/3073117}.
+
+El nombre de la función es \texttt{row\_echelon}, que es el nombre en inglés para una matriz escalonada por filas. Para utilizar esta función, pueden copiar y pegar el código en una celda y ejecutarlo, o grabarlo en un archivo \texttt{row\_echelon.py} y cargarlo mediante el comando \texttt{import row\_echelon}.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+def row_echelon(M):
+    """ Return Row Echelon Form of matrix A """
+
+    A = M.astype(float)
+    # if matrix A has no columns or rows,
+    # it is already in REF, so we return itself
+    r, c = A.shape
+    if r == 0 or c == 0:
+        return A
+
+    # we search for non-zero element in the first column
+    for i in range(len(A)):
+        if A[i,0] != 0:
+            break
+    else:
+        # if all elements in the first column are zero,
+        # we perform REF on matrix from second column
+        B = row_echelon(A[:,1:])
+        # and then add the first zero-column back
+        return np.hstack([A[:,:1], B])
+
+    # if non-zero element happens not in the first row,
+    # we switch rows
+    if i > 0:
+        ith_row = A[i].copy()
+        A[i] = A[0]
+        A[0] = ith_row
+
+    # we divide first row by first element in it
+    A[0] = A[0] / A[0,0]
+    # we subtract all subsequent rows with first row
+    #(it has 1 now as first element)
+    # multiplied by the corresponding element in the first column
+    A[1:] -= A[0] * A[1:,0:1]
+
+    # we perform REF on matrix from second row, from second column
+    B = row_echelon(A[1:,1:])
+
+    # we add first row and first (zero) column, and return
+    return np.vstack([A[:1], np.hstack([A[1:,:1], B]) ])
+\end{lstlisting}
+\end{Shaded}
+
+Probamos el programa en el siguiente ejemplo.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+[[1. 2. 3. 4.]
+ [0. 1. 2. 3.]
+ [0. 0. 0. 0.]]
+\end{verbatim}
+
+Si queremos armar la matriz ampliada correspondiente a un sistema de ecuaciones y tenemos la matriz $\Ab$ de coeficientes y el vector $\bb$ de términos independientes, podemos usar el comando \texttt{c\_} de \texttt{numpy} para pegar a $\Ab$ el vector $\bb$ como última columna.
+
+\begin{ejemplo}
+Resolvemos en \python el sistema
+$$
+\left\{
+\begin{aligned}
+x_1 + 5x_2 + 5x_3 &= -2 \\
+2x_1 + 2x_2 - 3 x_3 &= -1 \\
+-x_1 - 9 x_2 + 2 x_3 &= 9.
+\end{aligned}
+\right.
+$$
+
+%$$
+%\begin{pmatrix}
+%1 & 5 & 5 \\
+%2 & 2 & -3 \\
+%-1 & -9 & 2
+%\end{pmatrix}
+%\begin{pmatrix}
+%x_1 \\
+%x_2 \\
+%x_3
+%\end{pmatrix} =
+%\begin{pmatrix}
+%2 \\
+%-1 \\
+%9
+%\end{pmatrix}.
+%$$
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1,5,5],[2,2,-3],[-1,-9,2]])
+b = np.array([2, -1, 9])
+Ab = np.c_[A, b] # Las matrices o vectores van entre corchetes.
+print("Ab = \n", Ab)
+
+print("Matriz escalonada: \n", row_echelon(Ab))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% Ab =
+%%  [[ 1  5  5  2]
+%%  [ 2  2 -3 -1]
+%%  [-1 -9  2  9]]
+%% Matriz escalonada:
+%%  [[1.    5.    5.    2.   ]
+%%  [0.    1.    1.625 0.625]
+%%  [0.    0.    1.    1.   ]]
+\end{verbatim}
+\end{ejemplo}
+
+Despejando de abajo hacia arriba, obtenemos
+$$
+\begin{aligned}
+x_3 &= 1 \\
+x_2 &= 0.625 - 1.625 x_3 = -1 \\
+x_1 &= 2 - 5 x_2 - 5 x_3 = 2.
+\end{aligned}
+$$
+
+\subsection{Clasificación de sistemas de ecuaciones}
+
+Estudiamos ahora cuántas soluciones puede tener un sistema de ecuaciones a partir de la forma escalonada de la matriz ampliada.
+%tiene el sistema $\Ab \xb = \bb$ a partir de $\Ab$ y $\bb$.
+
+
+\begin{ejemplo} Resolvemos el siguiente sistema de ecuaciones:
+
+$$
+\left\{\begin{aligned}
+5x_1 + 3x_2 &= 11 \\
+15x_1 + 9x_2 &= 33 \\
+20x_1 + 12x_2 &= 44
+\end{aligned}\right.
+$$
+
+Construimos la matriz ampliada
+
+$$
+\left(\begin{array}{rr|r}5&3&11\\15&9&33\\20&12&44\end{array}\right)
+$$
+
+y escalonamos usando \python.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[5,3,11],[15,9,33],[20,12,44]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[1.  0.6 2.2]
+%%  [0.  0.  0. ]
+%%  [0.  0.  0. ]]
+\end{verbatim}
+Vemos que se eliminaron las últimas dos ecuaciones, y nos queda solo una
+ecuación:
+$$
+x_1 + 0.6 x_2 = 2.2
+$$
+de donde podemos despejar $x_1 = 2.2 - 0.6x_2$.
+
+El sistema tiene infinitas soluciones,
+$$S = \{(2.2 - 0.6x_2, x_2): x_2 \in \R\}.$$
+\end{ejemplo}
+
+
+
+\begin{ejemplo}
+Consideremos ahora el mismo sistema inicial, modificando un valor en $\bb$:
+%Consideremos el siguiente sistema de ecuaciones:
+$$
+\left\{
+\begin{aligned}
+5x_1 + 3x_2 &= 11 \\
+15x_1 + 9x_2 &= 33 \\
+20x_1 + 12x_2 &= 55
+\end{aligned}
+\right.
+$$
+
+
+Escalonamos la matriz ampliada:
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[5,3,11],[15,9,33],[20,12,55]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[1.  0.6 2.2]
+%%  [0.  0.  1. ]
+%%  [0.  0.  0. ]]
+\end{verbatim}
+
+En la segunda ecuación, obtuvimos $0x_1 + 0x_2 = 1$. ¡Absurdo! El
+sistema no tiene solución.
+\end{ejemplo}
+
+Si al escalonar la matriz ampliada, llegamos a una ecuación
+$$
+0 x_1 + \dots + 0x_n = a \neq 0
+$$
+el sistema no tiene solución. Por el contrario, si en todas las filas
+que se anulas los coeficientes de las variables, obtenemos también $0$
+en el término independiente, el sistema admite solución (podemos ir
+resolviendo hacia atrás).
+
+Obtenemos los siguientes casos para un sistema de $m$ ecuaciones y $n$ incógnitas.
+%$\Ab\xb = \bb$, con $\Ab \in \R^{m \times n}$ (es decir, $m$ ecuaciones y $n$ incógnitas)
+
+\begin{itemize}
+\item   \textbf{Sistema incompatible.} El sistema no tiene solución. Al
+    escalonar obtuvimos una ecuación $0 x_1 + \dots + 0x_n = a \neq 0$.
+    Ejemplo:
+
+$$
+\left(\begin{array}{rrr|r}5&3&2&11\\0&9&-1 & 10\\0&0&0&4\end{array}\right)
+$$
+
+\item   \textbf{Sistema compatible determinado.} El sistema tiene solución única.
+    Al escalonar la matriz ampliada, obtenemos exactamente $n$
+    ecuaciones no nulas, y podemos obtener la solución despejando las
+    variables.\
+    %Si $\Ab$ es cuadrada, $\Ab$ es inversible ($\det(\Ab) \neq 0$). Ejemplo:
+
+$$
+\left(\begin{array}{rrr|r}5&3&2&11\\0&9&-1 & 10\\0&0&1&2\\0&0&0 & 0\\0&0&0&0\end{array}\right)
+$$
+
+\item  \textbf{Sistema compatible indeterminado.} El sistema tiene infinitas
+    soluciones. Al escalonar la matriz ampliada obtenemos menos de $n$
+    filas no nulas en las primeras $n$ columnas, y el resto de las filas
+    son nulas en todas las columnas. Ejemplo:
+
+$$
+\left(\begin{array}{rrr|r}5&3&2&11\\0&9&-1 & 10\\0&0&0 & 0\\0&0&0&0\end{array}\right)
+$$
+
+\end{itemize}
+
+\begin{ejercicio} Escalonar las siguientes matrices y clasificar el sistema
+en (a) incompatible, (b) compatible determinado, (c) compatible
+indeterminado.
+
+\begin{multicols}{3}
+\begin{enumerate}
+\item $\left\{
+\begin{aligned}
+3y - 2z + 3 w &= 9\\
+2x + y + w &= 5\\
+x-y+z-w &= -2
+\end{aligned}
+\right.$
+\item $\left\{
+\begin{aligned}
+x - 2y &= 2\\
+2x +  y & =1\\
+x + 3y & = -1
+\end{aligned}\right.$
+\item $\left\{
+\begin{aligned}
+2x + y -z &= 3\\
+x - y +z & = 2\\
+5x + y -z &= -5
+\end{aligned}\right.$
+\end{enumerate}
+\end{multicols}
+\end{ejercicio}
+
+
+\section{Espacios vectoriales}
+%Una de los principales usos del álgebra lineal es la resolución de ecuaciones lineales. Los sistemas de ecuaciones lineales son el algún sentido los . Los sistemas Actualmente El álgebra lineal
+Un espacio vectorial es un conjunto de elementos, llamados \emph{vectores}, que pueden ser sumados entre sí y multiplicados (\emph{escalados}) por números (llamados \emph{escalares}). Llamamos $V$ al conjunto de vectores y $\K$ al conjunto de n\'umeros.
+
+El conjunto $\K$ debe ser un cuerpo. Esto es, $\K$ posee una suma $+$ y un producto $\cdot$ que satisfacen un conjunto de axiomas que podemos resumir en la siguiente tabla.
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } \hline
+& suma & producto \\ \hline
+ asociatividad & $a + (b + c) = (a+b) + c$ & $(a\cdot b) \cdot c = a\cdot (b\cdot c)$ \\ \hline
+ conmutatividad & $a + b = b + a$ & $a \cdot b = b \cdot a$ \\ \hline
+ propiedad distributiva & \multicolumn{2}{|c|}{$a \cdot (b + c) = a \cdot b + a \cdot c$} \\ \hline
+ elemento identidad & $0 + a = a = a + 0$ & $1 \cdot a = a = a \cdot 1$ \\ \hline
+ elemento inverso & $a + (-a) = 0$ & $a \cdot (a^{-1}) = 1$ \\ \hline
+\end{tabular}
+\end{center}
+
+
+En esta materia trabajaremos con $\K = \R$, el cuerpo de los n\'umeros reales o $\K =  \C$ el cuerpo de los números complejos\footnote{Existen otros ejemplos de cuerpos como los racionales $\mathbb{Q}$ o los enteros módulo un primo $p$, $\mathbb{Z}_p$.}.
+
+\begin{ejemplo}
+El conjunto $\Z$ de los números enteros no es un cuerpo, porque excepto $1$ y $-1$, los demás números enteros no poseen un inverso entero para la multiplicación. Por ejemplo, el inverso de $2$ es $1/2$ que no es un número entero.
+\end{ejemplo}
+
+
+Formalmente, un espacio vectorial sobre un cuerpo $\K$  (tambi\'en llamado $\K$ - espacio vectorial) es un conjunto $V$ y dos operaciones, que satisfacen ciertos axiomas.
+
+Las operaciones definidas en $V$ son:
+
+\begin{itemize}
+\item Suma de vectores. $+:V \times V \rightarrow V$, a cualquier par $\vb, \wb$ de vectores le asigna un vector $\vb+\wb \in V$.
+\item Producto por escalar. $\cdot : \K \times V \rightarrow V$, a un escalar $a$ y un vector $\vb \in V$ le asigna un vector $a\vb \in V$ (no confundir con el producto escalar que dados dos vectores devuelve un escalar que veremos más adelante).
+\end{itemize}
+
+Los axiomas de espacio vectorial son
+
+\begin{enumerate}
+\item   \textbf{Asociatividad de la suma.} $\ub + (\vb + \wb) = (\ub + \vb) + \wb$
+\item   \textbf{Conmutatividad de la suma.} $\ub + \vb = \vb + \ub$
+\item   \textbf{Elemento neutro de la suma.} Existe un elemento $\cero \in V$ tal que $\vb + \cero = \vb$ para todo $\vb \in V$.
+\item   \textbf{Inverso para la suma.} Para todo $\vb \in V$, existe un elemento $-\vb \in V$, llamado inverso aditivo de $\vb$, tal que $\vb + (-\vb) = 0$.
+\item   \textbf{Compatibilidad de la multiplicación por escalar con la la multiplicación del cuerpo.} $a(bv) = (ab)\vb$.
+\item   \textbf{Elemento neutro de la multiplicación por escalar.} $1 \vb = \vb$, donde $1$ es el neutro de $\R$.
+\item   \textbf{Propiedad distributiva de la multiplicación por escalar respecto de la suma de vectores.} $a(\ub+\vb) = au + av$.
+\item   \textbf{Propiedad distributiva de la multiplicación por escalar respecto de la suma de escalares.} $(a+b)(\vb) = av + bv$.
+\end{enumerate}
+
+\begin{ejemplo}
+Los siguientes conjuntos son espacios vectoriales definiendo la suma y el producto por escalar de modo "tradicional".
+\begin{enumerate}
+\item $\K^n$, es un $\K$ espacio vectorial.
+\item $\K^{m \times n}$, el conjunto de matrices, es un $\K$ espacio vectorial.
+\item $\K[x]$ el conjunto de todos los polinomios en una variable a coeficientes reales o complejos.
+\item $\R[x]_d$, el conjunto de polinomios en una variable de grado menor o igual que $d$.
+\item $(a_1, a_2, a_3, \dots)$, el conjunto de sucesiones infinitas de números reales o complejos.
+\item $\K$ es un $\K$ espacio vectorial. Pero note que $\C$ tambi\'en es un $\R$ espacio vectorial. 
+\end{enumerate}
+
+Los siguientes conjuntos \emph{no} son espacios vectoriales.
+\begin{enumerate}
+\item El conjunto de matrices de cualquier tamaño.
+\item Los polinomios de grado exactamente $d$.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{aplicacion}
+Veamos un ejercicio sencillo de aplicación de espacios vectoriales.
+Se quiere predecir el consumo en tarjeta de crédito que tendrán los clientes de un banco mediante un modelo lineal.
+Para eso, se consideran las siguientes \emph{variables explicativas} de los clientes:
+
+\begin{enumerate}
+\item Sueldo mensual
+\item Impuesto a las ganancias pagado el año anterior.
+\item Cantidad de integrantes del grupo familiar
+\item Puntaje otorgado a la serie "La Casa de Papel" (1 a 5 estrellas)
+\item Es fumador (sí / no)
+\item Marca de Celular (Samsung / Huawei / Iphone / Otro)
+\end{enumerate}
+
+Se quiere definir un espacio vectorial $V$ donde la información de cada cliente sea un vector de $V$. ¿Qué espacio vectorial utilizaría para este modelo? (Se busca que dos personas con vectores similares tengan comportamiento similar.)
+
+Observamos que los cuatro primeros datos son datos num\'ericos y podemos representar cada valor con un número real. En las preguntas 3 y 4, nos gustaría utilizar números enteros para representar los valores, pero ya vimos que el conjunto de números enteros no es un cuerpo y por lo tanto no podemos definir un espacio vectorial sobre los enteros.
+
+La quinta pregunta podemos representarla con valores 0 y 1. En este caso al conjunto $\{0, 1\}$ podemos asignarle estructura de cuerpo, pero dado que queremos un único espacio vectorial para representar todas las variables, debemos representar estos valores también como números reales.
+
+Finalmente, para el último dado, podríamos asignarle un valor numérico a cada respuesta: 1 = Samsung, 2 = Huawei, 3 = Iphone, 4 = Otro, sin embargo esto no cumpliría lo que buscamos en nuestro modelo que vectores similares tengan comportamiento similar. Es decir, si usamos esta representación estaríamos indicando que la respuesta Otro es muy similar a Iphone y no tan similar a Samsung, y en principio no hay razón para esa suposición. Por lo tanto es común en este caso usar las llamadas variables indicadoras, que toman valores 0-1. Utilizamos 4 variables 0-1 que valen 1 en caso de que la respuesta corresponda a esa marca.
+
+¿Qué vector $\vb \in V$ asignaría al cliente con las siguientes características?
+\begin{enumerate}
+\item Sueldo mensual: \$80.000
+\item Impuesto a las ganancias pagado el año anterior: \$100.000
+\item Cantidad de integrantes del grupo familiar: 4
+\item Puntaje otorgado a la serie "La Casa de Papel" (1 a 5 estrellas): 4 estrellas
+\item Es fumador (sí / no): sí
+\item Marca de Celular (Samsung / Huawei / Iphone / Otro): Huawei
+\end{enumerate}
+
+En base a lo que vimos, asignamos a estas respuestas el vector $\vb = (80000, 100000, 4, 4, 1, 0, 1, 0, 0)$.
+Esta asignación que hicimos es muy común cuando construimos modelos lineales. Vemos que la estructura de espacio vectorial es la que nos dice cómo construir el modelo.
+\end{aplicacion}
+
+
+\subsection{Subespacios vectoriales}
+
+
+Dado $V$ un $\K$ espacio vectorial, un subconjunto $U\subset V$ se llama subespacio de $V$ si verifica
+\begin{enumerate}
+\item $\cero \in U$
+\item $\forall \ub,\vb \in U$ $\ub+\vb\in U$
+\item $\forall \ub \in U$, $\forall \alpha \in\K$ $\alpha \ub \in U$. 
+\end{enumerate}
+Notar que  $U$  es a la vez un espacio vectorial. 
+
+\begin{ejemplo}
+Algunos ejemplos de subespacios vectoriales son
+\begin{enumerate}
+\item El subconjunto de vectores de $\mathbb{R}^5$ tales que la primera coordenada es $0$ es un subespacio vectorial de $\mathbb{R}^5$.
+\item El conjunto de matrices diagonales de $3 \times 3$ es un subespacio vectorial de $\mathbb{R}^{3 \times 3}$.
+\item El conjunto de matrices simétricas de $n \times n$ es un subespacio vectorial de $\mathbb{R}^{n \times n}$.
+\item El subconjunto de vectores $\mathbb{R}^5$ tales que la primera coordenada es $1$ \textbf{no} es un subespacio vectorial de $\R^5$.
+\item El conjunto de todos los polinomios en $\R[X]$ que se anulan en $1$.  
+\end{enumerate}
+\end{ejemplo}
+
+\subsection{Conjuntos de generadores y bases}
+
+\subsubsection{Vectores linealmente independientes}
+
+Dado un conjunto $\{\vb_1, \dots, \vb_m\}$ de vectores en $\mathbb{R}^n$, decimos que es un conjunto de vectores linealmente independientes si la única elección de coeficientes para los cuales
+
+$$\sum_{i=1}^m a_i \vb_i = 0$$
+
+es $a_i = 0$ para todo $1 \le i \le m$.
+
+\begin{ejemplo}\leavevmode
+\begin{itemize}
+\item Los vectores $\vb_1 = (1,0,0)$, $\vb_2 = (0, 1, 0)$ y $\vb_3 = (0, 0, 1)$ son linealmente independientes.
+\item Los vectores $\vb_1 = (1,0,1)$, $\vb_2 = (0, 1, 2)$ y $\vb_3 = (1, 2, 5)$ son linealmente dependientes, porque $\vb_3 = \vb_1 + 2\vb_2$. O equivalentemente, $\vb_1 + 2\vb_2 - \vb_3 = 0$.
+\end{itemize}
+\end{ejemplo}
+
+\subsubsection{Espacio vectorial generado por vectores}
+Dado un conjunto de vectores $\{\vb_1, \dots, \vb_m\}$ de un espacio vectorial $V$, el conjunto de todas las combinaciones lineales de estos vectores
+$$
+\langle \vb_1, \dots, \vb_m \rangle = \{a_1 \vb_1 + \dots + a_m \vb_m : a_i \in \mathbb{R}, i = 1, \dots, m\}
+$$
+es un subespacio $U$ de $V$ llamado el espacio generado por $\{\vb_1, \dots, \vb_m\}$.
+
+\begin{prop}
+Si los vectores $\{\vb_1, \dots, \vb_m\}$ son linealmente independientes, cualquier elemento de $U = \langle \vb_1, \dots, \vb_m \rangle$ se escribe de forma única como combinación lineal de los vectores $\{\vb_i: i = 1, \dots, m\}$.
+\end{prop}
+
+\begin{proof}
+Supongamos por el absurdo que $\vb$ puede escribirse de dos formas distintas $\vb = a_1 \vb_1 + \dots + a_m \vb_m = b_1 \vb_1 + \dots + b_m \vb_m$, entonces restando obtenemos
+$$
+0 = (a_1-b_1) \vb_1 + \dots + (a_m-b_m) \vb_m,
+$$
+donde los coeficientes no son todos 0 (porque $(a_1, \dots, a_m) \neq (b_1, \dots, b_m)$), y esto contradice la independencia lineal de los vectores $\{\vb_1, \dots, \vb_m\}$.
+\end{proof}
+
+
+\begin{defi}
+Si $\B = \{\vb_1, \dots, \vb_m\} \subset V$ es un conjunto linealmente independiente, decimos que $\B$ es una \emph{base} de $U = \langle \vb_1, \dots, \vb_m \rangle \subset U$.
+\end{defi}
+
+A continuación veremos que si un espacio vectorial $V$ tienen una base con una cantidad finita de elementos, cualquier otra base de $V$ tiene la misma cantidad de elementos.
+
+Comenzamos con el siguiente lema.
+
+\begin{prop}[Lema de intercambio]
+Si $\B = \{\vb_1, \dots, \vb_m\}$ es un base de $V$ y $\wb \in V$, entonces existe $1 \le i \le m$ tal que reemplazando en $\B$ a $\vb_i$ por $\wb$, el conjunto resultante sigue siendo una base de $V$.
+\end{prop}
+
+\begin{proof}
+Como $\wb \in V$ y $\B$ es una base, existen $a_1, \dots, a_m$ en $\K$ tales que
+$$ \wb= a_1 \vb_1 + \dots + a_m \vb_m,$$
+y existe algún $1 \le k \le m$ tal que $a_k \neq 0$. Por lo tanto,
+$$
+\vb_k = \frac{1}{a_k}\left( \wb - \sum_{i \neq k} a_i \vb_i\right),
+$$
+y el conjunto $\{\vb_1, \dots, \wb, \dots, \vb_m\}$ es un sistema de generadores de $V$.
+
+Para ver que forman una base, veamos que son linealmente independientes. Si existe una combinación no nula
+$$
+b_1 \vb_1 + \dots + b_k \wb + \dots + b_m \vb_m = 0,$$
+analizamos dos casos:
+\begin{itemize}
+\item Si $b_k = 0$, encontramos una relación de dependencia lineal en $\B$, lo cual es absurdo porque $\B$ era una base.
+\item Si $b_k \neq 0$, entonces despejando $\wb$ obtenemos una escritura de $\wb$ en la base $\B$ distinta a la anterior, lo cual tambi\'en es absurdo.
+\end{itemize}
+
+Concluimos que $\{\vb_1, \dots, \wb, \dots, \vb_m\}$ es un conjunto linealmente independiente y genera $V$, por lo tanto es una base de $V$.
+\end{proof}
+
+Ahora podemos probar el siguiente resultado.
+
+\begin{prop}
+Dado un espacio vectorial $V$, sea $\B = \{\vb_1, \dots, \vb_s\}$ una base de $V$ de $s$ elementos, y sea $\tilde\B$ otra base de $V$. Luego $\tilde\B$ tiene exactamente $s$ elementos.
+\end{prop}
+\begin{proof}
+Queremos usar el Lema de Intercambio e ir reemplazando uno a uno los vectores de $\B$ por los vectores de $\tilde\B$. El \'unico cuidado que tenemos que tener es que vayamos reemplazando en cada paso un vector distinto de $\B$.
+Para ver que esto siempre es posible, supongamos que ya reemplazamos $k$ vectores y, por simplicidad, supongamos que reemplazamos los primeros $k$ vectores de $\B$ por los primeros $k$ vectores de $\tilde\B$.. Es decir, tenemos que
+$$
+\{\wb_1, \dots, \wb_k, \vb_{k+1}, \dots, \vb_s\}
+$$
+es una base de $V$.
+
+Ahora queremos reemplazar a $\wb_{k+1}$ por alg\'un vector $\vb_i$, $i \> k$. Siguiendo la demostración del Lema de Intercambio, escribimos a $\wb_{k+1}$ como combinaci\'on no nula de los elementos de la base:
+$$ \wb_{k+1} = c_1 \wb_1 + \dots + c_k \wb_k + c_{k+1} \vb_{k+1} + \dots + c_s \vb_s.$$
+No pueden ser todos los coeficientes $c_{k+1}, \dots, c_s$ iguales a 0, porque entonces $\tilde\B$ no sería base de $V$. Luego podemos elegir $j > k$ tal que $c_j \neq 0$, y siguiendo la demostraci\'on del Lema de Intercambio, obtenemos que reemplazando a $\vb_j$ por $\wb_k$ obtenemos una nueva base de $V$.
+
+Aplicando este razonamiento inductivamente, concluimos que existen $\{\wb_1, \dots, \wb_s\} \subset \tilde\B$ que forman una base de $V$. Por lo tanto $\tilde\B$ es exactamente igual a $\{\wb_1, \dots, \wb_s\}$, y tiene $s$ elementos.
+\end{proof}
+
+Cuando $V$ tiene una base finita, llamamos dimensión de $V$ a la cantidad de elementos de la base, y decimos que $V$ es un espacio de dimensión finita.
+
+\begin{ejemplo}\leavevmode
+\begin{enumerate}
+\item $\mathbb{R}^n$ es un espacio vectorial de dimensión $n$. Una base de $\mathbb{R}^n$ es $\{\eb_i: i = 1, \dots, n\}$, con $\eb_i$ el vector que tiene $1$ en la entrada $i$ y $0$ en todas las demás. Llamamos base canónica a esta base.
+\item $\mathbb{R}[x]_d$ es un espacio vectorial de dimensión $d+1$. La base canónica de $\mathbb{R}[x]_d$ es $\{1, x, x^2, \dots, x^d\}$.
+\item $\mathbb{R}[x]$ es un espacio vectorial de dimensión infinita.
+\end{enumerate}
+\end{ejemplo}
+
+En esta materia vamos a trabajar sobre espacios de dimensión finita.
+
+\begin{prop}
+ Todo $\mathbb{R}$-espacio vectorial de dimensión finita $n$ es isomorfo a $\mathbb{R}^n$ como espacio vectorial (es decir, si solo consideramos las operaciones de espacio vectorial).
+ \end{prop}
+
+\begin{ejemplo} \leavevmode
+\begin{enumerate}
+\item Las matrices de $m \times n$ podemos pensarlas como vectores de longitud $m \times n$.
+\item Los polinomios de grado $d$ podemos representarlos por sus vectores de coeficientes, de longitud $d + 1$. Por ejemplo, en $\R[x]_3$ representamos al polinomio $x^3 -3x + 2$ por el vector $(1, 0, -3, 2)$.
+\end{enumerate}
+\end{ejemplo}
+
+En general, si $\B = \{\bb_1, \dots, \bb_n\}$ es una base de un espacio vectorial $V$ y $\vb \in V$, vimos que $\vb$ admite una escritura única como combinación lineal de elementos de $\B$, $\vb = a_1 \bb_1 + \dots + a_n \bb_n$. Podemos representar a $\vb$ en la base $\B$ como $\vb = (a_1, \dots, a_n)_{\B}$.
+
+Por ejemplo, $p(x) = x^3-3x+2 = (1, 0, -3, 2)_{\B}$, con $\B= \{x^3, x^2, x, 1\}$.
+
+\subsection{Base a partir de sistema de generadores}
+
+Como vimos, para un espacio vectorial $V$ de dimensión finita $n$, cualquier base de $V$ tiene la misma cantidad de elementos $n$.
+Esto implica los siguientes resultados directos, cuya demostración dejamos como ejercicio.
+\begin{itemize}
+\item Un conjunto $S \subset V$ con menos de $n$ elementos no puede generar todo $V$.
+\item Si $S \subset V$ es un conjunto linealmente independiente de $n$ elementos, $S$ es una base de $V$.
+\item Un conjunto $S \subset V$ con más de $n$ elementos no puede ser linealmente independiente.
+\end{itemize}
+
+M\'as a\'un, tenemos el siguiente resultado.
+
+\begin{prop} \label{prop:subbase}
+Si $V$ es un espacio de dimensi\'on $n$ y $S \subset V$ es un conjunto de generadores de $m$ elementos, con $m > n$, podemos extraer de $S$ un subconjunto $\B$ de $n$ elementos que forma una base de $V$.
+\end{prop}
+
+\begin{proof}
+Veamos que si $m > n$, podemos eliminar alg\'un vector de $S$ y seguir teniendo un sistema de generadores.
+Como $S$ no puede ser un conjunto linealmente independiente, existe una combinación lineal no nula
+$$
+0 = a_1 \wb_1 + \dots + a_s \wb_s,
+$$
+y suponemos por simplicidad $a_s \neq 0$. Luego $\wb_s$ pertenece al espacio generado por $\{\wb_1, \dots, \wb_{s-1}\}$, y por lo tanto podemos eliminarlo.
+
+Podemos repetir este proceso inductivamente siempre que la cantidad de vectores resultantes sea mayor que $n$, hasta llegar a tener un subconjunto de $n$ elementos que generan $V$ y por lo tanto es una base de $V$.
+\end{proof}
+
+Notamos también que dado un conjunto de vectores $S = \{\vb_1, \dots, \vb_s\}$, podemos obtener una base del espacio vectorial generado por $S$ triangulando el sistema, es decir
+\begin{enumerate}
+\item Colocamos los vectores como filas de una matriz.
+\item Triangulamos la matriz utilizando eliminación gaussiana.
+\item Tomamos los vectores correspondientes a las filas no nulas de la matriz.
+\end{enumerate}
+
+\begin{ejemplo}
+Dado el subespacio $S = \langle( 1,  4,  3, -1), (1,  0,  1,  0), (3,  3,  2,  7), (2,  6,  0, 14),( 2,  3,  1,  7)\rangle \subset \R^4$, para obtener una base de $S$ construimos la matriz
+$$
+A =
+\begin{pmatrix}
+ 1 & 4 & 3 & -1 \\
+ 1 & 0 & 1 &  0 \\
+ 3 & 3 & 2 &  7 \\
+ 2 & 6 & 0 & 14 \\
+ 2 & 3 & 1 &  7
+\end{pmatrix}
+$$
+y triangulamos.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1, 4, 3, -1,], [1, 0, 1, 0], [3, 3, 2, 7], [2, 6, 0, 14], [2, 3, 1, 7]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[ 1.    4.    3.   -1.  ]
+%%  [ 0.    1.    0.5  -0.25]
+%%  [ 0.    0.    1.   -3.1 ]
+%%  [ 0.    0.    0.    0.  ]
+%%  [ 0.    0.    0.    0.  ]]
+\end{verbatim}
+
+Obtenemos la matriz
+$$
+A' =
+\begin{pmatrix}
+ 1 & 4 & 3 & -1 \\
+ 0 & 1 & 1/2 &  -1/4 \\
+ 0 & 0 & 1 &  -31/10 \\
+ 0 & 0 & 0 & 0 \\
+ 0 & 0 & 0 & 0
+\end{pmatrix}.
+$$
+
+Por lo tanto una base de $S$ es $\B = \{(1, 4, 3, -1), (0, 1, 1/2, -1/4), (0, 0, 1, -31/10)\}$.
+\end{ejemplo}
+
+A partir de la Proposici\'on \ref{prop:subbase}, podemos deducir el siguiente resultado de extensión de una base.
+
+\begin{prop}[Extensión de una base]
+\label{prop:extension}
+Dado un espacio vectorial $V$ de dimensión $n$ y una base $\B = \{\vb_1, \dots, \vb_s\}$ de un subespacio $S$, es posible encontrar vectores $\{\wb_1, \dots, \wb_{n-s}\}$ tales que
+$$
+\{\vb_1, \dots, \vb_s\, \wb_1, \dots, \wb_{n-s}\}
+$$
+forman una base de $V$.
+\end{prop}
+\begin{proof} Ejercicio.
+\end{proof}
+
+%\subsubsection{Operaciones de espacio vectorial}
+%
+%Las operaciones de espacio vectorial son:
+%
+%\begin{itemize}
+%\item Suma de vectores o matrices del mismo tamaño.
+%\item Producto de vectores o matrices por un \emph{escalar} (un número del cuerpo $\K$).
+%\end{itemize}
+%
+
+\subsection{Espacios dados por ecuaciones homog\'eneas}
+
+Dado un sistema de ecuaciones $\Ab \xb = \cero$, con $\Ab \in \R^{m \times n}$ y $\bb \in \R^n$, es fácil ver que el conjunto $S$ de soluciones es un subespacio vectorial de $\R^n$.
+
+Por lo tanto, podemos encontrar una base de $S$ como subespacio de $\R^n$. Una forma de encontrar una base es triangular el sistema. Cada fila no nula en la matriz escalonada impone una restricción en el espacio y reduce en uno la dimensión. Es decir, que la dimensión de $S$ es $n - k$ donde $k$ es la cantidad de filas no nulas en la triangulación.
+
+\begin{ejemplo}
+El sistema
+$$ \left\{
+\begin{aligned}
+x_1 + 2 x_2 - x_3 + x_4&= 0 \\
+3 x_2 - 2 x_3 - x_4 &= 0,
+\end{aligned}
+\right.
+$$
+ya está escalonado. Por lo tanto el espacio de soluciones tiene dimensión $4 -2  = 2$.
+
+Para encontrar un sistema de generadores, despejamos la primera variable de cada ecuación en el sistema triangulado en función de las demas variables. Llamamos \emph{variables dependientes} a las variables que aparecer como primer variable de alguna fila, y variables libres o independientes a las dem\'as. En este ejemplo, $\{x_1, x_2\}$ son las variables dependientes y $\{x_3, x_4\}$ las variables libres (estos conjuntos dependen del método que utilizamos para resolver el sistema, podemos obtener otros conjuntos de variables dependientes y libres, aunque la cantidad de variables en cada uno será siempre la misma).
+
+Ahora despejamos las variables dependientes en función de las variables libres, de abajo para arriba:
+$$\left\{
+\begin{aligned}
+x_2 &= \frac{2x_3 + x_4}{3} = \frac{2}{3} x_3 + \frac{1}{3} x_4 \\
+x_1 &= -2x_2 + x_3 - x_4 = -2\left(\frac{2}{3} x_3 + \frac{1}{3} x_4\right) + x_3 - x_4 = -\frac{1}{3} x_3 - \frac{5}{3} x_4,
+\end{aligned}
+\right.
+$$
+y podemos escribir el conjunto de soluciones en la forma
+$$
+S =\left\{\left(-\frac{1}{3} x_3 -\frac{5}{3} x_4, \frac{2}{3} x_3 + \frac{1}{3} x_4, x_3, x_4\right): x_3, x_4 \in \R\right\}.
+$$
+
+A partir de esta escritura, es fácil obtener los generadores del subespacio vectorial:
+$$
+\begin{aligned}
+S &=\left\{\left(-\frac{1}{3} x_3, \frac{2}{3} x_3, x_3, 0\right) + \left(-\frac{5}{3} x_4, \frac{1}{3} x_4, 0, x_4\right): x_3, x_4 \in \R\}.: x_3, x_4 \in \R\right\} \\
+&=\left\{\left(-\frac{1}{3}, \frac{2}{3} , 1, 0\right)x_3 + \left(-\frac{5}{3}, \frac{1}{3} , 0, 1\right) x4: x_3, x_4 \in \R\}.: x_3, x_4 \in \R\right\},
+\end{aligned}
+$$
+y concluimos $S = \langle \left(-\frac{1}{3}, \frac{2}{3} , 1, 0\right), \left(-\frac{5}{3}, \frac{1}{3} , 0, 1\right)\rangle$.
+\end{ejemplo}
+
+
+\subsection{Ecuaciones a partir de generadores}
+
+En la sección anterior, vimos cómo obtener los generadores de un subespacio vectorial dado por ecuaciones homogéneas.
+En ocasiones es \'util realizar el proceso inverso, obtener ecuaciones homogéneas que definen un espacio vectorial dado por generadores.
+
+Veamos c\'omo hacerlo en un ejemplo.
+
+\begin{ejemplo}
+Hallar las ecuaciones que definen el espacio generado por los vectores $S = \{(1, 0, 2, -1), (3, 1, 0, 2)\}$.
+Un vector gen\'erico de $S$ es
+$$
+(x_1, x_2, x_3, x_4) = a_1 (1, 0, 2, -1) + a_2 (3, 1, 0, 2).
+$$
+
+Podemos platear esta ecuaci\'on en forma matricial:
+$$
+\begin{pmatrix}
+1 & 3 \\
+0 & 1 \\
+2 & 0 \\
+-1 & 2
+\end{pmatrix}
+\begin{pmatrix}
+a_1 \\
+a_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+x_4
+\end{pmatrix}.
+$$
+
+Ahora buscamos relaciones entre los $x_i$. Para eso triangulamos la matriz ampliada
+$$
+\left(
+\begin{array}{cc|c}
+1 & 3 & x_1 \\
+0 & 1 & x_2 \\
+2 & 0 & x_3 \\
+-1 & 2 & x_4
+\end{array}
+\right).
+$$
+
+Al realizar la triangulación, obtenemos la matriz
+$$
+\left(
+\begin{array}{cc|c}
+1 & 3 & x_1 \\
+0 & 1 & x_2 \\
+0 & 0 & x_3 - 2 x_1 + 3x_2\\
+0 & 0 & x_4 + x_1 + 5 x_2
+\end{array}
+\right),
+$$
+de donde obtenemos las relaciones:
+$$
+\left\{
+\begin{aligned}
+x_3 - 2 x_1 + 3x_2 &= 0\\
+x_4 + x_1 + 5 x_2 &= 0
+\end{aligned}
+\right.
+$$
+y estas son las ecuaciones que definen nuestro espacio vectorial, es decir,
+$$
+S = \{(x_1, x_2, x_3, x_4): - 2 x_1 + 3x_2 + x_3 = 0, x_1 + 5 x_2 + x_4 = 0 \}.
+$$
+\end{ejemplo}
+
+En general, dados generadores de un espacio vectorial $S = \langle \vb_1, \dots, \vb_s \rangle \subset \R^n$, realizamos los siguientes pasos para obtener ecuaciones que definen a $S$.
+\begin{enumerate}
+\item Construir la matriz ampliada correspondiente al sistema de ecuaciones
+$$
+(x_1, \dots, x_n) = a_1 \vb_1 + \dots + a_s \vb_s.
+$$
+\item Escalonar la matriz.
+\item El espacio $S$ queda definido por las ecuaiones correspondientes a los términos de la \'ultima columna de las filas en las que todos los coeficientes en las primeras $s$ columnas son nulos.
+\end{enumerate}
+
+\subsection{Suma e intersecci\'on de subespacios}
+
+Como aplicación de las últimas dos secciones veamos cómo calcular sumas e intersecciones de subespacios vectoriales.
+
+\tccdefi
+\begin{defi}
+Dados subespacios $S, T$ de un $\K$ espacio vectorial $W$, definimos
+\begin{itemize}
+\item \textbf{Suma.} $S + T = \{ \sbb + \tbb : \sbb \in S, \tbb \in T\}$, el conjunto de todas las sumas posibles entre un elemento de $S$ y un elemento de $T$.
+\item \textbf{Intersección.} $S \cap T = \{ \vb \in W: \vb \in S \text{ y } \vb \in T\}$.
+\end{itemize}
+\end{defi}
+\etcc
+Queda como ejercicio verificar que estos dos conjuntos son subespacios vectoriales de $W$.
+
+Concentremos un poco nuestra atención en el caso en que $W=\K^n$. Dependiendo si $S$ y $T$ vienen dados por generadores o ecuaciones puede ser más fácil o más difícil calcular estos subespacios. Podemos resumir los métodos de la siguiente forma (dejamos como ejercicio verificar la correctitud de los métodos).
+
+\begin{itemize}
+\item Si $S$ y $T$ est\'an dados por generadores, $S + T$ est\'a generado por la unión de todos los generadores.
+\item Si $S$ y $T$ est\'an dados por ecuaciones, $S \cap T$ est\'a generado por la unión de todas las ecuaciones.
+\item Si $S$ y/o $T$ est\'an dados por ecuaciones, calculamos generadores de ambos y tomamos la unión.
+\item Si $S$ y/o $T$ est\'an dados por generadores, calculamos ecuaciones de ambos y tomamos la unión de las ecuaciones.
+\end{itemize}
+
+Con métodos similares podemos realizar otras operaciones entre subespacios. Por ejemplo, ¿cómo podemos determinar si $S \subset T$? Ahora el caso más simple es si $S$ está dado por generadores y $T$ por ecuaciones. En este caso, alcanza verificar si todos los generadores de $S$ son elementos de $T$ verificando si cumplen las ecuaciones que definen a $T$.
+
+\begin{ejercicio}
+Dados los subespacios de $\R^4$, $S = \langle (1, 0, -3, 1), (2, 0, 3, -2)\rangle$ y $T = \{(x_1, x_2, x_3, x_4): x_1+x_2-x_4 = 0, x_2 + x_3 = 0\}$, hallar generadores de $S+T$ y $S \cap T$. Determinar si $S \subset T$.
+\end{ejercicio}
+Es simple determinar la relación entre las dimensiones de los espacios $S$,$U$, su suma y su intersección. De eso trata el siguiente resultado.
+\begin{prop}\label{prop:dimsum}
+Sean $U$ y $V$ dos subespacios de un $\K$ espacio vectorial de dimensión finita. Entonces 
+$$
+dim(U+ V)=dim(U)+dim(V)-dim(U\cap V).
+$$
+\end{prop}
+\begin{proof}
+Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $dim(U\cap V)=0$, por lo cual basta ver que $dim(U+ V)=dim(U)+dim(V)$. 
+
+Para ello consideramos $\B=\{\ub_1,\cdots,\ub_k\}$ y $\B'=\{\vb_1,\cdots,\vb_n\}$ bases de $U$ y $V$ respectivamente y notemos que si tomamos un $\wb \in U+V$ deben existir $\ub \in U$ y $\vb\in V$ de modo tal que $\wb=\ub+\vb$. En particular, como $\B$ y $\B'$ son bases de $U$ y $V$,  deben existir escalares $\{\alpha_i\}_{1\le i\le k}$ y $\{\beta_j\}_{1\le j\le n}$ de modo tal que
+$$
+\ub= \sum_{i_1}^k\alpha_i\ub_i \qquad \vb=\sum_{j=1}^n\beta_j\vb_j,
+$$
+de donde conclu\'imos que el conjunto 
+$$\tilde{\B}=\B\cup \B'=\{ \ub_1,\cdots,\ub_k, \vb_1,\cdots,\vb_n\}$$
+es un sistema de generadores de $U+V$. Decimos que $\tilde{\B}$ es L.I. con lo cual resultaría una base y por ende $dim(U+V)=\# \B + \#\B'=dim(U)+dim(V)$ como queríamos probar. Para ver que $\tilde{\B}$ es L.I. suponemos que para cierta combinación lineal, se tiene
+$$
+\sum_{i_1}^k\alpha_i\ub_i + \sum_{j=1}^n\beta_j\vb_j=\cero,
+$$
+y notamos que en ese caso 
+$$
+ U \ni \sum_{i_1}^k\alpha_i\ub_i = \sum_{j=1}^n(-\beta_j)\vb_j \in V,
+$$
+lo que dice que ambos miembros (que son iguales) pertenecen tanto a $U$ como a $V$ y por ende a $U\cap V=\{\cero\}$. Luego
+$$
+\sum_{i_1}^k\alpha_i\ub_i = \cero= \sum_{j=1}^n(-\beta_j)\vb_j,
+$$
+y resulta $\alpha_1=\cdots=\alpha_k=\beta_1=\cdots=\beta_n=0$, indicando que $\tilde{\B}$ es L.I.
+
+Resta probar el caso en que $U\cap V\neq \{\cero\}$. En este caso tomamos una base
+$\B''=\{\zb_1,\cdots,\zb_r\}$ de $U\cap V$ y como $U\cap V\subset U$ gracias a la Proposición \ref{prop:extension}, podemos extender $\B''$ a una base $\B$ de $U$,
+$\B=\{\zb_1,\cdots,\zb_r, \ub_{r+1},\cdots, \ub_k \}$.  Análogamente, $\B''$ se extiende a una base $\B'$ de $V$, $\B'=\{\zb_1,\cdots,\zb_r, \vb_{r+1},\cdots, \vb_n\}$.  Notemos, antes de proseguir, que las dimensiones de los espacios involucrados son $r$,$k$ y $n$ para  $U\cap V$, $U$ y $V$ respectivamente. Decimos que 
+ $\tilde{\B}=\{\zb_1,\cdots,\zb_r,\ub_{r+1},\cdots, \ub_k, \vb_{r+1},\cdots, \vb_n\}$ es base de $U+V$. En efecto, es trivial ver que genera y para ver que es L.I. escribimos
+ $$
+ \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{n}\alpha_j \ub_j +\sum_{l=r+1}^{k}\beta_l \vb_l = \cero,
+ $$
+ y entonces, por un lado se tiene
+ \begin{equation}
+ \label{eq:totalsum}
+U \ni  \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{k}\alpha_j \ub_j =\sum_{l=r+1}^{n}(-\beta_l) \vb_l \in V,
+ \end{equation}
+ de donde en particular
+ $\sum_{l=r+1}^{n}(-\beta_l) \vb_l \in U\cap V = \langle \zb_1,\cdots,\zb_r \rangle$, es decir, que $\beta_{r+1}=\beta_{r+2}=\cdots = \beta_n=0$.  Volviendo a \eqref{eq:totalsum}, vemos
+ que 
+  $$
+  \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{k}\alpha_j \ub_j=\cero,
+  $$
+  y entonces
+  $\gamma_1=\gamma_2=\cdots=\gamma_r=\alpha_{r+1}=\cdots=\alpha_{k}=0$ porque
+  $\B$ es base y por lo tanto L.I. 
+  
+  Hemos probado que 
+  $$\tilde{\B}=\{\zb_1,\cdots,\zb_r,\ub_{r+1},\cdots, \ub_k, \vb_{r+1},\cdots, \vb_n\}$$
+  es una base de $U+V$, por lo tanto 
+  $$dim(U+V)=r+(k-r)+(n-r)=k+n-r=dim(U)+dim(V)-dim(U\cap V),$$
+  como queríamos probar. \end{proof}

@@ -1,0 +1,367 @@
+\section{Transformaciones lineales}
+
+\subsection{Matrices y transformaciones lineales}
+
+Una matriz $\Ab \in \R^{m \times n}$ define una funci\'on $T_{\Ab}: \mathbb{R}^n \rightarrow \mathbb{R}^m$ dada por
+$$
+T_{\Ab}(\vb) = \Ab\vb.
+$$
+(tomando a $\vb$ como matriz columna).
+
+\begin{ejemplo}
+Si $\Ab = \begin{pmatrix} 1 & 3 & 0 \\ 2 & -1 & -4\end{pmatrix} \in \mathbb{R}^{2 \times 3}$ y $\vb = (1, 0, -2)$, entonces $$
+T_{\Ab}(\vb) = \begin{pmatrix} 1 & 3 & 0 \\ 2 & -1 & -4\end{pmatrix} \begin{pmatrix} 1 \\ 0 \\ -2\end{pmatrix} = \begin{pmatrix} 1 \\ 10 \end{pmatrix}
+$$
+
+Si multiplicamos la matriz $\Ab$ por un vector genérico $\vb = (x_1, x_2, x_3) \in \R^3$, obtenemos
+$$
+T_{\Ab}(\vb) = \begin{pmatrix} 1 & 3 & 0 \\ 2 & -1 & -4\end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3\end{pmatrix} = \begin{pmatrix} 1 x_1 + 3 x_2 + 0x_3 \\ 2 x_1 - x_2 - 4x_3 \end{pmatrix}.
+$$
+
+Entonces podemos escribir $$
+T_{\Ab}(x_1, x_2, x_3) = (x_1 + 3x_2, 2x_1-x_2 - 4x_3).
+$$
+\end{ejemplo}
+
+\textbf{Ejercicio.} Escribir a la función $f(x_1, x_2) = (3x_1, x_2 - x_1, x_2 + 2x_1)$ de $\R^2$ en $\R^3$ en forma matricial.
+
+Estas funciones reciben el nombre de \emph{transformaciones lineales}.
+
+\begin{defi}
+Dados dos espacios vectoriales $V$ y $W$, una función $f: V \rightarrow W$ se llama \textbf{transformación lineal} si cumple:
+\begin{enumerate}
+\item  $f(\vb + \vb')= f(\vb) + f(\vb')$ para todos $\vb, \vb' \in V$.
+\item  $f(a \cdot \vb) = a \cdot f(\vb)$ para todos $a \in \R$ y $\vb \in V$.
+\end{enumerate}
+\end{defi}
+
+El producto de matrices verifica $\Ab(\vb+\wb) = \Ab\vb + \Ab\wb$ y $\Ab(a\vb) = a(\Ab\vb)$, por lo tanto se cumplen los axiomas de transformación lineal.
+
+\begin{ejemplo}
+La función $f(x_1, x_2) = (3x_1 + 1, x_2 - x_1, x_2 + 3x_1)$ \textbf{no} es una transformación lineal de $\R^2$ en $\R^3$.\
+Por ejemplo, $f(2 \cdot (1,1)) = f(2,2) = (7, 0, 8)$ y $2f(1,1) = 2(4, 0, 4)= (8,0,8)$.
+\end{ejemplo}
+
+\textbf{Observación.} Las columnas de $\Ab$ son las imágenes de los vectores canónicos $\eb_i$, $1 \le i \le n$.
+
+\begin{prop} Si $\B = \{\vb_1, \dots, \vb_n\}$ es una base de $V$, podemos definir una transformación lineal definiendo la imagen de cada elemento de la base.
+\end{prop}
+
+Para un elemento $\vb \in V$, si $\vb = a_1 \vb_1 + \dots + a_n \vb_n$, entonces $f(\vb) = a_1 f(\vb_1) + \dots + a_n f(\vb_n)$.
+
+\begin{ejemplo} $\B = \{(1,2), (2, -1)\}$ es una base de $\R^2$. Si $f: \R^2 \rightarrow \R^2$ es una transformación lineal, $f(1,2) = (0, 1)$ y $f(2, -1) = (1,3)$, entonces
+$$f(3, 1) = f((1,2) + (2, -1)) = f(1,2) + f(2, -1)= (0,1) + (1,3) = (1, 4).$$
+\end{ejemplo}
+
+\subsection{Imagen y núcleo de matrices y transformaciones lineales}
+
+En base a esto, hacemos las siguientes definiciones
+
+\begin{defi}
+El subespacio de $\K^m$
+$$
+\im(A) =\{\bb \in \K^m : \bb = \Ab \xb \text{ para algún } \xb \in \K^n\}
+$$
+es la imagen de $\Ab$ (o rango de $\Ab$, pero trae confusión con el rango que ya definimos). La imagen de una matriz $\Ab$ está generada por las columnas de $\Ab$ (¿por qué?).
+
+El subespacio de $\K^n$
+$$
+\ker(\Ab)=\{\xb \in \K^n: \Ab\xb = 0\}
+$$
+es el núcleo o kernel de $\Ab$. Podemos calcular el núcleo de $\Ab$ resolviendo el sistema homogéneo $\Ab\xb = 0$.
+\end{defi}
+
+
+
+\textbf{Propiedad.} $\rank(\Ab) = \dim(\im(\Ab))$.
+
+\begin{teo}[Teorema de la dimensión.] Dada una matriz $\Ab \in \K^{m \times n}$,
+$$
+n = \dim(\ker(\Ab)) + \dim(\im(\Ab))
+$$
+\end{teo}
+
+\begin{proof}
+Utilizamos la Proposición \ref{prop:extension} de extensión de bases. Suponemos que el núcleo de $\Ab$ tiene dimensión $t$ y consideramos una base $\{\ub_1, \dots, \ub_t\} \subset \K^n$ del núcleo de $\Ab$. Extendemos dicha base a una base de $\R^n$:
+$$
+\B = \{\ub_1, \dots, \ub_t, \wb_1, \dots, \wb_{n-t}\}.
+$$
+Veamos que 
+$$
+\{\Ab \wb_1, \dots, \Ab \wb_{n-t}\}
+$$
+forman una base de $\im(A)$.
+
+Dado un vector $v \in \R^n$, podemos escribirlo como combinación de elementos de la base:
+$$
+v = a_1 \ub_1 + \dots +a_t \ub_t  + b_1 \wb_1 + \dots + b_{n-t} \wb_{n-t}.
+$$
+
+Como $\Ab \ub_i = \cero$ para $1 \le i \le t$, obtenemos que 
+$$
+\Ab\vb = + b_1 \Ab \wb_1 + \dots + b_{n-t} \Ab\wb_{n-t},
+$$
+y por lo tanto $\{\Ab \wb_1, \dots, \Ab \wb_{n-t}\}$ es un conjunto de generadores de $\im(A)$. Solo falta ver que es un conjunto linealmente independiente.
+
+Supongamos $c_1 \Ab \wb_1 + \dots + c_{n-t} \Ab \wb_{n-t} = 0$. Luego 
+$$
+\Ab (c_1 \wb_1 + \dots + c_{n-t} \wb_{n-t}) = 0,
+$$
+es decir $c_1 \wb_1 + \dots + c_{n-t} \wb_{n-t} \in \ker(A)$.
+
+Por lo tanto, existen $d_i$, $1 \le i \le t$ tales que
+$$
+c_1 \wb_1 + \dots + c_{n-t} \wb_{n-t} = d_1 \ub_1  + \dots + d_t \ub_t.
+$$
+Pero los vectores de $\B$ forman una base de $\R^n$, por lo tanto debe ser $c_i=0$ para todo $1 \le i \le n-t$, y concluimos que los vectores $\Ab \wb_1, \dots, \Ab \wb_{n-t}$ son linealmente independientes.
+\end{proof}
+
+
+\begin{ejemplo} Dada la matriz $\Ab = \begin{pmatrix} 1 & 0 & -2 & 1 \\ 0 & 2 & -1 & -2 \\ 2 & 1 & 1 & 1 \end{pmatrix}$,
+\begin{enumerate}
+\item los conjuntos $\im(\Ab)$ y $\ker(\Ab)$, ¿son subespacios de qué espacios vectoriales?
+\item hallar generadores de $\im(\Ab)$ y calcular $\dim(\im(\Ab))$.
+\item hallar generadores de $\ker(\Ab)$ y calcular $\dim(\ker(\Ab))$.
+\item verificar si se cumple el teorema de la dimensión.
+\end{enumerate}
+
+\textbf{Respuestas}
+\begin{enumerate}
+\item   $\im(\Ab) \subset \R^3$ y $\ker(\Ab) \subset \R^4$.
+\item   $\im(\Ab) = \langle (1,0,2), (0, 2, 1), (-2, -1, 1), (1, -2, 1)\rangle$. Para calcular la dimensión, triangulamos.
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A = np.array([[1, 0, -2, 1], [0, 2, -1, -2], [2, 1, 1, 1]])
+At = np.transpose(A)
+print(At)
+
+At_echelon = row_echelon(At)
+print("Matriz A transpuesta escalonada:\n", At_echelon)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[ 1  0  2]
+%%  [ 0  2  1]
+%%  [-2 -1  1]
+%%  [ 1 -2  1]]
+%% Matriz A transpuesta escalonada:
+%%  [[1.  0.  2. ]
+%%  [0.  1.  0.5]
+%%  [0.  0.  1. ]
+%%  [0.  0.  0. ]]
+\end{verbatim}
+
+Obtenemos que $\dim(\im(\Ab)) = 3$, porque quedan 3 filas no nulas.
+
+\item Para resolver el sistema $\Ab\xb = 0$, triangulamos $\Ab$:
+
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A = np.array([[1, 0, -2, 1], [0, 2, -1, -2], [2, 1, 1, 1]])
+A_echelon = row_echelon(A)
+print("Matriz A escalonada:\n", A_echelon)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+Matriz A escalonada:
+ [[ 1.   0.  -2.   1. ]
+ [ 0.   1.  -0.5 -1. ]
+ [ 0.   0.   1.   0. ]]
+\end{verbatim}
+
+
+
+Obtenemos $x_3 = 0$, $x_2 - x_4 = 0$ y $x_1 + x_4=0$. Podemos despejar todas las variables $x_1$, $x_2$ y $x_3$ en función de $x_4$:
+\begin{align*}
+x_1 &= -x_4 \\
+x_2 &= x_4  \\
+x_3 &= 0   \\
+\end{align*}
+
+Luego, las soluciones del sistema son $\{(-x_4, x_4, 0, x_4): x_4 \in \R\} = \{x_4(-1, 1, 0, 1): x_4 \in \R\}$. Obtenemos $$
+\ker(\Ab) = \langle (-1, 1, 0, 1) \rangle
+$$ y $\dim(\ker(A)) = 1$.
+
+En \python podemos calcular una base del núcleo de una matriz con el comando \texttt{null\_space} del paquete \texttt{scipy.linalg}. Para calcular una solución particular usamos eliminación gaussiana.
+
+\item Tenemos $\dim(\ker(\Ab)) + \dim(\im(\Ab)) = 1 + 3 = 4$, se cumple el teorema.
+
+\end{enumerate}
+
+\end{ejemplo}
+
+
+
+
+\section{Espacios afines}
+
+Dada $\Ab \in \K^{m \times n}$, ya vimos que las soluciones de un sistema
+homogéneo de ecuaciones
+
+$$
+\Ab\xb = 0
+$$
+
+forman un subespacio de $\K^n$. Veamos qué pasa para un sistema
+no-homogéneo
+
+$$
+\Ab\xb = \bb, \text{ con } \bb \in \K^n.
+$$
+
+\begin{ejemplo} Resolvemos el siguiente sistema de ecuaciones:
+
+$$
+\left\{\begin{aligned}
+5x_1 + 3x_2 &= 11 \\
+15x_1 + 9x_2 &= 33 \\
+20x_1 + 12x_2 &= 44
+\end{aligned}\right.
+$$
+
+Construimos la matriz ampliada
+
+$$
+\left(\begin{array}{rr|r}5&3&11\\15&9&33\\20&12&44\end{array}\right)
+$$
+
+y escalonamos usando \python.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[5,3,11],[15,9,33],[20,12,44]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[1.  0.6 2.2]
+%%  [0.  0.  0. ]
+%%  [0.  0.  0. ]]
+\end{verbatim}
+Vemos que se eliminaron las últimas dos ecuaciones, y nos queda solo una
+ecuación:
+$$
+x_1 + 0.6 x_2 = 2.2
+$$
+de donde podemos despejar $x_1 = 2.2 - 0.6x_2$.
+
+Podemos entonces escribir el conjunto de soluciones en función de $x_2$:
+\begin{align*}
+S &= \{(2.2 - 0.6 x_2, x_2) : x_2 \in \R\} \\
+&= \{(2.2, 0) + (-0.6 x_2, x_2) : x_2 \in \R\} \\
+&= \{(2.2, 0) + (-0.6, 1) x_2 : x_2 \in \R\}
+\end{align*}
+
+Esto no es un subespacio de $\R^2$ (por ejemplo, $(0,0) \not\in S$),
+pero es un subespacio ``corrido'': el conjunto
+
+$$
+ \{(-0.6, 1) x_2 : x_2 \in \R\} = \langle (-0.6, 1) \rangle,
+$$
+
+es un subespacio de $\R^2$ y los puntos de $S$ se obtienen sumandole el
+vector $(2.2, 0)$ a cualquier punto de $\langle (-0.6, 1)\rangle$, es
+decir,
+
+$$
+S = (2.2, 0) + \langle (-0.6, 1) \rangle
+$$
+
+\end{ejemplo}
+
+Estos conjuntos se llaman \textbf{espacios lineales afines}, se obtienen
+trasladando un subespacio vectorial en la dirección de un vector del
+espacio. El espacio vectorial podría estar generado por varios vectores,
+es decir, puede tener cualquier dimensión.
+
+Observamos:
+
+\begin{itemize}
+\item   $(2.2, 0)$ es una solución del sistema no-homogéneo $\Ab\xb = \bb$.
+\item   El subespacio $\langle (-0.6, 1) \rangle$ es el conjunto de
+    soluciones del sistema homogéneo $\Ab\xb = 0$.
+\end{itemize}
+y esto vale en general:
+
+\begin{prop}
+Dado el sistema $\Ab\xb = \bb$, si $\tilde \xb$ es una solución
+particular del sistema, el conjunto de todas las soluciones del sistema
+es
+$$
+S = \{\tilde \xb + \vb: \vb \text{ una solución cualquiera del sistema homogéneo } \Ab\xb = 0\}.
+$$
+\end{prop}
+
+\textbf{Idea de la demostración:} si $\xb, \yb$ son soluciones del sistema no
+homogéneo, entonces
+
+$$
+\Ab\xb - \Ab\yb = \bb - \bb = 0,
+$$
+
+Por lo tanto $\zb = \xb-\yb$ es solución del sistema homogéneo y $\xb = \yb + \zb$.
+
+\begin{ejemplo} Resolver el sistema de ecuaciones
+
+$$
+\left\{
+\begin{aligned}
+3x + 2y + 6z &= 12 \\
+x - 3y + z &= 10.
+\end{aligned}
+\right.
+$$
+
+En \python podemos calcular una base del núcleo de una matriz con el comando \texttt{null\_space} del paquete \texttt{scipy.linalg}. Para calcular una solución particular usamos eliminación gaussiana.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+import scipy.linalg
+A = np.array([[3, 2, 6],[1, -2, 1]])
+print("Núcleo de A: \n", scipy.linalg.null_space(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+Núcleo de A:
+ [[-0.85359507]
+ [-0.18291323]
+ [ 0.48776861]]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+b = np.array([12, 10])
+Ab = np.c_[A,b]
+print("Matriz ampliada escalonada: \n", row_echelon(Ab))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% Matriz ampliada escalonada:
+%%  [[ 1.          0.66666667  2.          4.        ]
+%%  [ 0.          1.          0.375      -2.25      ]]
+\end{verbatim}
+
+Obtenemos las ecuaciones
+$$
+\left\{
+\begin{aligned}
+x + 2/3y + 2z &= 4 \\
+y + 0.375z &= -2.25,
+\end{aligned}
+\right.
+$$
+y tomando $z=1$ obtenemos la solución $(x,y,z) = (3.75, -2.625, 1)$.
+
+Concluimos que el conjunto de soluciones es
+$$
+S = (3.75, -2.625, 1) + \langle (-0.8535951, -0.1829132,  0.4877686) \rangle.
+$$
+\end{ejemplo}
+

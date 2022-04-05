@@ -1,0 +1,24 @@
+\chapter*{Preliminares }
+
+En estas notas se presentan los temas de la materia Álgebra Lineal Computacional
+en la Facultad de Ciencias Exactas y Naturales de la UBA.
+
+bla bla bla
+
+
+\bigskip
+
+
+Acerca de la notación: (esto es para amalgamar con lo demás)
+\begin{itemize}
+\item Usaremos letra en {\bf negrita} para representar magnitudes vectoriales o matriciales, y letra común para variables escalares. Para distinguir vectores de matrices, reservamos las letras \emph{mayúsculas} para las segundas y \emph{minúsculas} para los primeros.
+ \item Los vectores $\vb\in \R^n,\C^n$ se identificarán con matrices \emph{columna} de $n\times 1$. Por ende tendrá sentido
+ $\Ab\vb$, para toda matriz $\Ab\in \R^{m\times n},\C^{m\times n}$
+ \item Con $|\vb|$ representamos el vector con las mismas componentes de $\vb$ con valor absoluto. Análogamente definimos $|\Ab|$.
+ \item Dados dos vectores (matrices) $\vb_1,\vb_2$ ($\Ab_1,\Ab_2$) la notación
+ $\vb_1\le \vb_2$ ($\Ab_1\le \Ab_2$) debe interpretarse componente a componente (lo mismo para $<,>,\ge$).
+ \item Dados un vector (matriz) $\vb$ ($\Ab$) y una constante $c$, la notación
+ $\vb\le c$ ($\Ab\le c$), indica que todas componentes de $\vb$ ($\Ab$) son menores o iguales a $c$  (lo mismo para $<,>,\ge$).
+ \item Utilizamos la notación de los dos puntos ``:'', compatible con numerosos lenguajes de programación, para identificar rangos de índices en vectores y matrices: por ejemplo $\vb(2:5)$ indica los elementos $2$ al $5$ incluidos del vector $\vb$ \footnote{Estamos manejando índices al estilo Matlab, es decir que comienzan en $1$, en otros lenguajes como Python el primer índice del arreglo es $0$. Preferimos usar en el texto la primera porque es mas natural con la notación matemática usual.}. La misma interpretación vale para matrices, por ejemplo, resulta válido para nosotros escribir $\Ab(2:10,7:25)$.
+
+\end{itemize}

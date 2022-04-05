@@ -1,0 +1,314 @@
+\documentclass[11pt,leqno]{amsbook}
+
+% This codes produces an error if some include file is not founded
+\makeatletter
+\def\mkfilename#1{%
+  \if\relax\detokenize\expandafter{#1}\relax\else#1/\fi}
+\AddToHook{include/before}%
+  {\IfFileExists{\mkfilename\CurrentFilePath\CurrentFile}{}
+     {\GenericError{}{Error: File \mkfilename\CurrentFilePath\CurrentFile.tex not found!}{\@gobble}{}}}
+\makeatother
+
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{t1enc}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+
+\usepackage{savesym}
+\savesymbol{tcc}  % tcc está definido en algún otro paquete
+\usepackage[ruled,vlined]{algorithm2e}
+\restoresymbol{TXF}{tcc}
+
+\usepackage{hyperref}
+\makeatletter
+\pdfstringdefDisableCommands{\let\bm\@firstofone}
+\makeatother
+
+\usepackage{listings}
+\renewcommand{\ttdefault}{pcr}
+\lstset{
+emph={row_echelon},
+emphstyle={\bfseries},
+breaklines=true,
+basicstyle=\ttfamily,
+columns=fullflexible,
+keepspaces=true,
+showspaces=false,
+showstringspaces=false,
+inputencoding=utf8,
+literate=%
+         {á}{{\'a}}1
+         {é}{{\'e}}1
+         {í}{{\'i}}1
+         {ó}{{\'o}}1
+         {ú}{{\'u}}1
+         {ñ}{{\~n}}1
+}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\graphicspath{ {./imagenes/} }
+
+%\usepackage{breqn}   %% OJO NO COMPILA!
+
+
+
+\vsize=27.9cm \hsize=21cm \setlength{\textwidth}{16cm}
+\setlength{\textheight}{21.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+%\setlength{\topmargin}{-1.5cm}
+\parskip 5pt
+
+\newtheoremstyle{noind}{6pt}{6pt}{}{}{\scshape}{.}{.5em}{}
+
+\theoremstyle{noind}
+%\theoremstyle{plain}
+\newtheorem{teo}{Teorema}[chapter]
+\newtheorem{lema}{Lema}[chapter]
+\newtheorem{prop}{Proposici\'on}[chapter]
+\newtheorem{cor}{Corolario}[chapter]
+\newtheorem{coro}{Corolario}[chapter]
+\newtheorem{remark}{Observaci\'on}[chapter]
+\newtheorem{rem}{Observaci\'on}[chapter]
+
+\newtheoremstyle{def2}{6pt}{6pt}{}{}{\scshape}{.}{.5em}{}
+\theoremstyle{def2}
+\newtheorem{ejemplo}{Ejemplo}[chapter]
+\newtheorem{aplicacion}{Aplicaci\'on}[chapter]
+\newtheorem{defi}{Definici\'on}[chapter]
+\newtheorem{ej}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
+\newtheorem{ejercicio}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
+%en cada 'capítulo'.
+%\newtheorem{ej}{Ejercicio}[section] %numera os 'Ejercicios' reseteando
+%en cada 'capítulo'.
+
+
+%% User definitions:
+%\newcommand{\texorpdfstring}[2]{#1}
+
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\tcc}{\begin{tcolorbox}[colback=black!15!white,colframe=black!75!black]}
+%\newcommand{\tcc}{\begin{tcolorbox}[colframe=black!75!black]}
+
+\newcommand{\tccdefi}{\begin{tcolorbox}
+[colback=blue!15!white,colframe=black!75!black]}
+
+\newcommand{\etcc}{\end{tcolorbox}}
+
+\newcommand{\si}{\sigma}
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\Om}{\Omega}
+\newcommand{\la}{\lambda}
+\newcommand{\noi}{\noindent}
+\newcommand{\di}{\displaystyle}
+\newcommand{\sen}{\mbox{sen\,}}
+\newcommand{\B}{\mathcal B}
+\newcommand{\E}{\mathcal E}
+\newcommand{\R}{\mathbb R}
+
+\newcommand{\K}{\mathbb K}
+\newcommand{\Kn}{\K^{n}}
+\newcommand{\Kmn}{\K^{m\times n}}
+\newcommand{\Knn}{\K^{n\times n}}
+
+\newcommand{\Cm}{\C^{m}}
+\newcommand{\Rmm}{\R^{m\times m}}
+\newcommand{\Cmm}{\C^{m\times m}}
+\newcommand{\Rm}{\R^{m}}
+\newcommand{\Cmn}{\C^{m\times n}}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\LL}{\mathcal L}
+\newcommand{\bt}{\tilde b}
+\newcommand{\C}{\mathbb C}
+ \newcommand{\ep}{\varepsilon}
+\newcommand{\difrac}{\displaystyle\frac}
+ \newcommand{\flecha}{\mbox{$\rightarrow$}}
+
+%matrices y vectores en bold
+\newcommand{\Rnn}{\R^{n\times n}}
+\newcommand{\Cnn}{\C^{n\times n}}
+\newcommand{\Rn}{\R^{n}}
+\newcommand{\Cn}{\C^{n}}
+
+\newcommand{\tbb}{\bm{t}}
+\newcommand{\sbb}{\bm{s}}
+\newcommand{\vb}{\bm{v}}
+\newcommand{\ub}{\bm{u}}
+\newcommand{\wb}{\bm{w}}
+\newcommand{\bb}{\bm{b}}
+\newcommand{\xb}{\bm{x}}
+\newcommand{\yb}{\bm{y}}
+\newcommand{\zb}{\bm{z}}
+\newcommand{\eb}{\bm{e}}
+\newcommand{\ab}{\bm{a}}
+\newcommand{\cb}{\bm{c}}
+\newcommand{\pb}{\bm{p}}
+\newcommand{\qb}{\bm{q}}
+\newcommand{\rb}{\mathbf{r}}
+\newcommand{\hb}{\mathbf{h}}
+
+
+\newcommand{\gabo}{\textcolor{red}}
+
+%\newcommand{\lb}{\mathbf{\mathcal{l}}}
+
+\newcommand{\Ab}{\bm{A}}
+\newcommand{\Bb}{\bm{B}}
+\newcommand{\Cb}{\bm{C}}
+\newcommand{\Eb}{\bm{E}}
+\newcommand{\Fb}{\bm{F}}
+\newcommand{\Gb}{\bm{G}}
+\newcommand{\Lb}{\bm{L}}
+\newcommand{\Mb}{\bm{M}}
+\newcommand{\Tb}{\bm{T}}
+\newcommand{\Ub}{\bm{U}}
+\newcommand{\Qb}{\bm{Q}}
+\newcommand{\Rb}{\bm{R}}
+\newcommand{\Sb}{\bm{S}}
+\newcommand{\Vb}{\bm{V}}
+\newcommand{\Db}{\bm{D}}
+\newcommand{\Pb}{\bm{P}}
+\newcommand{\Id}{\bm{I}}
+\newcommand{\Ib}{\bm{I}}
+\newcommand{\Hb}{\bm{H}}
+\newcommand{\Hbb}{\bm{H}}
+\newcommand{\Xb}{\bm{X}}
+\newcommand{\cero}{\bm{0}}
+
+\newcommand{\tBb}{\tilde\Bb}
+\newcommand{\tAb}{\tilde\Ab}
+\newcommand{\tCb}{\tilde\Cb}
+\newcommand{\tEb}{\tilde\Eb}
+\newcommand{\tFb}{\tilde\Fb}
+\newcommand{\tGb}{\tilde\Gb}
+\newcommand{\tLb}{\tilde\Lb}
+\newcommand{\tMb}{\tilde\Mb}
+\newcommand{\tUb}{\tilde\Ub}
+\newcommand{\tQb}{\tilde\Qb}
+\newcommand{\tRb}{\tilde\Rb}
+\newcommand{\tSb}{\tilde\Sb}
+\newcommand{\tVb}{\tilde\Vb}
+\newcommand{\tDb}{\tilde\Db}
+\newcommand{\tPb}{\tilde\Pb}
+\newcommand{\tIb}{\tilde\Ib}
+\newcommand{\tHb}{\tilde\Hb}
+
+
+\newcommand{\python}{\texttt{Python}\xspace}
+
+\newcommand{\bej}[1]{\begin{ej}\rm{#1}}
+\newcommand{\eej}{\end{ej}\vspace{-0.2cm}}
+
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\elll}{\mbox{\rm Long\,}(\C)}
+
+%\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Nu}{Nu}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\rank}{rango}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\im}{im}
+
+\hyphenation{lon-gi-tud} \hyphenation{tra-yec-to-ria}
+\hyphenation{ve-ri-fi-que ve-ri-fi-car ve-ri-fi-ca-do}
+\hyphenation{si-guien-te si-guien-tes se-guir si-guien-do
+se-gui-do} \hyphenation{e-cua-cio-nes} \hyphenation{su-po-ner
+su-pon-ga-mos su-pon-ga su-pu-sie-ra}
+
+
+\begin{document}
+
+\topskip 3cm
+
+%\title[AIIM3]{An\'alisis II y Matem\'atica III}
+%\subtitle{Desde Curvas y superficies a Teoremas Integrales}
+
+\vskip2cm
+
+\author{ autores }
+%\address{Departamento de Matem\'atica, Facultad de Ciencias Exactas
+%y Naturales, Universidad de Buenos Aires (1428), Buenos Aires,
+%Argentina}
+%\author{N. Wolanski}
+%\address{Departamento de Matem\'{a}tica, Facultad de Ciencias Exactas
+%y Naturales, Universidad de Buenos Aires, (1428), Buenos Aires,
+%Argentina}
+
+\begin{center}
+{\bf \Huge  Notas de Álgebra Lineal Computacional}
+
+
+\vskip2cm
+
+{\Large Gabriel Acosta y Santiago Laplagne}
+\end{center}
+
+\thispagestyle{empty}
+
+
+
+
+\newpage
+%\maketitle
+\thispagestyle{empty}
+%\vskip4cm
+
+%\newpage
+
+
+\ \
+
+\pagebreak
+
+\topskip4cm
+
+\tableofcontents
+
+\newpage
+
+\thispagestyle{empty}
+
+\ \
+
+\pagebreak
+
+\topskip 1cm
+
+\include{chapterPreliminares}
+
+\pagebreak
+
+\include{chapterEspaciosVectoriales}
+\include{sectionMatrices}
+\include{chapterTransformaciones}
+\include{chapterProductoInterno}
+\include{chapterMetodosDirectos}
+\include{chapterFactorizacion}
+\include{chapterDiagonalizacion}
+
+%\include{chapterMetodosDirectos_NO}
+
+\include{bibliografia}
+
+
+
+
+\end{document} 
