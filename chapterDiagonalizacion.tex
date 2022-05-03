@@ -143,10 +143,11 @@ $$
 Los autovalores de $\Ab$ son las raíces de $\chi_{\Ab}(\lambda)$. El polinomio $\det(\lambda \Ib - \Ab)$ es un polinomio mónico con las mismas raíces que $\det(\lambda \Ib - \Ab)$, y llamamos indistintamente polinomio característico a cualquiera de estos dos polinomios.
 
 
-\textbf{Ejercicio.} Calcular el polinomio característico, los autovalores y autovectores de la matriz
+\begin{ejercicio} Calcular el polinomio característico, los autovalores y autovectores de la matriz
 $$B = \begin{pmatrix} 2 & 0 & 0 \\ 0 & 3 & 4 \\ 0 & 4 & 9 \end{pmatrix}.$$
+\end{ejercicio}
 
-\textbf{Ejemplo.} Verificamos en \python los cálculos para las dos matrices $\Ab$ y
+\begin{ejemplo} Verificamos en \python los cálculos para las dos matrices $\Ab$ y
 $\Bb$ utilizando el comando \texttt{linalg.eig} de \texttt{numpy}.
 
 \begin{Shaded}
@@ -166,14 +167,16 @@ print("Autovectores:\n", e[1]) # El segundo elemento es una matriz
 %%  [[ 0.83205029 -0.70710678]
 %%  [ 0.5547002   0.70710678]]
 \end{verbatim}
+\end{ejemplo}
 
-\textbf{Ejercicio.} Calcular en \python los autovalores y los autovectores
+\begin{ejercicio} Calcular en \python los autovalores y los autovectores
 asociados a cada autovalor para las siguientes matrices.
 
 \begin{enumerate}
 \item $\Ab =\begin{pmatrix} -1 & 4 & -2 \\ -3 & 4 & 0 \\ -3 & 1 & 3 \end{pmatrix}$
 \item $\Ab = \begin{pmatrix} 0 & 0 & 2 & 1 \\ 1 & 0 & 1 & 0 \\ 0 & 1 & -2 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}$
 \end{enumerate}
+\end{ejercicio}
 
 Vamos a utilizar la siguiente propiedad más adelante.
 
@@ -329,7 +332,7 @@ $$
 \end{itemize}
 \end{prop}
 
-\textbf{Ejercicio.} Calcular en Python los autovalores y autovectores de las
+\begin{ejercicio} Calcular en Python los autovalores y autovectores de las
 siguientes matrices. Según los resultados obtenidos, ¿alguna de estas
 matrices es diagonalizable?
 
@@ -340,6 +343,8 @@ matrices es diagonalizable?
 
 Para la matriz que resulte diagonalizable, ¿cuál es la base $\B$ de
 autovectores? ¿Quién es $\Db$? Hallar $\Cb$ tal que $\Ab = \Cb \Db \Cb^{-1}$ .
+
+\end{ejercicio}
 
 %\begin{lstlisting}[language=R]
 %A = matrix(c(1, 1, 0, 0, 1, 1, 0, 0, 1), nrow = 3, byrow = TRUE)
@@ -636,7 +641,7 @@ es unitaria y $\Ub^* \Ab \Ub$ es la factorización que buscamos.
 Si todos los autovalores de $\Ab$ son reales, los autovectores pueden elegirse también reales y todas las operaciones se pueden hacer sobre los reales, lo que prueba la última información.
 \end{proof}
 
-\section{Autovalores y autovectores de matrices simétricas y hermitianas}
+\section{Autovalores y autovectores de matrices especiales}
 
 \textbf{Matrices ortogonales.} Si $\Ab \in \K^{n \times n}$ es unitaria,
     todos sus autovalores cumplen $|\lambda| = 1$.
@@ -1054,11 +1059,12 @@ $\Ab \in \C^{n \times n}$, $\vb^{(0)} \in \C^n$\;
   $r_k = \frac{(\vb^{(k)})^T \Ab \vb^{(k)}}{(\vb^{(k)})^T \vb^{(k)}}$
  }
  \caption{Método de la potencia}
+ \label{algo:potencia}
 \end{algorithm}
 
 
 \begin{teo}
-Sea $\Ab \in \Cnn$ una matriz diagonalizable con base de autovectores $\B = \{\wb_1, \dots, \wb_n\}$ y autovalores correspondientes $\{\lambda_1, \dots, \lambda_n\}$ con $|\lambda_1| > |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$ (existe un único autovalor de módulo máximo). Dado un vector $\vb^{(0)} \in \C^n$ tal que en su escritura en la base $\B$ el coeficiente de $\wb_1$ es no nulo, el algoritmo \ref{} satisface $|r_k - \lambda_1| \rightarrow 0$ cuando $k \rightarrow \infty$.
+Sea $\Ab \in \Cnn$ una matriz diagonalizable con base de autovectores $\B = \{\wb_1, \dots, \wb_n\}$ y autovalores correspondientes $\{\lambda_1, \dots, \lambda_n\}$ con $|\lambda_1| > |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$ (existe un único autovalor de módulo máximo). Dado un vector $\vb^{(0)} \in \C^n$ tal que en su escritura en la base $\B$ el coeficiente de $\wb_1$ es no nulo, el algoritmo \ref{algo:potencia} satisface $|r_k - \lambda_1| \rightarrow 0$ cuando $k \rightarrow \infty$.
 \end{teo}
 
 \begin{proof}
@@ -1099,30 +1105,333 @@ $$
 
 
 
+\section{Norma-2 de matrices}
+
+El estudio de autovalores y autovectores que realizamos en este capítulo nos permite  dar una mejor interpretación a la norma-2 de matrices. Recordemos que dada una matriz $\Ab \in \Knn$ y una norma vectorial $\|\cdot\|_n$ en $\K^n$, definimos la norma inducida
+$$
+\|\Ab\| = \max_{\cero \neq \xb \in \K^m} \frac{\|\Ab\xb\|}{\|\xb\|} = \max_{\xb \in \K^m, \|\xb\| = 1} \|\Ab\xb\|.
+$$
+
+En el caso de matrices diagonales, el cálculo de normas matriciales es muy simple.
+
+\begin{prop} Si $\Ab$ diagonal,
+  $$\Ab=
+ \begin{pmatrix}
+  \lambda_1&0&0&\dots&0\\
+  0&\lambda_2&0&\cdots &0 \\
+  0&0&\lambda_3 &\cdots&0 \\
+  \vdots&\vdots & &\ddots&\vdots\\
+  0&0&\cdots &&\lambda_n
+ \end{pmatrix},
+ $$
+
+ $$
+ \|\Ab\|_2 = \max\{|\lambda_i|\}.
+ $$
+\end{prop}
+\begin{proof}
+Ejercicio.
+\end{proof}
+
+Esa simple observación motiva la siguiente definición.
+
+\begin{defi}
+ Dada $\Ab\in \Knn$ definimos el \emph{radio espectral} de $\Ab$ como
+ $$
+ \rho(\Ab)=\max\{|\lambda|, \, \mbox{con}\, \lambda \,\mbox{autovalor de}\, \Ab\}
+ $$
+\end{defi}
+
+\begin{prop} Si  $\Ab\in \Rnn$ y $\Ab^T=\Ab$, entonces
+$$
+\|\Ab\|_2=\rho(\Ab).
+$$
+\end{prop}
+
+\begin{proof}
+Tomamos $\mathcal{B}=\{\wb_1,\cdots,\wb_n\}$ una base ortonormal de autovectores y $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores.
+
+Sea $\xb\in\R^n$ tal que $\|\xb\|_2=1$,
+$$
+\xb=\sum_{i=1}^n\alpha_i\wb_i \quad \text{ y } \quad \Ab\xb=\sum_{i=1}^n\alpha_i \lambda_i \wb_i
+$$
+
+Luego,
+$$
+\begin{aligned}
+\|\Ab\xb\|_2^2 &= \sum_{i=1}^n |\alpha_i|^2 |\lambda_i|^2 \\
+& \le \sum_{i=1}^n |\alpha_i^2| |\lambda_{max}|^2 \\
+& \le \rho(\Ab)^2\sum_{i=1}^n |\alpha_i|^2 \\
+& = \rho(\Ab)^2
+\end{aligned}
+$$
+
+Por lo tanto, $\|\Ab\xb\|_2  \le \rho(\Ab)$.
+
+Para la otra desigualdad, tomamos $\vb$ autovector de autovalor $\lambda_{max}$.
+
+\end{proof}
+
+Para el caso general, $\Ab\in \R^{n\times n}$ no necesariamente simétrica, obtenemos una fórmula levemente más compleja.
+
+\begin{prop}
+Si  $\Ab\in \Rnn$, entonces
+$$
+\|\Ab\|_2=\sqrt{\rho(\Ab^T\Ab)}.$$
+\end{prop}
+
+\begin{proof}
+Queremos calcular $\sup_{\|\xb\|_2=1}\|\Ab\xb\|_2$.
+
+\begin{enumerate}
+\item $\|\Ab\xb\|_2^2=(\Ab\xb)^T\Ab\xb=\xb^T(\Ab^T\Ab)\xb$
+\item La matriz $\Mb=\Ab^T\Ab$ es simétrica.
+\item $\Mb$ es positiva semidefinida, porque $\xb^T \Ab^T \Ab \xb = \|\Ab \xb\|_2 \ge 0$.
+\item Como $\Mb$ es positiva semidefinida, los autovalores de $\Mb$ son no-negativos.
+\item Si $\|\xb\|_2 = 1$ y $\xb=\sum_{i=1}^n\alpha_i\wb_i$, $\sum_{i=1}^n\alpha_i^2 = 1$.
+\item $\Mb\xb=\sum_{i=1}^n\alpha_i\Mb\wb_i=\sum_{i=1}^n\lambda_i\alpha_i\wb_i$
+\item $\xb^T\Mb\xb=\sum_{i=1}^n\lambda_i\alpha_i^2$
+\item $\sup_{\|\xb\|_2=1}\|\Ab\xb\|_2^2=\sup_{\sum_{i=1}^n\alpha_i^2=1}\sum_{i=1}^n\lambda_i\alpha_i^2=\lambda_{max}=\rho(\Mb)$.
+\end{enumerate}
+
+Obtenemos
+$$
+\|\Ab\|_2=\sqrt{\rho(\Ab^T\Ab)}.
+$$
+\end{proof}
+
+El radio espectral nos da una cota general para las normas subordinadas.
+
+\begin{prop}
+ \label{prop:infmat=rho}
+Sea $\Ab\in\Knn$, entonces
+$$
+\rho(\Ab)=\inf
+\{\|\Ab\|:\, \|\cdot \|\,  \mbox{es una norma subordinada}\}.$$
+\end{prop}
+
+\begin{proof}
+Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada y  $\K=\C$. Para demostrar que es el ínfimo, es decir, que para todo $\epsilon$ existe una norma $\| \|_{\epsilon}$ tal que $\|\Ab\|_{\epsilon} < \rho(\Ab) + \epsilon$ se requieren conocimientos que exceden los temas de este apunte.
+
+ Sea $\lambda$ autovalor de $\Ab$ y sea $\|\cdot\|$ una norma matricial en $\Cnn$ subordinada a la norma vectorial  $\|\cdot\|$.
+
+ Tomamos $\cero\neq\vb$ autovector de autovalor $\lambda$, con  $\|\vb\|=1$. Como $\Ab\vb=\lambda\vb$,
+ $$ \|\Ab\vb\| = |\lambda|\|\vb\|=|\lambda|.$$
+ 
+  Por lo tanto, para todo $\lambda$ autovalor
+ $$
+ \|\Ab\|=\sup_{\|\xb\|=1}\|\Ab\xb\|\ge \|\Ab\vb\|\ge |\lambda|.
+ $$
+ de donde
+ $$
+ \|\Ab\|\ge \rho(\Ab).
+ $$
+
+\end{proof}
+
+Como aplicación, obtenemos un criterio para determinar cuándo las potencias de una matriz tienden a la matriz nula.
+
+\begin{prop}
+Dada $\Ab \in \Knn$, si $\rho(\Ab) < 1$, $\Ab^k \rightarrow \cero$ cuando $k \rightarrow \infty$.
+\end{prop}
+\begin{proof}
+Si $\rho(\Ab) < 1$, existe $\|\cdot\|$ tal que $\|\Ab\| < 1$. Luego $\|\Ab\|^k \rightarrow 0$, y por lo tanto $\Ab^k \rightarrow \cero$ cuando $k \rightarrow \infty$.
+\end{proof}
+
+La propiedad recíproca (si $\Ab^k \rightarrow 0$ entonces $\rho(\Ab) < 1$) también es cierta, y su demostración queda como ejercicio.
+
+
 \section{El algoritmo QR}
 
-En la sección anterior vimos el método de la potencia para calcular el autovalor de mayor módulo de una matriz. En este sección, veremos otro algoritmo, que nos permite aproximar todos los autovalores y autovectores de una matriz de forma muy eficiente.
+Vimos anteriormente el método de la potencia para calcular el autovalor de mayor módulo de una matriz. En este sección, veremos otro algoritmo que nos permite aproximar todos los autovalores y autovectores de una matriz de forma muy eficiente.
 
-Este algoritmo, con algunas modificaciones para mejorar la perfomance.
+Una demostración completa de este algoritmo excede las intenciones de este apunte, por lo tanto nos limitaremos a ver las ideas principales.
+
+La primera idea es extender el método de la potencia a subespacios.
+
+El método de la potencia nos permite calcular el autovalor de mayor módulo mediante una sucesión $\{\vb^{(k)}\}$ con
+$$
+\begin{aligned}
+\vb^{(k)} &= \left(\frac{\lambda_1}{|\lambda_1|}\right)^k \frac{a_1   \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2+ \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n}{\left\|a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2+ \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n\right\|_2}
+\end{aligned}$$
+
+Si bien, en general, $\{\vb^{(k)}\} \nrightarrow \wb_1$ (ni a un múltiplo fijo), podemos intuitivamente pensar en convergencia de subespacios:
+$$
+\langle \vb^{(k)}\rangle \rightarrow \langle \wb_1 \rangle.
+$$
+
+¿Cómo calculamos los demás autovalores y autovectores?
+
+Si aplicamos el método (sin normalizar) a dos vectores en vez de uno, podemos escribir
+{\small
+%%$$
+%%\begin{aligned}
+%%\vb_1^{(k)} &= \left(\frac{\lambda_2}{|\lambda_2|}\right)^k \frac{a_1 \left(\frac{\lambda_1}{\lambda_2}\right)^k \wb_1 + a_2   \wb_2 + a_3 \left(\frac{\lambda_3}{\lambda_2}\right)^k \wb_3+ \dots + a_n \left(\frac{\lambda_n}{\lambda_2}\right)^k \wb_n}{\left\|a_1 \left(\frac{\lambda_1}{\lambda_2}\right)^k \wb_1 + a_2   \wb_2 + a_3 \left(\frac{\lambda_3}{\lambda_2}\right)^k \wb_3+ \dots + a_n \left(\frac{\lambda_n}{\lambda_2}\right)^k \wb_n\right\|_2} \\
+%%\vb_2^{(k)} &= \left(\frac{\lambda_2}{|\lambda_2|}\right)^k \frac{b_1 \left(\frac{\lambda_1}{\lambda_2}\right)^k \wb_1 + b_2   \wb_2 + b_3 \left(\frac{\lambda_3}{\lambda_2}\right)^k \wb_3+ \dots + b_n \left(\frac{\lambda_n}{\lambda_2}\right)^k \wb_n}{\left\|b_1 \left(\frac{\lambda_1}{\lambda_2}\right)^k \wb_1 + b_2   \wb_2 + b_3 \left(\frac{\lambda_3}{\lambda_2}\right)^k \wb_3+ \dots + b_n \left(\frac{\lambda_n}{\lambda_2}\right)^k \wb_n\right\|_2} \\
+%%\end{aligned}
+%%$$
+$$
+\begin{aligned}
+\vb_1^{(k)} &= \left(\lambda_2\right)^k \left(a_1 \left(\frac{\lambda_1}{\lambda_2}\right)^k \wb_1 + a_2   \wb_2 + a_3 \left(\frac{\lambda_3}{\lambda_2}\right)^k \wb_3+ \dots + a_n \left(\frac{\lambda_n}{\lambda_2}\right)^k \wb_n \right), \\
+\vb_2^{(k)} &= \left(\lambda_2\right)^k \left(b_1 \left(\frac{\lambda_1}{\lambda_2}\right)^k \wb_1 + b_2   \wb_2 + b_3 \left(\frac{\lambda_3}{\lambda_2}\right)^k \wb_3+ \dots + b_n \left(\frac{\lambda_n}{\lambda_2}\right)^k \wb_n \right). \\
+\end{aligned}
+$$
+}
+
+Intuitivamente vemos que $\langle \vb_1^{(k)}, \vb_2^{(k)} \rangle \rightarrow \langle \wb_1, \wb_2 \rangle$ cuando $k \rightarrow \infty$.
+
+\begin{enumerate}
+\item Si bien $\langle \vb_1^{(k)}, \vb_2^{(k)} \rangle \rightarrow \langle \wb_1, \wb_2 \rangle$, individualmente  $\langle \vb_1^{(k)} \rangle \rightarrow \langle \wb_1 \rangle$ y  $\langle \vb_2^{(k)} \rangle \rightarrow \langle \wb_1\rangle $.
+
+\item Si logramos ``sacarle'' a $\vb_2^{(k)}$ la componente en la dirección de $\wb_1$, vamos a obtener $\langle \tilde \vb_2^{(k)} \rangle \rightarrow \langle \wb_2 \rangle $.
+
+\item Si $\{\wb_1, \dots, \wb_n\}$ base ortonormal y $\vb = a_1 \wb_1 + \dots + a_n \wb_n$, tenemos $(\vb, \wb_1) = a_1$.
+
+\item Por lo tanto, si conocemos $\wb_1$, podemos hacer
+$$\vb - ( \vb , \wb_1 ) \wb_1 = a_2 \wb_2 + \dots + a_n \wb_n.$$
+
+\item En nuestro caso,
+$$\langle \vb_2^{(k)} - ( \vb_2^{(k)} , \wb_1 ) \wb_1 \rangle \rightarrow \langle  \wb_2 \rangle.$$
+
+\end{enumerate}
+
+En general, no conocemos $\wb_1$ pero podemos usar $\vb_1^{(k)}$.
+
+Si $\langle \vb_1^{(k)} \rangle \rightarrow \langle \wb_1 \rangle$ y definimos $\ub_1^{(k)} = \vb_1^{(k)}$, $\tilde \ub_1^{(k)} = \frac{\ub_1^{(k)}}{\|\ub_1^{(k)}\|}$,
+$$
+\ub_2^{(k)} =
+\vb_2^{(k)} - \langle \tilde \ub_1^{(k)}, \vb_2^{(k)} \rangle \tilde \ub_1^{(k)} \quad \text{ y } \quad \tilde \ub_2^{(k)} = \frac{\ub_2^{(k)}}{\|\ub_2^{(k)}\|},
+$$
+obtenemos $\langle \tilde \ub_2^{(k)} \rangle \rightarrow \langle \wb_2 \rangle$.
+
+\begin{remark} $\{\tilde \ub_1^{(k)}, \tilde \ub_2^{(k)} \}$ es el resultado de aplicar Gram-Schmidt a $\{\vb_1^{(k)}, \vb_2^{(k)} \}$.
+\end{remark}
+
+Analizamos ahora el caso de matrices simétricas.
+
+Si extendemos el razonamiento a un conjunto inicial $\{\vb_1^{(0)}, \dots, \vb_n^{(0)} \}$ de vectores linealmente independientes podemos generar sucesiones de vectores tales que $\langle \tilde \ub_i^{(k)} \rangle \rightarrow \langle \wb_i \rangle$.
+
+Trabajando con matrices, podemos aplicar el método simultáneamente a un conjunto de vectores. Obtenemos el siguiente método para matrices simétricas.
+
+{\small
+\begin{algorithm}[H]
+\SetAlgoLined
+$\Ab$ matriz (simétrica) con autovalores $|\lambda_1| > |\lambda_2| > \dots > |\lambda_n|$\;
+$\Bb^{(0)} = \Ib_n$ (o cualquier matriz de rango máximo)\;
+%\KwResult{Write here the result }
+ \For{$k = 1, 2, \dots$}{
+$\tilde \Bb^{(k)} = \Ab \Bb^{(k-1)}$\;
+$\tilde \Bb^{(k)} = \Qb^{(k)} \Rb^{(k)}$, descomposición $QR$ de $\tilde \Bb^{(k)}$\;
+$\Bb^{(k)} = \Qb^{(k)}$, el resultado de aplicar G-S a las columnas de $\tilde \Bb^{(k)}$
+ }
+ \caption{Iteración simultánea}
+\end{algorithm}
+}
+
+Si $\cb_i^{(k)}$ es la $i$-ésima columna de $\Bb^{(k)}$,
+$$
+\langle \cb_i^{(k)} \rangle \rightarrow \langle \wb_i \rangle.
+$$
+
+¿Cómo aproximamos los autovalores? La matriz $\Ab$ en la base $\B^{(k)}$ dada por $\Bb^{(k)}$,
+$$
+[\Ab]_{\B^{(k)}} = {(\Bb^{(k)})}^T \Ab \Bb^{(k)},
+$$
+es una matriz diagonal con los autovalores en la diagonal.
+
+
+\begin{ejercicio} Aplicar el algoritmo a una matriz simétrica $\Ab$ arbitraria y comparar los autovalores y autovectores obtenidos con los que se obtienen por el comando $\texttt{eig}$ de \python.
+\end{ejercicio}
+
+
+¿Qué sucede si aplicamos el método anterior para matrices generales con autovalores  $|\lambda_1| > |\lambda_2| > \dots > |\lambda_n|$?
+
+Si bien no se cumple $\langle \tilde \vb_i^{(k)} \rangle \rightarrow \langle \wb_i \rangle$ para todo $i$, obtenemos en cambio
+$$
+\left\{
+\begin{aligned}
+\langle \tilde \vb_1^{(k)} \rangle &\rightarrow \langle \wb_1 \rangle \\
+\langle \tilde \vb_1^{(k)}, \tilde \vb_2^{(k)} \rangle &\rightarrow \langle \wb_1, \wb_2 \rangle \\
+&\vdots \\
+\langle \tilde \vb_1^{(k)}, \dots, \tilde \vb_n^{(k)} \rangle &\rightarrow \langle \wb_1, \dots, \wb_n \rangle \\
+\end{aligned}
+\right.
+$$
+
+Por lo tanto,
+$$
+[\Ab]_{\B^{(k)}} = {(\Bb^{(k)})}^T \Ab \Bb^{(k)},
+$$
+tiende a una matriz triangular superior con los autovalores en la diagonal.
+
+Finalmente, acomodando las operaciones  convenientemente, obtenemos el siguiente método.
 
 \begin{algorithm}[H]
 \SetAlgoLined
-%\KwResult{Write here the result }
- $\Ab^{(0)} = \Ab$\;
- \For{$k = 1, 2, \dots$}{
-  $\Qb^{(k)} \Rb^{(k)} = \Ab^{(k-1)}$, la descomposición $QR$ de $\Ab^{(k-1)}$\;
-  $\Ab^{(k)} = \Rb^{(k)} \Qb^{(k)}$, recombinamos los factores en el orden inverso\;
- }
- \caption{Algoritmo QR}
+$\Ab^{(0)} = \Ab \in \Cnn$ con autovalores $|\lambda_1| > |\lambda_2| > \dots > |\lambda_n|$\;
+\For{$k = 0, 1, 2, \dots$}{
+Calcular la descomposición $QR$ de $\Ab^{(k)}$, $\Ab^{(k)} = \Qb^{(k)} \Rb^{(k)}$ \;
+$\Ab^{(k+1)} = \Rb^{(k)} \Qb^{(k)}$
+}
+ \caption{Método QR}
 \end{algorithm}
 
-Este algoritmo sorprendentemente cumple las siguientes dos propiedades:
-\begin{itemize}
-\item la matriz $\Ab^{(k)}$ es semejante a la matriz original,
-\item la sucesión $\{\Ab^{(k)}\}$ tiende a la forma de Schur de $\Ab$.
-\end{itemize}
+\begin{prop}
+La matriz $\Ab^{(k)}$ tiende a una matriz triangular superior con los autovalores de $\Ab$ en la diagonal.
+\end{prop} 
 
-Es decir que $\{\Ab^{(k)}\}$ converge a una matriz triangular superior con los mismos autovalores y autovectores que $\Ab$, por lo tanto nos permite calcularlos fácilmente.
+\begin{remark} La matriz que se obtiene en cada paso es semejante a la matriz del paso anterior:
+$$
+(\Qb^{(k)})^T \Ab^{(k)} \Qb^{(k)} = (\Qb^{(k)})^T (\Qb^{(k)} \Rb^{(k)}) \Qb^{(k)} = \Rb^{(k)} \Qb^{(k)} = \Ab^{(k+1)},
+$$
+por lo tanto las matrices $\Ab^{(k)}$ tiene los mismos autovalores para todo $k = 0, 1, 2, \dots$
+\end{remark}
+
+\begin{ejercicio} Aplicar el algoritmo a una matriz $\Ab$ arbitraria y comparar los autovalores obtenidos con los que se obtienen por el comando $\texttt{eig}$ de \python. ¿Cómo podemos calcular los autovectores?
+\end{ejercicio}
+
+\begin{ejercicio}
+¿Qué sucede si hay autovalores del mismo módulo? Analizar el caso $\Ab \in \Rnn$ con autovalores complejos conjugados.
+\end{ejercicio}
+
+
+\section{Teorema de los círculos de Gershgorin}
+
+Esta es otra herramienta en la caja de los buscadores de autovalores.
+
+Dada $\Ab \in \Cnn$, definimos para $1 \le i \le n$, $R_i$ la suma de los módulos de los elementos de la i-ésima fila de $\Ab$ fuera de la diagonal,
+$$
+R_i = \sum_{j \neq i} | a_{ij} |.
+$$
+
+Llamamos $D(a_{ii}, R_{i}) \subset \C$ al disco cerrado centrado en $a_{ii}$ de radio $R_{i}$.
+
+\begin{teo} Todos los autovalores de $\Ab$ están en alguno de los discos de Gershgorin $D(a_{ii}, R_{i})$.
+\end{teo}
+
+
+
+
+%Este algoritmo, con algunas modificaciones para mejorar la perfomance.
+%
+%\begin{algorithm}[H]
+%\SetAlgoLined
+%%\KwResult{Write here the result }
+% $\Ab^{(0)} = \Ab$\;
+% \For{$k = 1, 2, \dots$}{
+%  $\Qb^{(k)} \Rb^{(k)} = \Ab^{(k-1)}$, la descomposición $QR$ de $\Ab^{(k-1)}$\;
+%  $\Ab^{(k)} = \Rb^{(k)} \Qb^{(k)}$, recombinamos los factores en el orden inverso\;
+% }
+% \caption{Algoritmo QR}
+%\end{algorithm}
+%
+%Este algoritmo sorprendentemente cumple las siguientes dos propiedades:
+%\begin{itemize}
+%\item la matriz $\Ab^{(k)}$ es semejante a la matriz original,
+%\item la sucesión $\{\Ab^{(k)}\}$ tiende a la forma de Schur de $\Ab$.
+%\end{itemize}
+%
+%Es decir que $\{\Ab^{(k)}\}$ converge a una matriz triangular superior con los mismos autovalores y autovectores que $\Ab$, por lo tanto nos permite calcularlos fácilmente.
 
 
 
@@ -1237,6 +1546,8 @@ print("v(", k, ") = ", v)
 
 Observamos que $\lim_{k \rightarrow \infty} v^{(k)} = (1875, 937.5, 187.5)$.
 
+\end{ejemplo}
+
 A partir de este ejemplo, nos planteamos las siguientes preguntas:
 \begin{itemize}
 \item ¿Cómo podemos analizar el comportamiento de $v^{(k)}$?
@@ -1256,6 +1567,8 @@ Decimos que una matriz $\Ab \in \Rnn$ es \emph{de Markov} (o estocástica) si
 \end{defi}
 
 En particular, estas dos condiciones implican que todas las coordenadas de la matriz deben ser números entre 0 y 1. Observamos que la matriz del ejemplo cumple estas condiciones.
+
+\subsection{Espectro de las matrices de Markov}
 
 Observamos que si $\vb^{\infty}$ es el límite de un proceso de Markov, debe cumplir $\Ab \vb^{\infty} = \vb^{\infty}$, es decir $\vb^{\infty}$ es un autovector de $\Ab$ de autovalor 1.
 
@@ -1315,101 +1628,177 @@ $$
 Como $\lambda \ne 1$, debe ser $v_1 + \dots + v_n = 0$.
 \end{proof}
 
+\subsection{Probabilidades y proporciones}
 
-\section{Estados}
+Si consideramos un sistema con $n$ estados distintos, podemos considerar a la casillas $(i, j)$ de una matriz de Markov como la probabilidad de pasar del estado $j$ al estado $i$.
+
+\begin{ejemplo} Para modelar el estado del tiempo en una ciudad, consideramos tres estados: soleado, nublado y lluvioso, y la matriz de Markov que indica la probabilidad de pasar de un estado a otro de un día a otro:
+$$
+\begin{pmatrix}
+0.6 & 0.2 & 0.1 \\
+0.3 & 0.6 & 0.4 \\
+0.1 & 0.2 & 0.5
+\end{pmatrix}.
+$$
+
+Si consideramos que inicialmente tenemos la misma probabilidad de que el día sea soleado, nublado o lluvioso, es decir, comenzamos con un vector inicial de probabilidades:
+$$
+\vb^{(0)} = (1/3, 1/3, 1/3)
+$$
+calculando $\vb^{(k)}$ podremos estimar la probabilidad de que llueva en un día específico, o calculando $\vb^{(\infty)}$ podemos estimar la probabilidad de que llueva a largo plazo.
+\end{ejemplo}
+
+\subsection{Conjunto de estados}
 
 Definimos el conjunto $\mathcal{P}_n$ de estados
 $$
-\mathcal{P}_n = \{\}
+\mathcal{P}_n = \{\pib \in \R^n_+ : \pi_1 + \dots + \pi_n = 1\}
+$$
+que podemos pensar como vectores de probabilidades.
+
+\begin{prop}
+Si $\pib \in \mathcal{P}_n$ y $\Mb \in \Rnn$ es una matriz de Markov, $\Mb \pib \in \mathcal{P}_n$.
+\end{prop}
+
+\begin{prop}
+Si $\Mb \in \Rnn$, existe $\pib \in \mathcal{P}_n$ tal que $\Mb \pib = \pib$.
+\end{prop}
+
+\begin{proof} Ver que si $\pib = (\pi_1, \dots, \pi_n)$ satisface $\Mb \pib = \pib$, entonces también
+$|\pib| = (|\pi_1|, \dots, |\pi_n|)$ satisface $\Mb |\pib| = |\pib|$ (ejercicio).
+\end{proof}
+
+\subsection{Estados de equilibrio}
+
+Un estado $\pib \in \mathcal{P}_n$ se dice \emph{estado de equilibrio} de una matriz de Markov $\Mb$ si cumple
+$$
+\Mb \pib = \pib,
+$$
+o equivalentemente, si es un autovector de $\Mb$ de autovalor 1.
+
+\begin{itemize}
+\item Toda matriz de Markov tiene al menos un estado de equilibrio.
+\item Una matriz de Markov puede tener varios estados de equilibrio.
+\item Para el autovalor $\lambda = 1$, la la multiplicidad algebraica coincide con la multiplicad geométrica, y podemos hallar una base de autovectores de $E_1$ formada por vectores de estado (sin demostración).
+\end{itemize}
+
+
+\begin{ejercicio} Hallar dos estados de equilibrio distintos para la matriz
+$$
+\Mb = \begin{pmatrix}
+0.5 & 0.3 & 0   & 0   \\
+0.5 & 0.7 & 0   & 0   \\
+0   & 0   & 0.1 & 0.5 \\
+0   & 0   & 0.9 & 0.5 \\
+\end{pmatrix}.
 $$
 
+¿Cuántos estados de equilibrio tiene $\Mb$?
+\end{ejercicio}
 
+\subsection{Estados límite}
 
-
-
-
-Para contestar \ref{item:v1}, calculamos $v_1 = A v_0$ y $v_2 = A v_1$.
-
-\begin{lstlisting}[language=R]
-A = matrix(c(0.9, 0.075, 0.025, 0.15, 0.8, 0.05, 0.25, 0.25, 0.5), nrow = 3)
-print(A)
-
-v0 = c(1000, 1000, 1000)
-print(v0)
-
-# Mes 1
-A %*% v0
-
-# Mes 2
-A %*% (A %*% v0)
-\end{lstlisting}
-
-Para calcular $v_{10}$ y $v_{100}$, diagonalizamos.
-
-\begin{lstlisting}[language=R]
-e = eigen(A)
-print(e)
-
-D = diag(e$values)
-print(D)
-
-C = e$vectors
-print(C)
-
-C_inv = solve(C)
-print(C_inv)
-
-# Verificamos
-C %*% D %*% C_inv
-\end{lstlisting}
-
-Ahora aplicamos la fórmula $A^{10} = C D^{10} C^{-1}$ y
-
+Nos preguntamos si dado un estado inicial $\pib^{(0)}$, existe
 $$
-v_{10} = A^{10} v_0 = C D^{10} C^{-1} v_0.
+\pib^* = \lim_{k \rightarrow \infty} \pib^{(k)}.
 $$
 
-\begin{lstlisting}[language=R]
-# v_k = A^k * v_0 = (C * D^k * C^-1) v_0
-
-v0 = c(1000, 1000, 1000)
-
-D_10 = diag(e$values^10)
-print(D_10)
-
-v10 = C %*% D_10 %*% C_inv %*% v0
-print(v10)
-
-D_100 = diag(e$values^100)
-print(D_10)
-
-v100 = C %*% D_100 %*% C_inv %*% v0
-print(v100)
-\end{lstlisting}
-
-Para calcular el límite, tomamos valores de $k$ grandes:
-
+En tal caso,
 $$
-\lim_{k \rightarrow \infty} v_k = \lim_{k \rightarrow \infty} \left( C^{-1} \begin{pmatrix} 1^k & 0 & 0 \\ 0 & 0.74^k & 0 \\ 0 & 0 & 0.45^k \end{pmatrix} C \right)v_0
+\pib^* = \lim_{k \rightarrow \infty} \pib^{(k+1)} = \lim_{k \rightarrow \infty} \Mb \pib^{(k)} = \Mb \pib^*,
+$$
+es decir, $\pib^*$ es un estado de equilibrio.
+
+\textbf{Preguntas:}
+
+\begin{itemize}
+\item ¿Dado un estado inicial $\pib^{(0)}$, el sistema evoluciona siempre hacia un estado límite?
+\item Si el estado de equilibrio no es único, ¿cómo determinamos a qué estado converge?
+\end{itemize}
+
+\subsection{Autovalores y autovectores}
+
+Supongamos $\Mb$ diagonalizable, con autovalores $|\lambda_1| \ge |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$, y autovectores correspondientes $\wb_1, \dots, \wb_n$.
+
+Usando las propiedades vistas, si $s$ es la multiplicidad del autovalor 1, podemos suponer $\lambda_1 = \lambda_2 = \dots = \lambda_s = 1$ y $\wb_1, \dots, \wb_s$ vectores de estado.
+
+Dado $\pib^{(0)} \in \mathcal{P}$, escribimos
+$$
+\pib^{(0)} = a_1 \wb_1 + \dots + a_n \wb_n
+$$
+y
+$$
+\pib^{(k)} = a_1 (\lambda_1)^k \wb_1 + \dots + a_n (\lambda_n)^k \wb_n
 $$
 
-\begin{lstlisting}[language=R]
-#v_1000 = (C^-1 * D^k * C^-1) v_0
+\begin{ejercicio} Si $\pib^{(0)} \in \mathcal{P}$, existe $1 \le i \le s$ tal que $a_i \neq 0$. ¿Por qué?
+\end{ejercicio}
 
-k = 1000
-D_k = diag(e$values^k)
-#print(D_k)
+\subsection{Cálculo analítico de estados límite}
 
-vk = C %*% D_k %*% C_inv %*% v0
-print(vk)
+A partir de la expresión
+$$
+\begin{aligned}
+\pib^{(k)} &= a_1 (\lambda_1)^k \wb_1 + \dots + a_n (\lambda_n)^k \wb_n \\
+&= a_1 \wb_1 + \dots + a_s \wb_s + a_{s+1} (\lambda_{s+1})^k \wb_{s+1}+ \dots + a_n (\lambda_n)^k \wb_n
+\end{aligned}
+$$
+utilizando que $\lambda_i^k \rightarrow 0$ si $|\lambda_i| < 0$ deducimos:
 
-k = 10000
-D_k = diag(e$values^k)
-#print(D_k)
-
-vk = C %*% D_k %*% C_inv %*% v0
-print(vk)
-
-\end{lstlisting}[language=R]
-
+\begin{ejemplo}
+\begin{itemize}
+\item Si $1$ es el único autovalor de módulo 1,
+$$
+\lim_{k \rightarrow \infty} \pib^{(k)} = a_1 \wb_1 + \dots + a_s \wb_s.
+$$
+\item Si además $s = 1$, $\pib^{(k)} \rightarrow \wb_1$.
+\item Si existe $\lambda_i \neq 1$, $|\lambda_i| = 1$, el proceso de Markov puede no tener límite (depende del vector inicial de estados).
+\end{itemize}
 \end{ejemplo}
+
+\subsection{Diagonalización de matrices de Markov}
+
+Si $\Mb$ diagonalizable, con autovalores $1 = |\lambda_1| \ge |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$, y autovectores correspondientes $\wb_1, \dots, \wb_n$, tenemos
+$$
+\Mb = \Cb_{\B\E} \Db \Cb_{\E\B} = \Cb_{\B\E} \begin{pmatrix} \lambda_1 & & \\ & \ddots & \\ & & \lambda_n \end{pmatrix} \Cb_{\E\B} \quad \text{y}
+$$
+$$
+\Mb^k = \Cb_{\B\E} \Db^{k} \Cb_{\E\B} = \Cb_{\B\E} \begin{pmatrix} \lambda_1^k & & \\ & \ddots & \\ & & \lambda_n^k \end{pmatrix} \Cb_{\E\B},
+$$
+con $\Cb_{\B\E} = \begin{pmatrix} \vert & & \vert \\ \wb_1 & \dots & \wb_n \\ \vert & & \vert \end{pmatrix}$.
+
+\subsection{Matriz $\Mb^{\infty}$}
+
+Notamos $\Mb^{\infty} = \lim_{k \rightarrow \infty} \Mb^k$, cuando ese límite existe.
+
+\begin{prop} Se cumplen las siguientes propiedades.
+\begin{itemize}
+\item Si existe $\Mb^{\infty}$, $\pib^{\infty} = \Mb^{\infty} \pib^{(0)}$ para cualquier vector inicial de estados.
+\item Existe $\Mb^{\infty}$ si y solo si $\lambda = 1$ es el único autovalor de módulo 1.
+\item En este caso,
+$\Mb^\infty = \Cb_{\B\E} \Db^\infty \Cb_{\E\B}$, y tomando $1^\infty = 1$ y $\lambda^\infty = 0$ para $|\lambda| < 1$ obtenemos $\Db^\infty = \begin{pmatrix} \lambda_1^\infty & & \\ & \ddots & \\ & & \lambda_n^\infty \end{pmatrix} =
+{\scriptsize \begin{pmatrix} \begin{matrix} 1 & & \\ & \ddots & \\ & & 1\end{matrix} &  \\  & 0\end{pmatrix}}$
+\item Si el autovalor $\lambda = 1$ tiene multiplicidad 1, con autovector de estado $\wb$, entonces
+$
+\Mb^{\infty} = \begin{pmatrix} \vert & & \vert \\ \wb & \dots & \wb \\ \vert & & \vert \end{pmatrix}.
+$
+\end{itemize}
+\end{prop}
+
+\begin{ejercicio}
+Para estudiar la relevancia de 4 páginas, se utiliza el modelo de Google Page Rank.
+
+\begin{center}
+\includegraphics[scale=1]{pageRank_4paginas.png}
+\end{center}
+
+Las flechas indican los enlaces que hay en cada página.
+Se supone que inicialmente hay 1/4 del total de personas en cada una de las 4 páginas.
+
+Hallar la matriz de Markov y determinar, si existe, $\pib^{(\infty)}$ en cada caso.
+\begin{enumerate}
+\item Considerando que cada minuto, los navegantes clickean alguno de los links al azar disponibles en la página que se encuentran.
+\item Considerando que cada minuto, la mitad de los  navegantes que están en una página se quedan en esa página y la otra mitad clickean alguno de los links al azar disponibles en la página que se encuentran.
+\end{enumerate}
+
+\end{ejercicio}
