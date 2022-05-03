@@ -425,13 +425,13 @@ $$
 Consideramos la matriz de la transformación $f$ definida por $\Ab$ en la base $\B$:
 $$
 \sbox0{$\begin{matrix}\lambda & & \\ & \ddots & \\ & & \lambda\end{matrix}$}
-[f]_\B =\left[
+[f]_\B =\left(
 \begin{array}{c|c}
 \usebox{0}&\makebox[\wd0]{\large $B$}\\
 \hline
   \vphantom{\usebox{0}}\makebox[\wd0]{\large $0$}&\makebox[\wd0]{\large $D$}
 \end{array}
-\right],
+\right),
 $$
 donde el primer bloque es una matriz de $s \times s$.
 
@@ -563,20 +563,88 @@ Vemos en particular que los términos de la sucesión crecen con velocidad expon
 
 
 
+\section{Descomposición de Schur}
+Si bien vimos que no toda matriz es diagonalizable, es decir, semejante a una matriz diagonal, vamos a ver que toda la matriz es semejante a una matriz triangular superior con los autovalores en la diagonal. Más aun, la matriz de cambio de base se puede tomar unitaria. En este caso, decimos que las matrices son unitariamente equivalentes. Concretamente, tenemos el siguiente resultado.
 
-Sucesiones recurrentes.
+\begin{teo}
+Dada una matriz $\Ab \in \Knn$ con autovalores $\lambda_1, \dots, \lambda_n$ (no necesariamente distintos), existen matrices $\Ub$ unitaria y $\Tb$ triangular superior tales que
+$$
+\Ab = \Ub \Tb \Ub^*
+$$
+y $t_{ii} = \lambda_i$. Es decir, $\Ab$ es unitariamente equivalente a una matriz $\Tb$ triangular superior con los autovalores de $\Ab$ en la diagonal en cualquier orden arbitrario. Si $\Ab \in \Rnn$ y los autovalores de $\Ab$ son reales, la matriz $\Ub$ se puede tomar real y ortogonal.
+\end{teo}
 
+Recordemos que para una matriz $\Ub$ unitaria, vale $\Ub^{-1} = \Ub^*$, por lo tanto las matrices $\Ab$ y $\Tb$ son semejantes.
 
+\begin{proof}
+Construimos $\Ub$ y $\Tb$ paso a paso.
 
+Tomamos $\lambda_1$ autovalor de $\Ab$ y $\wb_1$ autovector de $\Ab$ con autovalor $\lambda_1$ y $\|\wb_1\|_2 = 1$.
 
-\section{Autovalores y autovectores de matrices especiales}
+Completando $\{\wb_1\}$ a una base de $\Kn$ y aplicando ortonormalización de Gram-Schmidt, podemos obtener una base ortonormal de $\C^n$,
+$$
+\{\wb^{(1)}, \zb^{(2)}, \dots, \zb^{(n)}\}.
+$$
 
-\textbf{Matrices ortogonales.} Si $\Ab \in \R^{n \times n}$ es ortogonal,
+Construimos la matriz $\Ub_1$ tomando estos vectores como columnas de la matriz. Como la primera columna de $\Ab \Ub_1$ es $\lambda_1 \wb^{(1)}$, obtenemos
+$$
+\Ub_1^* \Ab \Ub_1 = \left[
+\begin{array}{c|c}
+\lambda_1 & * \\ \hline
+0 & \Ab_1
+\end{array}
+\right],
+$$
+
+Como $\Ub_1^* \Ab \Ub$ y $\Ab$ son semejantes, tienen el mismo polinomio característico. Luego $\Ab_1 \in \C^{(n-1) \times (n-1)}$ tiene autovalores $\lambda_2, \dots, \lambda_n$. Tomamos ahora $\wb^{(2)} \in \C^{n-1}$ autovector normalizado de $\Ab_1$ correspondiente al autovalor $\lambda_2$ y repetimos el procedimiento. Construimos $\Ub_2 \in \C^{(n-1) \times (n-1)}$ unitaria tal que
+$$
+\Ub_2^* \Ab_1 \Ub_2 = \left[
+\begin{array}{c|c}
+\lambda_2 & * \\ \hline
+0 & \Ab_2
+\end{array}
+\right],
+$$
+y definimos
+$$
+\Vb_2 = \left(
+\begin{array}{c|c}
+1 & 0 \\ \hline
+0 & \Ub_2
+\end{array}
+\right).
+$$
+
+Las matrices $\Vb_2$ y $\Ub_1 \Vb_2$ son unitarias, y $\Vb_2^* \Ub_1^* \Ab \Ub_1 \Vb_2$ tiene la forma
+$$
+\sbox0{$\begin{matrix}\lambda_1 & * \\ 0 & \lambda_2 \end{matrix}$}
+\Vb_2^* \Ub_1^* \Ab \Ub_1 \Vb_2 =\left(
+\begin{array}{c|c}
+\usebox{0}& \makebox[\wd0]{\large $*$}\\
+\hline
+    \vphantom{\usebox{0}}\makebox[\wd0]{\large $0$}&\makebox[\wd0]{\large $\Ab_2$}
+\end{array}
+\right).
+$$
+
+Repitiendo este procedimiento, obtenemos matrices unitarias $\Ub_i \in \C^{(n-i+1) \times (n-i+1)}$, $i = 1, \dots, n-1$, y matrices unitarias $\Vb_i \in \Cnn$, $i = 2, \dots, n-1$. La matriz
+$$
+\Ub = \Ub_1 \Vb_2 \Vb_3 \dots \Vb_{n-1}
+$$
+es unitaria y $\Ub^* \Ab \Ub$ es la factorización que buscamos.
+
+Si todos los autovalores de $\Ab$ son reales, los autovectores pueden elegirse también reales y todas las operaciones se pueden hacer sobre los reales, lo que prueba la última información.
+\end{proof}
+
+\section{Autovalores y autovectores de matrices simétricas y hermitianas}
+
+\textbf{Matrices ortogonales.} Si $\Ab \in \K^{n \times n}$ es unitaria,
     todos sus autovalores cumplen $|\lambda| = 1$.
 
 \textbf{Matrices normales.}
-Decimos que una matriz $\Ab$ es normal si conmuta con la matriz adjunta, es decir, si $\Ab \Ab* = \Ab* \Ab$.
-Decimos que dos matrices $\Ab$ y $\Bb$ son unitariamente equivalentes si existe $\Ub$ unitaria tal que
+Decimos que una matriz $\Ab$ es normal si conmuta con la matriz adjunta, es decir, si $\Ab \Ab^* = \Ab^* \Ab$.
+
+Recordemos que dos matrices $\Ab$ y $\Bb$ son unitariamente equivalentes si existe $\Ub$ unitaria tal que
 $$
 \Ub^* \Ab \Ub = \Bb.
 $$
@@ -587,7 +655,7 @@ Si $\Ab$ es normal y $\Bb$ es unitariamente equivalente a $\Ab$, entonces $\Bb$ 
 \begin{proof}
 Tenemos que existe $\Ub$ unitaria tal que $\Ub^* \Ab \Ub = \Bb$. Por lo tanto,
 $$
-\Bb \Bb* = \Ub^* \Ab \Ub \Ub^* \Ab^* \Ub = \Ub^* \Ab \Ab^* \Ub = \Ub^* \Ab* \Ab \Ub = \Ub^* \Ab* \Ub \Ub^* \Ab \Ub = \Bb^* \Bb.
+\Bb \Bb^* = \Ub^* \Ab \Ub \Ub^* \Ab^* \Ub = \Ub^* \Ab \Ab^* \Ub = \Ub^* \Ab^* \Ab \Ub = \Ub^* \Ab^* \Ub \Ub^* \Ab \Ub = \Bb^* \Bb.
 $$
 \end{proof}
 
@@ -841,7 +909,7 @@ $$
 \vb^{(0)} = a_1 \wb_1 + a_2 \wb_2 + a_3 \wb_3.
 $$
 
-Usando esta representación, ¿quién es $\Ab \vb$? Obtenemos
+Usando esta representación, ¿quién es $\Ab \vb^{(0)}$? Obtenemos
 $$
 \begin{aligned}
 \vb^{(1)} = \Ab \vb^{(0)} &= a_1 \Ab \wb_1 + a_2 \Ab \wb_2 + a_3 \Ab \wb_3 \\
@@ -867,14 +935,14 @@ Tomando límite, concluimos entonces
 $$
 \vb^{(k)} \xrightarrow[k \rightarrow \infty]{} a_1 \wb_1,
 $$
-es decir $\vb^{(k)}$ tiende a un vector de de autovalor 1, que es el autovalor de mayor módulo de la matriz.
+es decir $\vb^{(k)}$ tiende a un vector de autovalor 1, que es el autovalor de mayor módulo de la matriz.
 
 En general, las matrices pueden tener autovalores de cualquier módulo y la sucesión anterior podría tender a $\cero$ o diverger o no tener límite. Para el caso general, realizamos la siguiente modificación.
 
 Tomamos un vector cualquiera no nulo $\vb^{(0)}$ y en cada iteración de la recursión anterior normalizamos el resultado a norma-2 $= 1$:
 $$
 \begin{aligned}
-\vb^{(k)} &= \frac{\Ab \vb^{(k-1)}}{\|\Ab\vb^{(k-1)}\|_2}, \text{ para } n \ge 1.
+\vb^{(k)} &= \frac{\Ab \vb^{(k-1)}}{\|\Ab\vb^{(k-1)}\|_2}, \text{ para } k \ge 1.
 \end{aligned}
 $$
 
@@ -947,7 +1015,7 @@ $$
  \frac{\frac{\Ab^2 \vb^{(0)}}{\|\Ab\vb^{(0)}\|_2}}{\frac{\|\Ab^2 \vb^{(0)}\|_2}{\|\Ab\vb^{(0)}\|_2}} =
  \frac{\Ab^2 \vb^{(0)}}{\|\Ab^2 \vb^{(0)}\|_2} \\
  &\dots \\
-\vb^{(k)} &=  \frac{\Ab \vb^{(k-1)}}{\|\Ab\vb^{(k-1)}\|_2} = \frac{\Ab^n \vb^{(0)}}{\|\Ab^n\vb^{(0)}\|_2}.
+\vb^{(k)} &=  \frac{\Ab \vb^{(k-1)}}{\|\Ab\vb^{(k-1)}\|_2} = \frac{\Ab^k \vb^{(0)}}{\|\Ab^k\vb^{(0)}\|_2}.
 \end{aligned}$$
 
 Obtenemos en este caso,
@@ -990,7 +1058,7 @@ $\Ab \in \C^{n \times n}$, $\vb^{(0)} \in \C^n$\;
 
 
 \begin{teo}
-Sea $\Ab \in \Cnn$ una matriz diagonalizable con base de autovectores $\B = \{\wb_1, \dots, \wb_n\}$ y autovalores correspondientes $\{\lambda_1, \dots, \lambda_n\}$ con $|\lambda_1| > |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$ (existe un único autovalor de módulo máximo). Dado un vector $\vb^{(0)} \in \C^n$ tal que en su escritura en la base $\B$ el coeficiente de $\wb_1$ es no nulo, el algoritmo \ref{} satisface $|\lambda^{(k)} - \lambda_1| \rightarrow 0$ cuando $k \rightarrow \infty$.
+Sea $\Ab \in \Cnn$ una matriz diagonalizable con base de autovectores $\B = \{\wb_1, \dots, \wb_n\}$ y autovalores correspondientes $\{\lambda_1, \dots, \lambda_n\}$ con $|\lambda_1| > |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$ (existe un único autovalor de módulo máximo). Dado un vector $\vb^{(0)} \in \C^n$ tal que en su escritura en la base $\B$ el coeficiente de $\wb_1$ es no nulo, el algoritmo \ref{} satisface $|r_k - \lambda_1| \rightarrow 0$ cuando $k \rightarrow \infty$.
 \end{teo}
 
 \begin{proof}
@@ -1001,16 +1069,16 @@ $$
 con $a_1 \neq 0$.
 Siguiendo los pasos del ejemplo, obtenemos
 $$
-\vb^{(k)} = \left(\frac{\lambda_1}{|\lambda_1|}\right)^n \frac{a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n}{\left\|a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k  \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_3\right\|_2}
+\vb^{(k)} = \left(\frac{\lambda_1}{|\lambda_1|}\right)^k \frac{a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n}{\left\|a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k  \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n\right\|_2}.
 $$
 
 Despejando,
 $$
-\left(\frac{|\lambda_1|}{\lambda_1}\right)^k \vb^{(k)} = \frac{a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n}{\left\|a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2 + \dots + a_n \left(\frac{\lambda_3}{\lambda_1}\right)^k \wb_n\right\|_2}
+\left(\frac{|\lambda_1|}{\lambda_1}\right)^k \vb^{(k)} = \frac{a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n}{\left\|a_1 \wb_1 + a_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \wb_2 + \dots + a_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \wb_n\right\|_2}
 $$
 y por lo tanto, llamando $\tilde \vb^{(k)} = \left(\frac{|\lambda_1|}{\lambda_1}\right)^k \vb^{(k)}$,
 $$
-\tilde \vb^{(k)} \xrightarrow[n \rightarrow \infty]{} \frac{a_1 \wb_1}{\left\|a_1 \wb_1\right\|_2}.
+\tilde \vb^{(k)} \xrightarrow[k \rightarrow \infty]{} \frac{a_1 \wb_1}{\left\|a_1 \wb_1\right\|_2}.
 $$
 
 Como $\tilde \vb^{(k)}$ es igual a $\vb^{(k)}$ multiplicado por un escalar, podemos fácilmente ver que
