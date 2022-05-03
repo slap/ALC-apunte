@@ -1,0 +1,54 @@
+
+
+
+
+\chapter{Métodos Iterativos}
+\section{Metodos Iterativos Estacionarios}
+
+\section{M\'etodos Iterativos no Estacionarios}
+Los métodos no estacionarios difieren en lo estacionarios en que típicamente involucran información que cambia en cada interación
+\section{Método del Gradiente, o del descenso mas rápido}
+
+\section{Gradiente Conjugado}
+Se trata de un método muy efectivo y ampliamente utilizado para matrices \emph{simétricas definida positivas}. El método funciona generando una sucesión de iterados -que aproximan a la solución- y de residuos correspondientes a los iterados junto con las direcciones de búsqueda para actualizar los nuevos iterados y junto con sus residuos actualizados.
+
+En cada iteración solo unos pocos vectores necesitan guardarse en memoria. Solo dos productos internos son necesarios para calcular los escalares que hacen que la sucesión resultante satisfaga ciertas propiedades de ortogonalidad. y los escalares
+
+\tcc
+Para matrices simétricas, definidas positivas, el Método del Gradiente Conjuado garantiza que en cada iteración se minimiza la distancia a la solución exacta en cierta norma.
+\etcc
+
+En cada paso los iterados $\xb_i$ se actualizan a través de un múltiplo $\alpha_i$ de una cierta dirección de  búsqueda $\pb_i$
+$$
+\xb_i=\xb_{i-1}+\alpha_i\pb_i,
+$$
+los residuos $\rb_i=\bb-\Ab\xb_i$ pueden actualizarse a través de la ecuación previa
+$$
+\rb_i=\rb_{i-1}-\alpha_i\qb_i,
+$$
+con $\qb_i=\Ab\pb_i$.
+La elección $\alpha_i=\frac{\rb_{i-1}^T\rb_{i-1}}{\pb_{i-1}^T\Ab\pb_{i-1}}$,
+minimiza la expresión $\rb_{i-1}^T\Ab^{-1}\rb_{i-1}$ entre todos los
+$\alpha\in \R$.
+
+Las direcciones de busqueda se actualizan con los residuos
+$$
+\pb_i=\rb_i+\beta_{i-1}\pb_{i-1},?
+$$
+donde la elección
+$$
+\beta_{i}=\frac{\rb_{i}^T\rb_{i}}{\rb_{i-1}^T\rb_{i-1}},
+$$
+garantiza que $\pb_i$ y $\Ab\pb_i$ (o equivalentemente $\rb_i$ y $\rb_{i-1}$)- son ortogonales.
+
+Mas aún, esta elección de $\beta_i$, tanto $\pb_i$ como $\rb_i$ son ortogonales \emph{a todos los anteriores} $\pb_j$ y $\rb_j$ ($j<i$) respectivamente.
+
+(esto salio de pagina 13 de Templates for te solution of linear systems....)
+
+
+\section{Aplicaciones de SVD}
+\begin{itemize}
+ \item compresión de imágenes
+\item semántica latente
+\item componentes principales
+\end{itemize}
