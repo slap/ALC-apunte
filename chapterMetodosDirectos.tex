@@ -708,7 +708,7 @@ escribirse del siguiente modo,
 en donde se utliliza solo la información de la parte triangular  inferior de $\Ab$ (la parte superior es redundante) y en donde, además, se almacenan los datos de la matriz $\Cb$.
 
 
-\section{Ortogonalidad en Métdos Directos}
+\section{Ortogonalidad en Métodos Directos}
 
 \begin{tcolorbox}
 Como hemos mencionado, el método de eliminación se basa en triangulación por matrices triangulares (los multiplicadores).
@@ -718,7 +718,7 @@ El crecimiento de los  multiplicadores y de la matriz triangular superior result
 
 Dada una matriz $\Ab\in \K^{m\times n}$, con columnas $\{\ab_1,\ab_2,\cdots, \ab_n\}$ linealmente independientes, podemos considerar los subespacios anidados generados por sus columnas:
 $$
-<\ab_1> \subseteq <\ab_1,\ab_2> \subseteq\cdots \subseteq <\ab_1,\ab_2,\cdots, \ab_k>.\footnote{Si las columnas son $l.i.$ las inclusiones son obviamente estrictas, pero no en el caso general.}
+<\ab_1> \subset <\ab_1,\ab_2> \subset\cdots \subset <\ab_1,\ab_2,\cdots, \ab_k>.\footnote{Si las columnas son $l.i.$ las inclusiones son obviamente estrictas, pero no en el caso general.}
 $$
 En varias aplicaciones es de interés encontrar generadores \emph{ortonormales} de esos subespacios. Esto es, una colección
 $\{\qb_1,\qb_2,\cdots ,\qb_k\}$,
@@ -728,6 +728,10 @@ $$
  \langle \qb_1,\qb_2,\cdots, \qb_l\rangle
 $$
 para todo $l$.
+
+
+
+
 Matricialmente, y observando los subespacios anidados, es obvio que esto equivale a hallar una matriz $\Rb\in \Cnn$ triangular
 superior
 $$
@@ -771,7 +775,9 @@ de donde se observa que tanto los $\qb_i$ (elegidos ortonomales) como los $r_{i,
 &\vdots&\\
 \ab_n&=&r_{1,n}\qb_1+r_{2,n}\qb_2+\cdots r_{n,n}\qb_n\\
 \end{eqnarray*}
-por ejemplo, a través de Gram-Schmidt. Como hemos mencionado, sin embargo, ese algoritmo no es estable\footnote{Hay una versión modificada utilizando proyectores que veremos mas adelante.} y suelen utilizarse en cambio métodos alternativos. Sin embargo para propósitos teóricos funciona perfectamente.
-
-Notemos que en caso de que $\Qb$ resulte cuadrada ($\Qb\in \K^{n\times n}$), será una matriz unitaria (ortogonal en caso de ser una matriz real). Antes de continuar conviene observar ciertas propiedas de las matrices unitarias.
-
+por ejemplo, a través de Gramm-Schmidt. Notemos que en caso de que $\Ab$ resulte cuadrada ($\Ab\in \K^{n\times n}$), tendremos que $\Qb$ será una matriz unitaria (ortogonal en caso de ser una matriz real).
+En particular, a través de Gramm-Schmidt hemos conluído que toda matriz $\Ab\in \K^{n\times n}$ invertible (en particular con todas sus columnas l.i.) puede factorizarce como una ortogonal $\Qb$ por una triangular superior $\Rb$
+$$
+\Ab=\Qb\Rb,
+$$
+factorización que se denomina QR.

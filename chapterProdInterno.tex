@@ -902,8 +902,7 @@ las columnas de $\Ab$ se donotan con $\ab_i$).
 \qquad \qquad$r_{j,i}=\qb^*_j\vb_i$
 
 \qquad \qquad $\vb_{j}=\vb_j - r_{j,i}\qb_j$
-
-\end{tcolorbox}
+\etcc
 \end{center}
 esta versión modificada,  más estable que la original como veremos con un ejemplo, puede ponerse en términos de proyectores de rango $n-1$. En efecto, habiendo calculado
 $\{\vb_1,\cdots,\vb_{j-1}\}$ y $\{\qb_1,\cdots,\qb_{j-1}\}$, el vector $\vb_j$
@@ -911,81 +910,7 @@ $$
 \vb_j=\Pb_{\qb_{j-1}^{\perp}}\Pb_{\qb_{j-2}^{\perp}}\cdots \Pb_{\qb_{1}^{\perp}}\ab_j.
 $$
 se obtiene de la aplicación sucesiva de proyectores de este tipo.
-\begin{ej}
-Hallar la proyección del vector $(1,2)$ sobre la recta generada por el vector $(1,0)$ y la proyección de $(1,0)$ sobre la recta generada por $(1,2)$.
-
-\begin{lstlisting}[language=R]
-u = c(1,0)
-v = c(1,2)
-p = sum(u*v)/sum(u*u) * u
-print(p)
-
-q = sum(v*u)/sum(v*v) * v
-print(q)
-\end{lstlisting}
-\end{ej}
-\begin{tcolorbox}
 \begin{rem}
-Gram-Schmidt es ampliamente utilizado en la forma descripta y que funciona generalmente muy bien, sin embargo presenta dificultades numéricas (resulta, como veremos  ser inestable). El costo es TAL
+Gram-Schmidt es ampliamente utilizado en la forma descripta, su costo es $\sim 2n^3$.
 \end{rem}
-
-\end{tcolorbox}
-Dada una matriz $\Ab\in \C^{m\times n}$, con columnas $\{\ab_1,\ab_2,\cdots, \ab_n\}$ linealmente independientes, podemos considerar los subespacios anidados generados por sus columnas:
-$$
-<\ab_1> \subseteq <\ab_1,\ab_2> \subseteq\cdots \subseteq <\ab_1,\ab_2,\cdots, \ab_k>.\footnote{Si las columnas son $l.i.$ las inclusiones son obviamente estrictas, pero no en el caso general.}
-$$
-En varias aplicaciones es de interés encontrar generadores \emph{ortonormales} de esos subespacios. Esto es, una colección
-$\{\qb_1,\qb_2,\cdots ,\qb_k\}$,
-tales que $\qb_i^*\qb_j=\delta_i^j$ y
-$$
- \langle \ab_1,\ab_2,\cdots, \ab_l\rangle =
- \langle \qb_1,\qb_2,\cdots, \qb_l\rangle
-$$
-para todo $l$.
-Matricialmente, y observando los subespacios anidados, es obvio que esto equivale a hallar una matriz $\Rb\in \Cnn$ triangular
-superior
-$$
-\Rb=
-\begin{pmatrix}
- r_{1,1}&r_{1,2}&r_{1,3}&\cdots&r_{1,n}\\
- 0&r_{2,2}&r_{2,3}&\cdots&r_{2,n}\\
- 0&0&r_{3,3}&\cdot&r_{3,n}\\
- \vdots&\vdots&\vdots&\vdots&\vdots\\
- 0&0&0&0&r_{n,n}
-\end{pmatrix}
-$$
-tal que
-$$
-\begin{pmatrix}
-&|&&|&&|&\\
-&|&&|&&|&\\
-\ab_1&|&\ab_2&|&\cdots&|&\ab_n\\
-&|&&|&&|&\\
-&|&&|&&|&\\
-\end{pmatrix}
-=\begin{pmatrix}
-&|&&|&&|&\\
-&|&&|&&|&\\
-\qb_1&|&\qb_2&|&\cdots&|&\qb_n\\
-&|&&|&&|&\\
-&|&&|&&|&\\
-\end{pmatrix}
-\begin{pmatrix}
- r_{1,1}&r_{1,2}&r_{1,3}&\cdots&r_{1,n}\\
- 0&r_{2,2}&r_{2,3}&\cdots&r_{2,n}\\
- 0&0&r_{3,3}&\cdot&r_{3,n}\\
- \vdots&\vdots&\vdots&\vdots&\vdots\\
- 0&0&0&0&r_{n,n}
-\end{pmatrix},
-$$
-de donde se observa que tanto los $\qb_i$ (elegidos ortonomales) como los $r_{i,j}$ pueden obtenerse desde las ecuaciones
-\begin{eqnarray*}
-\ab_1&=&r_{1,1}\qb_1\\
-\ab_2&=&r_{1,2}\qb_1+r_{2,2}\qb_2\\
-&\vdots&\\
-\ab_n&=&r_{1,n}\qb_1+r_{2,n}\qb_2+\cdots r_{n,n}\qb_n\\
-\end{eqnarray*}
-por ejemplo, a través de Gram-Schmidt. Como hemos mencionado, sin embargo, ese algoritmo no es estable\footnote{Hay una versión modificada utilizando proyectores que veremos mas adelante.} y suelen utilizarse en cambio métodos alternativos. Sin embargo para propósitos teóricos funciona perfectamente.
-
-Notemos que en caso de que $\Qb$ resulte cuadrada ($\Qb\in \C^{n\times n}$), será una matriz unitaria (ortogonal en caso de ser una matriz real). Antes de continuar conviene observar ciertas propiedas de las matrices unitarias.
-
+%\end{tcolorbox}
