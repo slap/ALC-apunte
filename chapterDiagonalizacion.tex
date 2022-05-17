@@ -655,6 +655,7 @@ $$
 $$
 
 \begin{prop}
+\label{prop:normal}
 Si $\Ab$ es normal y $\Bb$ es unitariamente equivalente a $\Ab$, entonces $\Bb$ es normal.
 \end{prop}
 \begin{proof}
@@ -1217,7 +1218,7 @@ Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada
 
  Tomamos $\cero\neq\vb$ autovector de autovalor $\lambda$, con  $\|\vb\|=1$. Como $\Ab\vb=\lambda\vb$,
  $$ \|\Ab\vb\| = |\lambda|\|\vb\|=|\lambda|.$$
- 
+
   Por lo tanto, para todo $\lambda$ autovalor
  $$
  \|\Ab\|=\sup_{\|\xb\|=1}\|\Ab\xb\|\ge \|\Ab\vb\|\ge |\lambda|.
@@ -1378,7 +1379,7 @@ $\Ab^{(k+1)} = \Rb^{(k)} \Qb^{(k)}$
 
 \begin{prop}
 La matriz $\Ab^{(k)}$ tiende a una matriz triangular superior con los autovalores de $\Ab$ en la diagonal.
-\end{prop} 
+\end{prop}
 
 \begin{remark} La matriz que se obtiene en cada paso es semejante a la matriz del paso anterior:
 $$
@@ -1776,12 +1777,13 @@ Notamos $\Mb^{\infty} = \lim_{k \rightarrow \infty} \Mb^k$, cuando ese límite e
 \item Si existe $\Mb^{\infty}$, $\pib^{\infty} = \Mb^{\infty} \pib^{(0)}$ para cualquier vector inicial de estados.
 \item Existe $\Mb^{\infty}$ si y solo si $\lambda = 1$ es el único autovalor de módulo 1.
 \item En este caso,
-$\Mb^\infty = \Cb_{\B\E} \Db^\infty \Cb_{\E\B}$, y tomando $1^\infty = 1$ y $\lambda^\infty = 0$ para $|\lambda| < 1$ obtenemos $\Db^\infty = \begin{pmatrix} \lambda_1^\infty & & \\ & \ddots & \\ & & \lambda_n^\infty \end{pmatrix} =
-{\scriptsize \begin{pmatrix} \begin{matrix} 1 & & \\ & \ddots & \\ & & 1\end{matrix} &  \\  & 0\end{pmatrix}}$
+$\Mb^\infty = \Cb_{\B\E} \Db^\infty \Cb_{\E\B}$, y tomando $1^\infty = 1$ y $\lambda^\infty = 0$ para $|\lambda| < 1$ obtenemos 
+$$\Db^\infty = \begin{pmatrix} \lambda_1^\infty & & \\ & \ddots & \\ & & \lambda_n^\infty \end{pmatrix} =
+{\begin{pmatrix} \begin{matrix} 1 & & \\ & \ddots & \\ & & 1\end{matrix} &  \\  & 0\end{pmatrix}}$$
 \item Si el autovalor $\lambda = 1$ tiene multiplicidad 1, con autovector de estado $\wb$, entonces
-$
+$$
 \Mb^{\infty} = \begin{pmatrix} \vert & & \vert \\ \wb & \dots & \wb \\ \vert & & \vert \end{pmatrix}.
-$
+$$
 \end{itemize}
 \end{prop}
 
@@ -1789,7 +1791,7 @@ $
 Para estudiar la relevancia de 4 páginas, se utiliza el modelo de Google Page Rank.
 
 \begin{center}
-\includegraphics[scale=1]{pageRank_4paginas.png}
+\includegraphics[scale=1.5]{pageRank_4paginas.png}
 \end{center}
 
 Las flechas indican los enlaces que hay en cada página.
