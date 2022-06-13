@@ -805,7 +805,9 @@ diagonal tales que $\Ab = \Qb^T \Db \Qb$.
 
 \end{ejercicio}
 
-\subsection{Matrices definidas positivas}
+\subsection{Matrices definidas positivas} 
+
+QUITAR
 
 Cuando $\Ab$ es simétrica, con autovalores $\lambda_1, \dots, \lambda_n$ ,
 definimos:
@@ -1136,73 +1138,85 @@ Ejercicio.
 
 Esa simple observación motiva la siguiente definición.
 
+\tccdefi
 \begin{defi}
- Dada $\Ab\in \Knn$ definimos el \emph{radio espectral} de $\Ab$ como
+ Dada $\Ab\in \Knn$ definimos el radio espectral de $\Ab$ como
  $$
- \rho(\Ab)=\max\{|\lambda|, \, \mbox{con}\, \lambda \,\mbox{autovalor de}\, \Ab\}
+ \rho(\Ab)=\max\{|\lambda|, \, \mbox{con}\, \lambda \,\mbox{autovalor de}\, \Ab\}  
  $$
 \end{defi}
 
-\begin{prop} Si  $\Ab\in \Rnn$ y $\Ab^T=\Ab$, entonces
+\etcc
+Supongamos que $\Ab\in \Rnn$ es simétrica, sea $\mathcal{B}=\{\vb_1,\cdots,\vb_n\}$ una base ortonormal de autovectores y  $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores. 
+Sea $\xb\in\R^n$ tal que $\|\xb\|_2=1$, escribiendo $\xb$ en la base $\mathcal{B}$ se tiene
+$$
+\xb=\sum_{i=1}^n\alpha_i\vb_i,
+$$
+y por ser $\mathcal{B}$ un conjunto ortonormal tenemos por la Observación \ref{obs:pitagoras}
+$$
+1=\|\xb\|_2^2=\sum_{i=1}^n\alpha_i^2.
+$$
+Por otro lado, como $\Ab\xb=\sum_{i=1}^n\alpha_i\lambda_i\vb_i,
+$ usando nuevamente la  Observación \ref{obs:pitagoras}
+$$
+\|\Ab\xb\|_2^2=\sum_{i=1}^n\alpha_i^2\lambda_i^2. 
+$$
+Por lo tanto
+$$
+\frac{\|\Ab\xb\|^2}{\|\xb\|^2}=\sum_{i=1}^n\alpha_i^2\lambda_i^2\le \rho(\Ab)^2,\qquad, \, \forall \xb, \|\xb\|\le 1
+$$
+ya que cada $|\lambda_i|\le \rho(\Ab)$. Por otro lado, llamando $j$ a un índice tal que $|\lambda_j|=\rho(\Ab)$ y considerando el vector de norma 1 $\xb=\vb_j$, se tiene 
+$$
+\|\Ab\xb\|^2=|\lambda_j|^2\|\xb\|_2^2=\rho(\Ab)^2.
+$$
+En definitiva
+$$
+\sup_{\|\xb\|=1}\|\Ab\xb\|^2=\rho(\Ab)^2.
+$$
+Resultado que recuadramos debajo.
+\tcc
+Si  $\Ab\in \Rnn$, $\Ab^T=\Ab$ entonces
 $$
 \|\Ab\|_2=\rho(\Ab).
 $$
-\end{prop}
-
-\begin{proof}
-Tomamos $\mathcal{B}=\{\wb_1,\cdots,\wb_n\}$ una base ortonormal de autovectores y $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores.
-
-Sea $\xb\in\R^n$ tal que $\|\xb\|_2=1$,
+\etcc
+Podemos hacer una cuenta similar para el caso general. En efecto, consideremos ahora $\Ab\in \R^{n\times n}$ no necesariamente simétrica.
+Queremos calcular
 $$
-\xb=\sum_{i=1}^n\alpha_i\wb_i \quad \text{ y } \quad \Ab\xb=\sum_{i=1}^n\alpha_i \lambda_i \wb_i
+\sup_{\|\xb\|_2=1}\|\Ab\xb\|_2^2=(\Ab\xb)^T\Ab\xb=\xb^T(\Ab^T\Ab)\xb
 $$
-
+Si llamamos $\Mb=\Ab^T\Ab$, resulta simétrica. Consideremos una base  $\mathcal{B}=\{\vb_1,\cdots,\vb_n\}$  ortonormal de autovectores de $\Mb$ y  $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores. Notemos que $\Mb$ es semidefinida positiva (ver Definición \ref{def:positiva}), pues de la ecuación previa se ve que para todo $\xb\in \Rn$
+$$
+\xb^T\Mb\xb\ge 0,
+$$
+y en particular se sigue que $\lambda_i\ge 0$ pues si $\vb_i\in \ker(\Ab)$ debe ser $\lambda_i=0$ y en caso contrario
+$$
+0<\vb_i^T\Mb\vb_i=\vb_i^T\lambda_i\vb_i =\lambda_i.
+$$
+Con esta información escribimos como antes
+$$
+\xb=\sum_{i=1}^n\alpha_i\vb_i,
+\qquad 1=\|\xb\|_2^2=\sum_{i=1}^n\alpha_i^2, \qquad \Mb\xb=\sum_{i=1}^n\alpha_i\Mb\vb_i=\sum_{i=1}^n\lambda_i\alpha_i\vb_i
+$$
+de donde por la ortonormalidad de los $\vb_i$
+$$ 
+\xb^T\Mb\xb=\sum_{i=1}^n\lambda_i\alpha_i^2.
+$$
 Luego,
 $$
-\begin{aligned}
-\|\Ab\xb\|_2^2 &= \sum_{i=1}^n |\alpha_i|^2 |\lambda_i|^2 \\
-& \le \sum_{i=1}^n |\alpha_i^2| |\lambda_{max}|^2 \\
-& \le \rho(\Ab)^2\sum_{i=1}^n |\alpha_i|^2 \\
-& = \rho(\Ab)^2
-\end{aligned}
+\sup_{\|\xb\|_2=1}\|\Ab\xb\|_2^2=\sup_{\sum_{i=1}^n\alpha_i^2=1}\sum_{i=1}^n\lambda_i\alpha_i^2=\lambda_{max}=\rho(\Mb).
 $$
-
-Por lo tanto, $\|\Ab\xb\|_2  \le \rho(\Ab)$.
-
-Para la otra desigualdad, tomamos $\vb$ autovector de autovalor $\lambda_{max}$.
-
-\end{proof}
-
-Para el caso general, $\Ab\in \R^{n\times n}$ no necesariamente simétrica, obtenemos una fórmula levemente más compleja.
-
-\begin{prop}
-Si  $\Ab\in \Rnn$, entonces
-$$
-\|\Ab\|_2=\sqrt{\rho(\Ab^T\Ab)}.$$
-\end{prop}
-
-\begin{proof}
-Queremos calcular $\sup_{\|\xb\|_2=1}\|\Ab\xb\|_2$.
-
-\begin{enumerate}
-\item $\|\Ab\xb\|_2^2=(\Ab\xb)^T\Ab\xb=\xb^T(\Ab^T\Ab)\xb$
-\item La matriz $\Mb=\Ab^T\Ab$ es simétrica.
-\item $\Mb$ es positiva semidefinida, porque $\xb^T \Ab^T \Ab \xb = \|\Ab \xb\|_2 \ge 0$.
-\item Como $\Mb$ es positiva semidefinida, los autovalores de $\Mb$ son no-negativos.
-\item Si $\|\xb\|_2 = 1$ y $\xb=\sum_{i=1}^n\alpha_i\wb_i$, $\sum_{i=1}^n\alpha_i^2 = 1$.
-\item $\Mb\xb=\sum_{i=1}^n\alpha_i\Mb\wb_i=\sum_{i=1}^n\lambda_i\alpha_i\wb_i$
-\item $\xb^T\Mb\xb=\sum_{i=1}^n\lambda_i\alpha_i^2$
-\item $\sup_{\|\xb\|_2=1}\|\Ab\xb\|_2^2=\sup_{\sum_{i=1}^n\alpha_i^2=1}\sum_{i=1}^n\lambda_i\alpha_i^2=\lambda_{max}=\rho(\Mb)$.
-\end{enumerate}
-
-Obtenemos
+En definitiva tenemos
+\tcc
+Sea $\Ab\in \Rnn$, entonces\footnote{También vale la demostración escrita mas arriba para el caso de matrices rectangulares.}
 $$
 \|\Ab\|_2=\sqrt{\rho(\Ab^T\Ab)}.
 $$
-\end{proof}
-
-El radio espectral nos da una cota general para las normas subordinadas.
-
+\etcc
+\begin{ej}
+ Verifique que de la última expresión se obtiene como caso particular la de las matrices simétricas.
+\end{ej}
+Otra propiedad importante es la siguiente
 \begin{prop}
  \label{prop:infmat=rho}
 Sea $\Ab\in\Knn$, entonces
@@ -1210,38 +1224,103 @@ $$
 \rho(\Ab)=\inf
 \{\|\Ab\|:\, \|\cdot \|\,  \mbox{es una norma subordinada}\}.$$
 \end{prop}
-
 \begin{proof}
-Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada y  $\K=\C$. Para demostrar que es el ínfimo, es decir, que para todo $\epsilon$ existe una norma $\| \|_{\epsilon}$ tal que $\|\Ab\|_{\epsilon} < \rho(\Ab) + \epsilon$ se requieren conocimientos que exceden los temas de este apunte.
+Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada. La otra desigualdad es mas complicada y no la probaremos aquí.
 
- Sea $\lambda$ autovalor de $\Ab$ y sea $\|\cdot\|$ una norma matricial en $\Cnn$ subordinada a la norma vectorial  $\|\cdot\|$.
-
- Tomamos $\cero\neq\vb$ autovector de autovalor $\lambda$, con  $\|\vb\|=1$. Como $\Ab\vb=\lambda\vb$,
- $$ \|\Ab\vb\| = |\lambda|\|\vb\|=|\lambda|.$$
-
-  Por lo tanto, para todo $\lambda$ autovalor
+ Si $\K=\C$ la demostración es mas sencilla.
+ Sea $\lambda$ autovalor de $\Ab$ y sea $\|\cdot\|$ una norma matricial en $\Cnn$ subordinada a la norma vectorial\footnote{Usamos la misma notación para ambas normas ya que el contexto indica cuando estamos usando una o la otra.} $\|\cdot\|$. Luego existe $\cero\neq\vb$ autovector de autovalor $\lambda$. Podemos suponer que $\|\vb\|=1$ y entonces
+ $$
+ \Ab\vb=\lambda\vb,
+ $$
+ de donde 
+ $\|\Ab\vb\|\le |\lambda|\|\vb\|=|\lambda|.$ Por lo tanto, para todo $\lambda$ autovalor
  $$
  \|\Ab\|=\sup_{\|\xb\|=1}\|\Ab\xb\|\ge \|\Ab\vb\|\ge |\lambda|.
  $$
- de donde
+ de donde 
  $$
  \|\Ab\|\ge \rho(\Ab).
  $$
-
+ Si $\K=\R$ hay un problema si intentamos repetir el argumento previo vemos que funciona perfectamente si $\lambda \in \R$, sin embargo el autovalor y el autovector podrían ser complejos y no tener sentido la expresión $\|\vb\|$ si se trata de una norma en $\Rn$.
+ Supongamos entonces que $\lambda=a+ib\in \C$ y escribamos entonces, \footnote{Debemos este argumento a Ariel Lombardi, colega de la UNR.}
+$$
+\vb=Re(\vb)+iIm(\vb)
+$$
+y
+ $$
+ \Ab\vb=(a+ib)(Re(\vb)+iIm(vb)),
+ $$
+ luego
+ $$
+ \Ab Re(\vb)=aRe(\vb)-bIm(\vb) \qquad 
+ \Ab Im(\vb)=bRe(\vb)+bIm(\vb),
+ $$
+ y entonces 
+ $$
+ \|\Ab Re(\vb)\|_2^2=a^2\|Re(\vb)\|_2^2-2ab\langle Im(\vb),Re(\vb)\rangle+b^2\|Im(\vb)\|_2^2 
+ $$
+ $$
+ \|\Ab Im(\vb)\|_2^2=b^2\|Re(\vb)\|_2^2-2ab\langle Im(\vb),Re(\vb)\rangle+a^2\|Im(\vb)\|_2^2 
+ $$
+ sumando miembro a miembro
+ $$\|\Ab Re(\vb)\|_2^2+\|\Ab Im(\vb)\|_2^2=(a^2+b^2)\left(\|Re(\vb)\|_2^2+\|Im(\vb)\|_2^2\right) 
+ $$
+ de donde
+ $$
+ \left(\|Re(\vb)\|_2^2+\|Im(\vb)\|_2^2\right)\|\Ab\|_2^2\ge (a^2+b^2)\left(\|Re(\vb)\|_2^2+\|Im(\vb)\|_2^2\right) 
+ $$
+ y entonces
+ $$
+ \|\Ab\|_2^2\ge (a^2+b^2)=|\lambda|^2. 
+ $$
+ Es decir -ya que $\lambda$ es arbitrario- 
+ $$\|\Ab\|_2\ge \rho(\Ab).$$
+ Sea ahora $\|\cdot\|$ una norma arbitaria en $\Rn$ y $k\in \N$: por un lado sabemos que\footnote{En realidad vale el igual. Para ver la desigualdad basta notar que si $\lambda$ es autovalor de $ \Ab$ entonces $\lambda^k$ lo es de $\Ab^k$. } 
+ $\rho(\Ab)^k\le \rho(\Ab^k)
+ $ y que además (por Proposición \ref{prop:equivnorm}) existe una constante $C$ -independiente de $k$- tal que $\|\Ab^k\|_2\le C\|\Ab^k\|$. Por lo tanto,
+ $$
+ \rho(\Ab)^k\le \rho(\Ab^k)\le \|\Ab^k\|_2\le C\|\Ab^k\|\le C\|\Ab\|^k,
+ $$
+ donde hemos usado \eqref{eq:normasypotencias} en la última desigualdad. Tomando raíz $k-$ésima
+ $$
+ \rho(\Ab)\le C^{1/k}\|\Ab\|,
+ $$
+ tomando $k\to \infty$ se obtiene $
+ \rho(\Ab)\le \|\Ab\|,
+ $ 
+ como queríamos probar.
 \end{proof}
+
+
 
 Como aplicación, obtenemos un criterio para determinar cuándo las potencias de una matriz tienden a la matriz nula.
 
+\tcc
 \begin{prop}
-Dada $\Ab \in \Knn$, si $\rho(\Ab) < 1$, $\Ab^k \rightarrow \cero$ cuando $k \rightarrow \infty$.
+ Sea $\Mb\in \Knn$, se tiene que
+ $$
+ \lim_{k\to \infty}\|\Mb^k\|=0
+ $$
+para cierta norma $\|\cdot\|$ (y por ende para cualquier otra ya que son todas equivalentes) sí y solo sí
+ $\rho(\Mb)<1$.
 \end{prop}
+
+\etcc
+
 \begin{proof}
-Si $\rho(\Ab) < 1$, existe $\|\cdot\|$ tal que $\|\Ab\| < 1$. Luego $\|\Ab\|^k \rightarrow 0$, y por lo tanto $\Ab^k \rightarrow \cero$ cuando $k \rightarrow \infty$.
+ Si $\rho(\Mb)<1$, entonces existe $\|\cdot\|$ tal que $\|\Mb\|=\mu<1$ y listo.
+
+ Por otro lado,
+ $$
+ \rho(\Mb)^k=
+ \rho(\Mb^k)\le
+ \|\Mb^k\|\ \to 0,
+ $$
+ de donde
+ necesariamente
+ $\rho(\Mb)<1$.
 \end{proof}
-
-La propiedad recíproca (si $\Ab^k \rightarrow 0$ entonces $\rho(\Ab) < 1$) también es cierta, y su demostración queda como ejercicio.
-
-
+ 
 \section{El algoritmo QR}
 
 Vimos anteriormente el método de la potencia para calcular el autovalor de mayor módulo de una matriz. En este sección, veremos otro algoritmo que nos permite aproximar todos los autovalores y autovectores de una matriz de forma muy eficiente.

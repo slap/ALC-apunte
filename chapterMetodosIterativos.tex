@@ -3,102 +3,50 @@ Como ya hemos visto, los métodos directos poseen en general una complejidad de 
 
 Hay, además de la complejidad,  otros problemas con los métodos directos. Por ejemplo, en muchas aplicaciones aparecen problemas con un número muy grande de incógnitas pero con matrices \emph{ralas}, es decir, matrices con un elevado porcentaje de coeficiente nulos. Esto permite en principio reducir notablemente el número de operaciones del algoritmo pero sin embargo como desventaja aparece un ``rellenado'' innecesario en la factorización resultante. Veamos un ejemplo sencillo.
 
-\section{Ejemplo: temperatura en una pieza de motor}
-Ciertas ecuaciones lineales en derivadas parciales pueden resolverse de modo aproximado a través de discretizaciones. En la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor).La distribución de temperatura en esa pieza puede calcularse resolviendo la ecuación del calor.
+\section{Un ejemplo: distribución de temperatura}
+\label{sec:piston}
+Ciertas ecuaciones lineales en derivadas parciales pueden resolverse de modo aproximado a través de discretizaciones. En la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor).La distribución de temperatura en esa pieza puede calcularse resolviendo la ecuación del calor.  
 \begin{figure}[h]
-\centering\includegraphics[width=0.4\linewidth]{piston.png}
+\centering\includegraphics[width=0.3\linewidth]{piston.png}
 \label{fig:disc_piston}
+\caption{Distribución de temperatura en un pistón. Se visualiza un cuarto de la pieza.}
 \end{figure}
-Una vez discretizado, el problema puede escribirse como un sistema lineal. En este ejemplo particular, el sistema resultante  puede escribirse de la forma
+No vamos a describir aquí como hacer esto, pero una vez discretizado, el problema puede escribirse como un sistema lineal de ecuaciones\footnote{La discretización de ecuaciones diferenciales \emph{lineales} conduce a sistemas lineales.}. En este ejemplo particular, el sistema resultante  puede escribirse de la forma
  $$
  \Ab\xb=\bb,
  $$
  donde
  $$\Ab\in \R^{3319\times 3319}$$
-cada incógnita es el valor de la temperatura en un nodo. En este problema la matriz resulta rala. En la Figura
+cada incógnita es el valor de la temperatura en un punto interior del pistón. Este ejemplo que llamaremos $(E)$ nos servirá para ejemplificar algunas particularidades que aparecen en este capítulo. En este problema aparece una propiedad que puede verse en muchas otras aplicaciones: la matriz resulta rala\footnote{ En inglés sparse: un porcentaje significativo de elementos de la matriz es nulo.} además de \emph{simétrica}. En la Figura \ref{fig:matrizA}
 \begin{figure}[h]
-\centering\includegraphics[width=0.6\linewidth]{matrizA.png}
 \label{fig:matrizA}
+\centering\includegraphics[width=0.4\linewidth]{matrizA.png}
+\caption{Estructura de la matriz $A$: se observa que es rala y simétrica.}
 \end{figure}
-vemos (con el comando np.spy) que un numero grande de elementos de la matriz es nulo. De hecho, en este caso solamente $39753$ coeficientes son diferentes de cero, en vez $3319^2=11015761$. Desde  el punto de vista de la memoria utilizada en el almacenamiento de $\Ab$ esto es significativo. Teniendo en cuenta que en doble precisión cada número ocupa 8 bytes tendriamos en cada caso:
+se observan ambos hechos (con el comando np.spy(A)). En este caso, solamente $39753$ coeficientes son diferentes de cero, en vez $3319^2=11015761$ que representan el total de elementos de la matriz. Desde  el punto de vista de la memoria utilizada en el almacenamiento de $\Ab$ esto es significativo. Teniendo en cuenta que en doble precisión cada número ocupa 8 bytes tendriamos en cada caso:
 \begin{itemize}
  \item $39753\frac{8}{1024}\sim 300K$
  \item $11015761 \frac{8}{(1024)^2}\sim 84M$.
 \end{itemize}
 Esta ventaja se puede perder al hacer $LU$.
-En efecto, en este ejemplo, a pesar de que $A$ tiene solo $39753$ elementos no nulos, el número de elementos no nulos de $L$ es $2440542$ ($\sim 18M$). Este fenómeno se conoce como rellenado. La apariencia de $L$ puede verse en la Figura
+En efecto, en este ejemplo, a pesar de que $A$ tiene solo $39753$ elementos no nulos, el número de elementos no nulos de $L$ es $2440542$ ($\sim 18M$). Este fenómeno se conoce como \emph{rellenado}. La apariencia de $L$ y su comparación con la matriz original puede verse en la Figura \ref{fig:LyA}
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.6\linewidth]{matrizL.png}
+\centering\includegraphics[width=0.3\linewidth]{matrizL.png}
+\centering\includegraphics[width=0.3\linewidth]{matricesAyL.png}
+\label{fig:LyA}
+\caption{Estructura de las matrices $A$ y $L$ en el ejemplo $(E)$. Izquierda, matriz $L$ de la factorización $A=LU$ donde se nota el rellenado. Derecha, superposición de $A$ y $L$.}
 \end{figure}
 
 
-
-\begin{figure}[h]
-\centering\includegraphics[width=0.6\linewidth]{matricesAyL.png}
-\end{figure}
-
-
-Si bien hay heurísticas para evitar el rellenado, buscando permutar las variables y las ecuaciones no las vamos a comentar por falta de tiempo. La alternativa que estudiaremos es la de los métodos iterativos. Estos no buscan ninguna factorización y se basan en iterar un procedimiento de orden $\mathcal{O}(N^2)$ (básicamente el producto de una matriz por vector mas una suma de dos vectores) unas pocas veces y conseguir una buena aproximación de la solución buscada.
-
+Si bien hay heurísticas para evitar el rellenado, buscando permutar las variables y las ecuaciones no las vamos a comentar en este texto. Vamos a concentrarnos en los métodos iterativos. Estos no buscan ninguna factorización y se basan en iterar un procedimiento de orden $\mathcal{O}(N^2)$ (básicamente el producto de una matriz por vector)  con el esperanza de conseguir una buena aproximación de la solución buscada en unas pocas \footnote{Pocas al menos relativo al tamaño $N$ de la matriz.} iteraciones. 
 
 Ya hemos visto que $\rho(\Ab)$ no es una norma, sin embargo verifica:
-$$\rho(\Ab)\le \|\Ab\|,$$
-para toda norma matricial $\|\cdot\|$.
-Es decir:
-$$
-\rho(\Ab)\le\inf_{\|\cdot\|} \|\Ab\|.
-$$
-
-En realidad vale algo mas fuerte:
 $$
 \rho(\Ab)=\inf_{\|\cdot\|} \|\Ab\|.
 $$
 Lo que implica que para todo $0<\varepsilon$ existe una norma $\|\cdot\|$ tal que
-$$\|\Ab\|\le \rho(\Ab)+ \varepsilon$$
-
-
-Dada una matriz $\Mb\in \Knn$ nos interesa ver en que casos
-$$
-\lim_{k\to \infty}
-\|\Mb^k\|=0
-$$
-notamos que:
-\begin{itemize}
- \item Si existe $\|\cdot\|$ tal que
- $\|\Mb\|\le \mu <1$ entonces $\lim_{k\to \infty}
-\|\Mb^k\|=0$, pues
-
-$$\|\Mb^k\|\le \|\Mb\|^k\le \mu^k\to 0.$$
-\end{itemize}
-
-
-\tcc
-\begin{prop}
- Sea $\Mb\in \Knn$, se tiene que
- $$
- \lim_{k\to \infty}\|\Mb^k\|=0
- $$
-para cierta norma $\|\cdot\|$ sí y solo sí
- $\rho(\Mb)<1$.
-\end{prop}
-
-\etcc
-
-\begin{proof}
- Si $\rho(\Mb)<1$, entonces existe $\|\cdot\|$ tal que $\|\Mb\|=\mu<1$ y listo.
-
- Por otro lado,
- $$
- \rho(\Mb)^k=
- \rho(\Mb^k)\le
- \|\Mb^k\|\ \to 0,
- $$
- de donde
- necesariamente
- $\rho(\Mb)<1$.
-\end{proof}
-
+$$\|\Ab\|\le \rho(\Ab)+ \varepsilon$$ Usaremos esta propiedad en la demostración del siguiente resultado que da la clave para predecir el orden de convergencia de los métodos iterativos.
 \tcc
 \begin{prop}
  Para toda norma subordinada $\|\cdot\|$ vale que
@@ -123,77 +71,52 @@ para cierta norma $\|\cdot\|$ sí y solo sí
  $$
  tomando límite y notando que $\epsilon$ es arbitrario se demuestra el resultado.
 \end{proof}
-
-\begin{center}
- { \centering {Métodos Iterativos
-}}
-\end{center}
-
-\begin{itemize}
- \item Se \emph{aproxima } la solución y no tiene en principio finitos pasos.
- \item A pesar de lo anterior uno espera tener aproximaciones comparables a las de los métodos directos con un costo  $<<\mathcal{O}(N^3)$.
-\end{itemize}
-
-
-Queremos resolver
+\section{Métodos Iterativos}
+Supongamos que queremos resolver
 $$
 \Ab\xb=\bb,
 $$
-proponemos
+pero la matriz $\Ab$ es difícil de invertir. Entonces proponemos una descomposición
 $$\Ab=\Bb+\Cb,$$
-donde $\Bb$ es \emph{fácil} de invertir y escribimos
+donde $\Bb$ es elegida de modo que sea \emph{fácil} de invertir y escribimos
 $$
-\Bb\xb=-\Cb\xb+\bb
+\Bb\xb=-\Cb\xb+\bb,
 $$
-equivalentemente
+o equivalentemente
 $$
-\xb=-\Bb^{-1}\Cb\xb+\Bb^{-1}\bb
+\xb=-\Bb^{-1}\Cb\xb+\Bb^{-1}\bb.
 $$
-
-
-llamo
-
-$\Mb_I=-\Bb^{-1}\Cb$ y $\Bb^{-1}\bb=\tilde{\bb}$
-
-Resolver el sistema equivale a hallar $\xb$ tal que
+Notemos que llamando $\Mb_I=-\Bb^{-1}\Cb$  (denominada \emph{matriz de iteraciones}) y $\Bb^{-1}\bb=\tilde{\bb}$,  resolver el sistema equivale a hallar $\xb$ tal que
 $$
-\xb=\Mb_I\xb+\tbb
+\xb=\Mb_I\xb+\tilde{\bb}.
 $$
-La idea de muchos métodos iterativos es tomar $\xb_0$ e iterar
+La idea es tomar un vector inicial $\xb_0$ e iterar
 $$
-\xb_{n+1}=\Mb_I\xb_n+\tbb,
+\xb_{n+1}=\Mb_I\xb_n+\tilde{\bb},
 $$
-bajo que condiciones $\xb_k\to \xb$?.
-
-Estudiamos el error $\eb_k=\xb-\xb_k$
+con la esperanza de que $\xb_k\to \xb$. Para ver si nuestra idea puede funcionar estudiamos el error $\eb_k=\xb-\xb_k$ restando miembro a miembro las dos ecuaciones de arriba
 $$
-\eb_{k+1}=\Mb_I\eb_k=\Mb_I\Mb_I\eb_{k-1}=\cdots = \Mb^{k+1}\eb_0
+\eb_{k+1}=\Mb_I\eb_k=\Mb_I\Mb_I\eb_{k-1}=\cdots = \Mb^{k+1}_I\eb_0
 $$
-es decir
-$$\eb_k\to \cero$$
-para todo $\eb_0$ sí y solo sí
-$$\Mb_I^{k}\to \cero $$
-
-pero
-$$\Mb_I^{k}\to \cero $$
-sí y solo sí
-$$
-\rho(\Mb_I)<1.
-$$
+de donde vemos que $\eb_k\to \cero$ para \emph{todo} error inicial $\eb_0$ sí y solo sí
+$\Mb_I^{k}\to \cero $ lo cual ocurre sí y solo sí $\rho(\Mb_I)<1$.
 
 Más aún
 $$
 \|\eb_k\|\le C\rho(\Mb_I)^k
 $$
-lo que nos dá la velocidad de convergencia del algoritmo.
+lo que nos da la velocidad de convergencia del algoritmo.
 
+Comencemos estudiando un caso particular llamado el método de Richardson.
+ Elegimos $\Bb$ como un múltiplo de la identidad
 $$\Bb=\omega^{-1}\Ib, \qquad \omega>0.$$
+Luego, se tiene
 $$\Cb=\Ab-\omega^{-1}\Ib=\omega^{-1}(\omega\Ab-\Ib)$$
+y la matriz de iteraciones resulta
 $$
 \Mb_I=-\Bb^{-1}\Cb=
 \Ib-\omega\Ab
 $$
-Método de Richardson.
 
 \tcc
 \begin{prop}
@@ -206,36 +129,38 @@ Si $\Ab$ es SDP, el método de Richardson converge -para todo dato inicial- sí 
 \Mb_I=
 \Ib-\omega\Ab.
 $ Como $\Ab$ es SDP sus autovalores cumplen $0<\lambda_1\le \lambda_2\le \cdots \le \lambda_n$. Los autovalores de $
-\Mb_I$ son $1-\omega\lambda_i$, queremos
+\Mb_I$ son entonces $1-\omega\lambda_i$.  Queremos ver bajo que condiciones
 $
 |1-\omega\lambda_i|<1,
-$
+$ para todo $1\le i\le n$. Equivalentemente,
 $$
 -1< 1-\omega\lambda_i< 1
 $$
-i.e. $\omega<\frac{2}{\lambda_i}$ para todo $1\le i\le n$ lo que equivale a
+i.e. es necesario y suficiente que $\omega<\frac{2}{\lambda_i}$ para todo $1\le i\le n$ lo que equivale a
 $\omega<\frac{2}{\rho(\Ab)}.$
 \end{proof}
 
-El óptimo $\omega$?. Sabemos que
+Claramente, al variar $\omega$ en el rango $(0,\frac{2}{\rho(\Ab)})$ obtendremos distintas velocidades de convergencia para nuestro método. Podemos intentar localizar el óptimo $\omega_{opt}$, es decir el que garantiza orden máximo de convergencia (equivalentemente, el $\omega_{opt}$ para el cual $\rho(\Mb_I)$ es mínimo). Para ello observemos que   (ver Figura \ref{fig:modulos}) como
 $$
 \rho(\Mb_I)=\max\{
 |1-\omega   \lambda_n|,|1-\omega   \lambda_1|\}
 $$
+$\omega_{opt}$ ocurre en el punto de cruce de los gráficos.
 \begin{figure}[h]
+\label{fig:modulos}
 \centering\includegraphics[width=0.4\linewidth]{modulos.png}
 \end{figure}
-
-se tiene
+Ese punto puede despejarse 
 $$
 \omega_{opt}=\frac{2}{\lambda_n+\lambda_1}
 $$
-de donde el respectivo
+de donde el respectivo radio espectral óptimo es 
 $$\rho(\Mb_I)=\frac{\lambda_n-\lambda_1}{\lambda_n+\lambda_1}=\frac{\kappa(\Ab)-1}{\kappa(\Ab)+1}.
 $$
-(Si $\kappa(\Ab)$ es muy grande la convergencia es muy lenta)
+Notemos que la velocidad de convergencia del método se deteriora si  $\kappa(\Ab)$ es grande.
 
-En el ejemplo del pricipio tenemos
+\tcc
+Para el ejemplo $(E)$ de la distribución de temperatura, dado al principio del capítulo, tenemos (aproximados por el método de la potencia)
 
 $$
 \lambda_1\sim 0.0009 \qquad \lambda_n \sim 1.93
@@ -245,21 +170,20 @@ $$\kappa(\Ab)\sim 2144$$
 
 $$\omega_{opt}\sim
 1.04$$
+lo que da
 $$\rho(\Mb_I)\sim 0.99907$$
-si queremos un error del orden del orden de $10^{-5}$ precisamos iterar aproximadamente $15000$ veces, esto nos dio un tiempo de ejecución de $2.4 seg$ (recordemos que LU llevó $0.7 seg$ aun no es competitivo).
+si queremos reducir  el error inicial en un orden  de $10^{-3}$ precisamos iterar aproximadamente $60000$ veces, número mucho mayor que el tamaño  $n\sim 3000$ de la matriz. Como vemos no resulta muy competitivo en este caso. 
+\etcc
 
 
+\section{Algunos Métodos Clásicos}
 
-
-\begin{center}
- { \centering {Algunos Métodos Clásicos}}
-\end{center}
 
 
 Si tomamos $\Ab=\Lb+\Db+\Ub$ (triangular inferior+diagonal+triangular superior), podemos ensayar varias descomposiciones $\Ab=\Bb+\Cb$:
 \begin{enumerate}
- \item $\Bb=\Db$ Jacobi
- \item $\Bb=\Lb+\Db$ Gauss-Seidel
+ \item $\Bb=\Db$ método de Jacobi
+ \item $\Bb=\Lb+\Db$ método de Gauss-Seidel
 \end{enumerate}
 
 Las matrices de iteración son
@@ -268,7 +192,7 @@ Las matrices de iteración son
  \item Gauss-Seidel $\Mb_{GS}=-(\Lb+\Db)^{-1}\Ub$
 \end{enumerate}
 
-Originalmente fueron concebidos de este modo:
+Si bien en el caso GS, contrariamente al  caso J, la matriz no parece obviamente invertible, originalmente fueron concebidos del  modo siguiente que no requiere inversiones explícitas:
 de
 $$
 \Ab\xb=\bb,
@@ -305,16 +229,6 @@ Notar que:
 \end{itemize}
 
 
-\tccdefi
-\begin{defi}
-  \label{defi:deDD}
-  Una matriz $\Ab\in \Knn$ se dice \emph{diagonal dominante} (\emph{estrictamente diagonal dominante}) y se denota DD (EDD) si y solo si para todo $i$,
- $1\le i\le n$
- $$
- \sum_{1\le j \le n, j\neq i}|a_{i,j}|\le (<) |a_{i,i}|.
- $$
-  \end{defi}
- \etcc
 
 \tcc
 \begin{prop}
@@ -365,25 +279,16 @@ $$
 $$
 por ser EDD.
 \end{proof}
-
-
-El caso del ejemplo de la distribución de temperatura en el pistón no es EDD solamente DD.Sin embargo cumple con otras hipótesis que garantiza que Jacobi converge.
-
-
-Para un error de $\sim 10^{-4}$ llevo 9000 iteraciones $\sim 1.9 seg$.
-
-Tenemos un $\rho(M_J)\sim 0.998$.
-
-(Igual es mucho mejor mirar el error relativo.)
-
-Para GS por su parte pude probarse que converge para SDP (esta matriz es SDP).
-En este caso $\rho(\Mb_{GS})\sim 0.996$, para un error de  $\sim 10^{-4}$ llevo 4500 iteraciones.
-
-Que sea la mitad no es casual: se debe en este caso a que
+\tcc
+Volviendo a nuestro ejemplo $(E)$ de distribución de temperatura, la matriz $\Ab$ no es EDD sino solamente DD. Sin embargo cumple con otras hipótesis (que no veremos en este curso) que garantizan que Jacobi y Gauss-Seidel convergen. En este ejemplo, usando el método de la potencia,  obtenemos
+ $\rho(M_J)\sim 0.998$ y  $\rho(\Mb_{GS})\sim 0.996$. En muchos casos como en este ocurre que 
 $$
 \rho(\Mb_{GS})=\rho(\Mb_{J})^2
 $$
-que ocurre típicamente en las matrices asociadas a estas ecuaciones difereciales
+lo que indica que GS converge con el doble de velocidad que J. Este resultado no vale siempre pero ocurre  en muchas matrices asociadas a estas ecuaciones diferenciales.
+Como es vemos, precisaríamos unas 3500 iteraciones para que en J se reduzca el error en un orden $10^{-3}$ y unas 1750 en GS para el mismo nivel de reducción del error.
+\etcc
+Veamos otro resultado general.
 
 \tcc
 \begin{prop}
@@ -419,8 +324,7 @@ $$
 y así
 $|\lambda|^2=a^2+b^2<1.$
 \end{proof}
-
-Los métodos estudiados se originaron a partir de la identidad
+Observemos que todos los métodos estudiados se originaron a partir de la identidad
 $$
 \xb=-\Bb^{-1}\Cb\xb+\Bb^{-1}\bb,
 $$
@@ -428,23 +332,16 @@ que podemos reescribir
 $$
 \xb=\xb-\Bb^{-1}(\Ab\xb-\bb),
 $$
-
-y el método puede escribirse como la iteración
+y entonces pensar en las iteraciones del siguiente modo
 $$
 \xb_{k+1}=\xb_k-\Bb^{-1}(\Ab\xb_k-\bb),
 $$
-que puede verse como una corrección que involucra al \emph{residuo} $\rb_k=\Ab\xb_k-\bb$
-
-Por otro lado podemos tomar un  $0<\omega$ y escribir una nueva variante
+que pueden verse como una corrección que involucra al \emph{residuo} $\rb_k=\Ab\xb_k-\bb.$ Con esta idea podemos modificar el método del modo siguiente: tomamos un  $0<\omega$ y escribimos una nueva variante
 $$
 \xb_{j+1}=(1-\omega)\xb_j+
 \omega(\xb_j-\Bb^{-1}(\Ab\xb_j-\bb)),
 $$
-dando mas o menos importancia a la iteración original.
-
-Si $0<\omega<1$ el método se dice atenuado, si $\omega>1$ se dice amplificado.
-
-Si aplicamos estas ideas a Gauss-Seidel obtenemos el método SOR. Para estudiarlo un poco reescribamos la iteración adecuadamente: de
+dando mas o menos importancia a la iteración original. Si $0<\omega<1$ estamos \emph{atenuado} y si $\omega>1$ estamos  \emph{amplificado} la corrección. Si aplicamos estas ideas a Gauss-Seidel obtenemos el denominado método SOR\footnote{Sobre Relajación Sucesiva.}. Para estudiarlo un poco reescribamos la iteración adecuadamente: de
 $$
 \xb^{k+1}=(1-\omega)\xb^k+
 \omega(\xb^k-\Bb^{-1}(\Ab\xb^k-\bb)),
@@ -454,8 +351,7 @@ $$
 \xb^{k+1}=(1-\omega)\xb^k+
 \omega(-\Bb^{-1}\Cb\xb^k+\bb),
 $$
-
-en Gauss-Seidel tenemos $B=L+D$ y $C=U$, en particular podemos escribir en la coordenada $i-esima$:
+para Gauss-Seidel $B=L+D$ y $C=U$, en particular podemos escribir en la coordenada $i-esima$ como:
 $$
 \xb^{k+1}_i=(1-\omega)\xb^k_i+
 \frac{\omega}{a_{i,i}}(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i),
@@ -463,44 +359,37 @@ $$
 o sea
 $$
 a_{i,i}\xb^{k+1}_i+\omega\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}=(1-\omega)a_{i,i}\xb^k_i-
-\omega\sum_{j=i+1}^{n}a_{i,j}\xb_j^k -\omega\bb_i,
+\omega\sum_{j=i+1}^{n}a_{i,j}\xb_j^k -\omega\bb_i.
 $$
-
 En términos matriciales
 $$
-(\Db+\omega \Lb)\xb^{k+1}=\left((1-\omega)\Db-\omega\Ub\right)\xb^{k}-\omega \bb
+(\Db+\omega \Lb)\xb^{k+1}=\left((1-\omega)\Db-\omega\Ub\right)\xb^{k}-\omega \bb,
 $$
-Es decir que el método tiene una matriz de iteraciones que puede escribirse
+es decir que el método SOR tiene una matriz de iteraciones que puede escribirse
 $$
-\Mb_\omega=(\Db+\omega \Lb)^{-1}\left((1-\omega)\Db-\omega\Ub\right)
+\Mb_\omega=(\Db+\omega \Lb)^{-1}\left((1-\omega)\Db-\omega\Ub\right).
 $$
-
-En particular
+No vamos a estudiar con detalle la convergencia para este método, pero observemos que como $\Mb_\omega$ es producto de matrices triangulares, es fácil ver que  
 $$
-Det (\Mb_\omega)=(1-\omega)^n,
+\det (\Mb_\omega)=(1-\omega)^n,
 $$
-y sabemos que
+lo que dice que 
 $\rho(\Mb_\omega)\ge |1-\omega|$
-en particular, si el m\'etodo converge
-$0<\omega<2$.
-
-Ese resultado en general, pero para las matrices que son como las del ejemplo se puede probar que el método converge sí y solo sí
-$0<\omega<2$
-En cuanto al óptimo...
-\begin{figure}[h]
-\centering\includegraphics[width=0.6\linewidth]{omegaopt.png}
-\end{figure}
-
-
-En nuestro ejemplo:
+en particular, vemos qus una condición necesaria para la convergencia del  m\'etodo  es que $0<\omega<2$. 
+\tcc
+Ese resultado en general, pero para las matrices que son como las del ejemplo $(E)$ de distribución de temperatura se puede probar que el método converge sí y solo sí $0<\omega<2$. Además, trabajando numéricamente con la matriz podemos ver como se comporta $\rho(\Mb_\omega)$ en términos del $\omega$. En nuestro ejemplo:
 tenemos $\omega_{opt}\sim 1.904$,
 $$
 \rho(\Mb_{\omega_{opt}})\sim 0.89
 $$
 tenemos un error de orden $10^{-4}$ en 150 iteraciones!.
+\etcc
 
+\begin{figure}[h]
+\centering\includegraphics[width=0.6\linewidth]{omegaopt.png}
+\end{figure}
 
-Método de gradiente (o el descenso mas rápido)
+\section{Método de gradiente (o del descenso mas rápido)}
 
 Cuando trabajamos con matrices definidas positivas es posible reemplazar el problema:
 $$
@@ -512,30 +401,27 @@ $$
 \mbox{(P2) Hallar $\xb\in \Rn$ tal que}\, J(\xb)=
 \min_{\yb\in \R^n}J(\yb)
 $$
-
-Suponamos que $\xb$ resuelve (P1). Calculamos para $\zb\ne\cero$
+En efecto, supongamos que $\xb$ resuelve (P1). Calculamos para $\zb\ne\cero$
 $$
 h(t)=J(\xb+t\zb)= \frac{1}{2}(\xb+t\zb)^*\Ab(\xb+t\zb)-(\xb+t\zb)^*\bb=
 $$
 $$
 \frac{1}{2}t^2\zb^*\Ab\zb+t\left(\zb^*\Ab\xb-\zb^*\bb\right) +\frac{1}{2}\xb^*\Ab\xb-\xb^*\bb
 $$
-cuadr\'atica con mínimo en
+y observamos que $h(t)$ resulta ser una cuadr\'atica en la variable $t$, con mínimo en
 $$
-t=\frac{\zb^*\Ab\xb-\zb^*\bb}{\zb^*\Ab\zb}=0
+t_m=\frac{\zb^*\Ab\xb-\zb^*\bb}{\zb^*\Ab\zb},
 $$
-pues $\Ab\xb=\bb$.
-
-Entonces
+pero por otro lado como $\Ab\xb=\bb$, debe ser $t_m=0$. Entonces
 $$
 J(\xb)=h(0)\le h(t)=J(\xb+t\zb)
 $$
 para todo $t$ entonces
 $$
-J(\xb)=\min_{\yb\in\Rn}J(\yb).
+J(\xb)=\min_{\yb\in\Rn}J(\yb),
 $$
-
-Recíprocamente: si
+lo que dice que $\xb$ resuelve $(P2)$.
+Recíprocamente: si $\xb$ es tal que 
 $$
 J(\xb)=\min_{\yb\in\Rn}J(\yb),
 $$
@@ -546,10 +432,7 @@ es decir
 $$
 \zb^*(\Ab\xb-\bb)=0,
 $$
-para todo $\zb\neq \cero$.
-
-
-Tomando $\zb=\eb_1,\eb_2,\cdots \eb_n$ resulta
+para todo $\zb\neq \cero$, lo que indica que \footnote{Tomando, por ejemplo, $\zb=\Ab\xb-\bb$.}
 $$
 \Ab\xb-\bb=\cero,
 $$
@@ -557,52 +440,313 @@ es decir
 $$
 \Ab\xb=\bb.
  $$
+ y entonces $\xb$ resuelve $(P1)$.
+
+Ejemplo en $\R^2$: $
+\Mb=\begin{pmatrix}
+     5&2\\
+     2&4
+    \end{pmatrix}
+$, $
+\bb=\begin{pmatrix}
+     1\\
+     0
+    \end{pmatrix}
+$,
+$$
+\Mb\xb=\bb
+$$
+$\xb=\begin{pmatrix}
+    1/4\\
+    -1/8
+     \end{pmatrix}
+$
+$$
+J(x_1,x_2)=5/2x_1^2+2x_2^2+2x_1x_2-x_1
+$$
+En la Figura \ref{fig:curvasdeJ} vemos las curvas de nivel de $J$ y el punto $\xb$ (en rojo) solución del sistema. 
 
 
-\section{M\'etodos Iterativos no Estacionarios}
-Los métodos no estacionarios difieren en lo estacionarios en que típicamente involucran información que cambia en cada interación
-\section{Método del Gradiente, o del descenso mas rápido}
+\begin{figure}[h]
+\centering\includegraphics[width=0.4\linewidth]{curvasnivel.png}
+\label{fig:curvasdeJ}
+\caption{Curvas de nivel de $
+J(x_1,x_2)=5/2x_1^2+2x_2^2+2x_1x_2-x_1
+$.}
+\end{figure}
 
+Podemos comenzar simplificando el problema de minimización en $\R^n$ y llevarlo a uno que sea iterativo en $\R$. Este es un m\'etodo de busqueda por líneas. Dado $\xb_i$ elegimos una dirección de búsqueda $\zb_i$ y un escalar $\lambda_i$ tal que
+$$
+\xb_{i+1}=\xb_i+\lambda_i\zb_i.
+$$
+En un caso general quisieramos $\lambda_i$ tal que
+$$
+J(\xb_{i}+\lambda_i\zb_i )=\min_{t\in \R}J(\xb_i+t\zb_i),
+$$
+
+lo que nos llevaría a resolver
+$$
+0=\frac{dJ(\xb_{i}+t\zb_i )}{dt}=\nabla J(\xb_{i}+t\zb_i )^*\zb_i.
+$$
+En el caso que nos interesa ya sabemos despejar $\lambda_i$:
+$$
+\lambda_i=\frac{\zb_i^*(\Ab\xb_i-\bb)}{\zb_i^*\Ab\zb_i}=
+\frac{\zb_i^*\rb_i}{\zb_i^*\Ab\zb_i}
+$$
+donde $\rb_i=\Ab\xb_i-\bb$ es el residuo.
+
+Este método no nos sugiere como elegir el vector de búsqueda $\zb_i$ en cada paso. Una forma natural es utilizar la dirección de mayor decrecimiento\footnote{O crecimiento que son opuestas.} de la función $J$ en el punto $\xb_i$ : $\nabla J(\xb_i)=\Ab\xb_i-\bb=\rb_i$. Esto da lugar al método del gradiente o del descenso más rápido:
+$$
+\xb_{i+1}=\xb_i+\frac{\rb_i^*\rb_i}{\rb_i^*\Ab\rb_i}
+\rb_i.
+$$
+
+
+El proceso anterior puede converger muy lentamente. 
+En cada paso minimizamos (de forma exacta en aritmética exacta) a lo largo de la recta $\xb_i+\lambda \zb_i$.
+
+Una mejora sustancial sería intentar minimizar el paso $i$ $$
+J(\xb_{i+1})=\min_{\yb\in \langle \zb_0,\cdots\zb_i \rangle + x_0}J(\yb)
+$$
+que claramente daría un algoritmo que finaliza\footnote{Al menos en aritmética exacta.} en a lo sumo $n$ pasos. Ese algoritmo lo estudiamos en la siguiente sección.
 \section{Gradiente Conjugado}
-Se trata de un método muy efectivo y ampliamente utilizado para matrices \emph{simétricas definida positivas}. El método funciona generando una sucesión de iterados -que aproximan a la solución- y de residuos correspondientes a los iterados junto con las direcciones de búsqueda para actualizar los nuevos iterados y junto con sus residuos actualizados.
-
-En cada iteración solo unos pocos vectores necesitan guardarse en memoria. Solo dos productos internos son necesarios para calcular los escalares que hacen que la sucesión resultante satisfaga ciertas propiedades de ortogonalidad. y los escalares
-
+Observemos, antes de continuar, que una matriz (simétrica o Hermitiana) definida positiva define un producto interno a través de la operación\footnote{Dejamos como ejercicio esta afirmación.}
+$$
+\xb^T\Ab\yb.
+$$
+En particular este producto posee la siguiente norma asociada 
+$$
+\|\xb\|_A=\sqrt{\xb^T\Ab\xb}.
+$$
+Teniendo esta norma definida probamos lo siguiente.
 \tcc
-Para matrices simétricas, definidas positivas, el Método del Gradiente Conjuado garantiza que en cada iteración se minimiza la distancia a la solución exacta en cierta norma.
+\begin{lema}
+Supongamos que las direcciones de búsqueda son $\Ab$ ortogonales (i.e. $\zb_i^T\Ab\zb_j=0$) y en cada paso $\lambda_i$ se elige para minimizar sobre la línea correspondiente. Entonces
+$$
+\min_{\xb_i+\langle \zb_i\rangle}J(\yb)=J(\xb_{i+1})=\min_{\yb\in \xb_0+\langle \zb_0,\zb_1,\cdots,\zb_i \rangle} J(\yb)
+$$
+\end{lema}
 \etcc
+\begin{proof}
+ Sea $W_{i+1}=\langle \zb_0,\zb_1,\cdots,\zb_i \rangle$ y tomo $\zb\in \xb_0+W_{i+1}$ arbitrario. Por construcción, se puede escribir 
+ $$\zb=\yb+t\zb_i$$ con $\yb\in \xb_0+ W_i=\xb_0+\langle \zb_0,\zb_1,\cdots,\zb_{i-1} \rangle$. 
+ 
+ Observamos que  
+  $$
+ \min_{\zb\in \xb_0+W_{i+1}}J(\zb)=\min_{\yb\in\xb_0+W_{i},t \in \R} J(\yb+t \zb_i) 
+ $$
 
-En cada paso los iterados $\xb_i$ se actualizan a través de un múltiplo $\alpha_i$ de una cierta dirección de  búsqueda $\pb_i$
+ $$
+ $$
+Escribimos 
 $$
-\xb_i=\xb_{i-1}+\alpha_i\pb_i,
+J(z)=J(\yb+t\zb_i)=\frac{1}{2}t^2\zb_i^T\Ab\zb_i+t\left(\zb_i^T\Ab\yb-\zb_i^*\bb\right) +\frac{1}{2}\yb^*\Ab\yb-\yb^*\bb
 $$
-los residuos $\rb_i=\bb-\Ab\xb_i$ pueden actualizarse a través de la ecuación previa
+pero, usando que $\zb_i^T\Ab\zb_j=0$ 
 $$
-\rb_i=\rb_{i-1}-\alpha_i\qb_i,
+\zb_i^T\Ab\yb=\zb_i^T\Ab\xb_0=\zb_i^T\Ab\xb_i
 $$
-con $\qb_i=\Ab\pb_i$.
-La elección $\alpha_i=\frac{\rb_{i-1}^T\rb_{i-1}}{\pb_{i-1}^T\Ab\pb_{i-1}}$,
-minimiza la expresión $\rb_{i-1}^T\Ab^{-1}\rb_{i-1}$ entre todos los
-$\alpha\in \R$.
+$$
+J(\yb+t\zb_i)=\left(\frac{1}{2}t^2\zb_i^T\Ab\zb_i+t\left(\zb_i^T\Ab\xb_i-\zb_i^T\bb\right)\right) +\frac{1}{2}\yb^T\Ab\yb-\yb^T\bb
+$$
+de donde resulta que 
+para minimizar en $\zb$ basta minimizar ambos términos: el primero en $t\in \R$ el segundo en $\yb\in W_i$. Pero el $t$ óptimo es justamente $\lambda=\frac{\zb_i^T\Ab\rb_i}{\zb_i^T\Ab\zb_i}$ provisto por nuestro método. En definitiva
+  el resultado sale por inducción.
+\end{proof}
 
-Las direcciones de busqueda se actualizan con los residuos
-$$
-\pb_i=\rb_i+\beta_{i-1}\pb_{i-1},?
-$$
-donde la elección
-$$
-\beta_{i}=\frac{\rb_{i}^T\rb_{i}}{\rb_{i-1}^T\rb_{i-1}},
-$$
-garantiza que $\pb_i$ y $\Ab\pb_i$ (o equivalentemente $\rb_i$ y $\rb_{i-1}$)- son ortogonales.
+\tccdefi
+\begin{center}Las direcciones $\Ab$ ortogonales suelen llamarse conjugadas
+\end{center}
+\etcc
+Queremos un método que minimice sobre direcciones conjugadas (y no sea costoso)
 
-Mas aún, esta elección de $\beta_i$, tanto $\pb_i$ como $\rb_i$ son ortogonales \emph{a todos los anteriores} $\pb_j$ y $\rb_j$ ($j<i$) respectivamente.
-
-(esto salio de pagina 13 de Templates for te solution of linear systems....)
-
-
-\section{Aplicaciones de SVD}
+Idea: A-ortogonalizar los residuos
 \begin{itemize}
- \item compresión de imágenes
-\item semántica latente
-\item componentes principales
+ \item $\zb_0=\rb_0$
+ \item $\zb_i=\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\zb_j$
 \end{itemize}
+ 
+
+
+Vale lo siguiente
+\begin{itemize}
+ \item $\langle \zb_0, \zb_1\cdots ,\zb_i\rangle =\langle \rb_0, \rb_1\cdots ,
+ \rb_i\rangle$
+\item $\rb_i^T\rb_j=0$, pues $J(\xb_i+t\rb_j)$ tiene un mínimo en $t=0$, si $0\le j<i$. Luego derivando y evaluando en $t=0$
+$$
+0=\rb_j^T(\Ab\xb_i-\bb)=\rb_j^T\rb_i.
+$$
+\item Existe $m\le n$ tal que 
+$$
+\xb_0\neq \xb_1\neq \cdots \neq \xb_m= \xb
+$$
+$$
+W_{0}\subsetneq W_1\subsetneq \cdots \subsetneq W_m
+$$
+ 
+\item Para todo $1\le i\le m$, $\{ \zb_0,\zb_1\cdots \zb_{i-1}\}$ (resp. $\{ \rb_0,\rb_1\cdots \rb_{i-1}\}$) es una base $A$ ortogonal (resp. ortogonal) de $W_i$.
+ \item $\zb_i^T\rb_i=\rb_i^T\rb_i$. Pues 
+ $\zb_i=\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\zb_j$ y entonces 
+ $$\rb_i^T\zb_i=\rb_i^T\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\rb_i^T\zb_j=\rb_i^T\rb_i$$
+ pues para cada $j\le i-1$,
+ $\zb_j\in W_i=\langle \rb_0,\cdots,\rb_{i-1}\rangle$, $\rb_i^T\zb_j=0.$ 
+ \end{itemize}
+
+
+ Queremos hallar las direcciones de búsqueda sin hacer Gram-Schmidt (o sea mas rápido)
+
+Escribamos $\zb_i$ en la base de los residuos (ortogonales), 
+$$
+\zb_i=\sum_{j=0}^{i}\frac{\zb_i^T\rb_j}{\rb_j^T\rb_j}\rb_j,
+$$
+ya vimos que
+$\zb_i^T\rb_i=\rb_i^T\rb_i$
+pero además
+$\zb_i^T(\rb_i-\rb_l)=\zb_i^T\Ab(\xb_i-\xb_l)=0$ porque $\xb_i-\xb_l\in W_i$ y $\zb_i$ es $A$ ortogonal a $W_i$.
+$$
+\zb_i=\sum_{j=0}^{i}\frac{\zb_i^T\rb_j}{\rb_j^T\rb_j}\rb_j=\sum_{j=0}^{i}\frac{\rb_i^T\rb_i}{\rb_j^T\rb_j}\rb_j=\rb_i + \rb_i^T\rb_i\sum_{j=0}^{i-1}\frac{\rb_j}{\rb_j^T\rb_j},
+$$
+como la ultima sumatoria permite escribir recursivamente las direcciones de búsqueda
+
+$$
+\rb_i + \rb_i^T\rb_i\sum_{j=0}^{i-1}\frac{\rb_j}{\rb_j^T\rb_j}=\rb_i + \frac{\rb_i^T\rb_i}{\rb_{i-1}^T\rb_{i-1}}\left( \rb_{i-1}+\rb_{i-1}^T\rb_{i-1}\sum_{j=0}^{i-2}\frac{\rb_j}{\rb_j^T\rb_j}\right)
+$$
+entonces
+$$
+\zb_i=\rb_i+\frac{\rb_i^T\rb_i}{\rb_{i-1}^T\rb_{i-1}}\zb_{i-1}
+$$
+los residuos  pueden obtenerse de 
+$$\xb_{i+1}=\xb_i+\lambda \zb_i$$ 
+$$
+\rb_{i+1}=\rb_i+\lambda_i\Ab\zb_i
+$$
+
+Tomo $\xb_0$, calculo $\rb_0$ asigno $\zb_0=\rb_0$
+
+\noindent { for i=0... }
+\begin{itemize}
+ \item $\lambda_i=\frac{\rb_i^T\rb_i}{\zb_{i}^T\Ab\zb_i}$
+ \item $\xb_{i+1}=\xb_{i}+\lambda_i \zb_i$
+ \item $\rb_{i+1}=\rb_i+\lambda_i\Ab\zb_i$
+\item $
+\zb_{i+1}=\rb_{i+1}+\frac{\rb_{i+1}^T\rb_{i+1}}{\rb_{i}^T\rb_{i}}\zb_{i}
+$
+
+\end{itemize}
+end
+
+Aplicado a nuestro caso de ejemplo: para un error de orden $10^{-4}$ tarda $0.057$ segundos...
+
+Para estudiar el error del GC notemos
+$$
+W_i=\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i-1}\rb_0\rangle
+$$
+lo cual se ve por inducción. Si $i=1$ es cierto, y asumiendo que vale para $i$ queremos ver que vale para $i+1$. Para eso vemos que basta con ver que 
+$$
+W_{i+1}\subset
+\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i}\rb_0\rangle
+$$
+puesto que $dim(W_{i+1})=i+1$
+
+Asumiendo entonces que   
+$$W_{i}\ni \rb_{i-1},\zb_{i-1}\in \langle \rb_0, \Ab\rb_0, \cdots ,\Ab^{i-1}\rb_0\rangle$$
+
+
+
+se tiene que  $\rb_{i}=\rb_{i-1}-\lambda_{i-1}\Ab\zb_{i-1}\in \langle \rb_0, \Ab\rb_0, \cdots ,\Ab^{i}\rb_0\rangle$
+que es lo que queríamos ver.
+
+
+Estos subespacios se llaman de Krylov. A veces se escribe
+$\langle \bb, \Ab\bb, \cdots ,\Ab^{i}\bb\rangle$
+
+
+$$\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i-1}\rb_0\rangle=\{ p(\Ab)\rb_0: p\in P_{i-1}[x]\}=$$
+$$=\{ q(\Ab)(\xb-\xb_0): q\in P_{i}[x],\ q(0)=0\}$$
+
+Va a resultar cómodo estudiar el error en la norma $\|\cdot\|_A$: es decir quiero acotar 
+$$
+\|\xb-\xb_i\|_{A}$$
+
+Como $\rb_i$ es ortogonal a $W_i$, $\xb-\xb_i
+$ es $A$ ortogonal a $W_i$
+$$
+\|\xb-\xb_i\|_{A}=\inf_{\yb\in W_i}\|\xb-\xb_i-\yb\|_{A}
+$$
+como $\xb_0-\xb_i\in W_i$
+$$
+\|\xb-\xb_i\|=\inf_{\yb\in W_i}
+\|\xb-\xb_0-\yb\|_{A}
+=$$
+
+$$
+=\inf_{q\in P_{i}[x],q(0)=0}\|\xb-\xb_0-q(\Ab)(\xb-\xb_0)\|_{A}
+=$$
+$$
+=\inf_{p\in P_i[x],p(0)=1}\|p(\Ab)(\xb-\xb_0)\|_{A}
+\le$$
+$$
+\inf_{p\in P_i[x],p(0)=1}\|p(\Ab)\|_{A}\|(\xb-\xb_0)\|_{A}
+$$
+
+pero
+$$
+\|p(\Ab)\|_A^2=\sup_{\xb\neq\cero}\frac{\|p(\Ab)\xb\|_A^2}{\|\xb\|_A^2}=
+$$
+$$=\sup_{\xb\neq\cero}\frac{(p(\Ab)\xb)^T\Ab (p(\Ab)\xb)}{\xb^T\Ab\xb}=\sup_{\xb\neq\cero}\frac{\xb^T p(\Ab)^T\Ab p(\Ab)\xb}{\xb^T\Ab\xb}=
+$$
+$$
+=\sup_{\xb\neq\cero}\frac{\xb^T\Ab^{1/2} p(\Ab)^T p(\Ab)\Ab^{1/2}\xb}{\xb^T\Ab^{1/2}\Ab^{1/2}\xb}=sup_{\yb\neq\cero}\frac{\yb^T p(\Ab)^T p(\Ab)\yb}{\yb^T\yb}
+=$$
+$$
+=sup_{\yb\neq\cero}\frac{ \|p(\Ab)\yb\|_2^2}{\|\yb\|^2_2}
+=\|p(\Ab)\|_2^2=\rho(p(\Ab))^2\le \max_{\lambda\in [\lambda_1,\lambda_n]}p(\lambda)^2$$
+
+En definitiva
+
+$$
+\|p(\Ab)\|_A\le  \max_{x\in [\lambda_1,\lambda_n]}|p(x)| 
+$$
+y hay que acotar
+$$
+\inf_{p\in P_i[x],p(0)=1}\max_{x\in [\lambda_1,\lambda_n]}|p(x)|
+$$
+esto, por suerte, lo estudió Chebyshev.
+
+En el intervalo $[-1,1]$ los polinomios de Chebyshev son
+$$
+T_0(x)=1,T_1(x)=x,T_2(x)=2x^2-1,\cdots 
+$$
+en general
+$$
+T_{n+1}(x)=2T_{n}(x)-T_{n-1}(x)
+$$
+
+Para $x\in [-1,1]$, $|T_n(x)|\le 1$ 
+
+(de hecho 
+en ese rango $T_n(x)=\cos(n\cos^{-1}(x))$)
+
+para $|x|\ge 1$
+$$
+T_n(x)=\frac12\left((x+\sqrt{x^2-1})^n+ (x-\sqrt{x^2-1})^n\right)
+$$
+
+
+El polinomio $p(x)\in P_n[x]$ que minimimiza $\max_{x\in [\lambda_1,\lambda_n]}|p(x)|$ con la condición $p(0)=1$ es
+$$
+\frac{1}{T_n(\frac{\lambda_n+\lambda_1}{\lambda_1-\lambda_n})}T_n\left(\frac{2x-\lambda_n-\lambda_1}{\lambda_n-\lambda_1}\right)$$
+
+
+$$
+\inf_{p\in P_i[x],p(0)=1}\max_{x\in [\lambda_1,\lambda_n]}|p(x)|
+\le \frac{2}{\left( \frac{\sqrt{\frac{\lambda_n}{\lambda_1}}+1}{\sqrt{\frac{\lambda_n}{\lambda_1}}-1}\right)^i+\left( \frac{\sqrt{\frac{\lambda_n}{\lambda_1}}-1}{\sqrt{\frac{\lambda_n}{\lambda_1}}+1}\right)^i}$$ 
+es decir
+$$
+\inf_{p\in P_i[x],p(0)=1}\max_{x\in [\lambda_1,\lambda_n]}|p(x)|
+\le 2\left(\frac{\sqrt{\kappa(\Ab)}-1}{\sqrt{\kappa(\Ab)}+1}\right)^i
+$$
+ 
+$$\|\xb-\xb_i\|_{A}\le 2\left(\frac{\sqrt{\kappa(\Ab)}-1}{\sqrt{\kappa(\Ab)}+1}\right)^i\|\xb-\xb_0\|_{A}$$
+
+ 
