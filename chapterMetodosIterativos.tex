@@ -1,11 +1,53 @@
 \chapter{Métodos Iterativos}
 Como ya hemos visto, los métodos directos poseen en general una complejidad de orden cúbico en el número de incógnitas $\mathcal{O}(N^3)$. Esto dice que si en un problema determinado se duplica el número de incógnitas entonces el número de operaciones se multiplica por 8. Eso ha llevado a intentar desarrollar métodos de orden menor \footnote{Observe que el límite inferior para un método de resolución  es $\mathcal{O}(N^2)$ ya que ese es el número de coeficientes de la matriz.} y los métodos iterativos son una posible alternativa.
 
-Hay, además de la complejidad,  otros problemas con los métodos directos. Por ejemplo, en muchas aplicaciones aparecen problemas con un número muy grande de incógnitas pero con matrices \emph{ralas}, es decir, matrices con un elevado porcentaje de coeficiente nulos. Esto permite en principio reducir notablemente el número de operaciones del algoritmo pero sin embargo como desventaja aparece un ``rellenado'' innecesario en la factorización resultante. Veamos un ejemplo sencillo.
+Hay, además de la complejidad,  otros problemas con los métodos directos. Por ejemplo, en muchas aplicaciones aparecen problemas con un número muy grande de incógnitas pero con matrices \emph{ralas}, es decir, matrices con un elevado porcentaje de coeficiente nulos. Esto permite en principio reducir notablemente el número de operaciones del algoritmo pero sin embargo como desventaja aparece un ``rellenado'' innecesario en la factorización resultante. En la siguiente sección vemos un ejemplo sencillo.
 
 \section{Un ejemplo: distribución de temperatura}
 \label{sec:piston}
-Ciertas ecuaciones lineales en derivadas parciales pueden resolverse de modo aproximado a través de discretizaciones. En la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor).La distribución de temperatura en esa pieza puede calcularse resolviendo la ecuación del calor.  
+Ciertas ecuaciones diferenciales lineales  pueden resolverse de modo aproximado a través de \emph{discretizaciones}.
+En dimensión uno es fácil imaginar como puede hacerse. Por ejemplo, la distribución estacionaria de la temperatura a lo largo de una barra o alambre se modeliza (sin  tener en cuenta las constantes físicas) a través de la ecuación
+$$
+u''(x)=f(x),
+$$
+donde $u(x)$ representa la temperatura en de la barra en el punto $x$ y $f(x)$ una fuente de calor. Si asumimos que la barra ocupa un intervalo $[a,b]\subset \R$ podemos tomar puntos equiespaciados sobre la barra
+$a=x_0<x_1<\cdots <x_{n+1}=b$ definidos como $x_i=a+ih$ donde $h=\frac{b-a}{n+1}$. Cuando $n\to \infty$ (aumentamos el número de puntos) resulta que $h\to 0$ y como\footnote{Usar Taylor para verficar la última identidad.}
+$$
+\frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{h^2}=
+\frac{u(x_{i}+h)-2u(x_i)+u(x_{i}-h)}{h^2}=
+u''(x_i)+\mathcal{O}(h^2),
+$$
+vemos que podemos aproximar la temperatura en el punto $x_i$ resolviendo
+$$
+u(x_{i+1})-2u(x_i)+u(x_{i-1})=f(x_i)h^2,
+$$
+lo que conduce a un sistema (una ecuación por cada $x_i$) \emph{tridiagonal} que en este caso simplificado se escribe
+$$\begin{pmatrix}
+-2&1&0&0&\cdots &0&0\\
+1&-2&1&0&\cdots &0&0\\
+0&1&-2&1&\cdots &0&0 \\
+\vdots&\vdots&\vdots&\vdots&
+\cdots &\vdots&\vdots\\
+0&0&0&0&\cdots& 1&-2
+\end{pmatrix}
+\begin{pmatrix}
+ u(x_1)\\
+ u(x_2)\\
+ \vdots\\
+ u(x_n)
+ \end{pmatrix}=
+ \begin{pmatrix}
+ f(x_1)\\
+ f(x_2)\\
+ \vdots\\
+ f(x_n)
+ \end{pmatrix}.
+$$
+En dimensión mas alta (por ejemplo en dimensión 3) el problema de la difusión del calor se modeliza con la ecuación
+$$
+\Delta u(x)=f(x),
+$$
+donde $\Delta u(x)=u_{xx}(x)+u_{yy}(x)+u_{zz}(x)$ representa al Laplaciano de $u$. Para ver un ejemplo concreto en la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor). La distribución de temperatura en esa pieza puede aproximarse resolviendo una discretización la ecuación del calor.
 \begin{figure}[h]
 \centering\includegraphics[width=0.3\linewidth]{piston.png}
 \label{fig:disc_piston}
@@ -341,20 +383,16 @@ $$
 \xb_{j+1}=(1-\omega)\xb_j+
 \omega(\xb_j-\Bb^{-1}(\Ab\xb_j-\bb)),
 $$
-dando mas o menos importancia a la iteración original. Si $0<\omega<1$ estamos \emph{atenuado} y si $\omega>1$ estamos  \emph{amplificado} la corrección. Si aplicamos estas ideas a Gauss-Seidel obtenemos el denominado método SOR\footnote{Sobre Relajación Sucesiva.}. Para estudiarlo un poco reescribamos la iteración adecuadamente: de
+dando mas o menos importancia a la iteración original. Si $0<\omega<1$ estamos \emph{atenuado} y si $\omega>1$ estamos  \emph{amplificado} la corrección. Si aplicamos estas ideas a Gauss-Seidel obtenemos el denominado método SOR\footnote{Sobre Relajación Sucesiva.}. Para estudiarlo un poco reescribamos la iteración adecuadamente:
+para Gauss-Seidel (GS) tenemos que $B=L+D$ y $C=U$, en particular podemos escribir en la coordenada $i-esima$ como:
 $$
-\xb^{k+1}=(1-\omega)\xb^k+
-\omega(\xb^k-\Bb^{-1}(\Ab\xb^k-\bb)),
+\xb^{k+1}_i=\frac{1}{a_{i,i}}\left(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i\right),
 $$
-tenemos
-$$
-\xb^{k+1}=(1-\omega)\xb^k+
-\omega(-\Bb^{-1}\Cb\xb^k+\bb),
-$$
-para Gauss-Seidel $B=L+D$ y $C=U$, en particular podemos escribir en la coordenada $i-esima$ como:
+por lo tanto, el método SOR
+ en la coordenada $i-esima$, toma la forma
 $$
 \xb^{k+1}_i=(1-\omega)\xb^k_i+
-\frac{\omega}{a_{i,i}}(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i),
+\frac{\omega}{a_{i,i}}\left(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i\right),
 $$
 o sea
 $$
@@ -375,12 +413,12 @@ $$
 $$
 lo que dice que 
 $\rho(\Mb_\omega)\ge |1-\omega|$
-en particular, vemos qus una condición necesaria para la convergencia del  m\'etodo  es que $0<\omega<2$. 
+en particular, vemos que una condición necesaria para la convergencia del  m\'etodo  es que $0<\omega<2$.
 \tcc
-Ese resultado en general, pero para las matrices que son como las del ejemplo $(E)$ de distribución de temperatura se puede probar que el método converge sí y solo sí $0<\omega<2$. Además, trabajando numéricamente con la matriz podemos ver como se comporta $\rho(\Mb_\omega)$ en términos del $\omega$. En nuestro ejemplo:
+El hecho de que la condición $0<\omega<2$ sea \emph{necesaria} para la convergencia de SOR es resultado general (vale para matrices arbitrarias). Para las matrices que son como las del ejemplo $(E)$ de distribución de temperatura se puede probar que el método converge sí y solo sí $0<\omega<2$. Además, trabajando numéricamente\footnote{En realidad hay una teoría completa que predice el comportamiento del método SOR para estas matrices pero no veremos esos detalles aquí.} con la matriz podemos ver como se comporta $\rho(\Mb_\omega)$ en términos del $\omega$. En nuestro ejemplo:
 tenemos $\omega_{opt}\sim 1.904$,
 $$
-\rho(\Mb_{\omega_{opt}})\sim 0.89
+\rho(\Mb_{\omega_{opt}})\sim 0.9
 $$
 tenemos un error de orden $10^{-4}$ en 150 iteraciones!.
 \etcc
