@@ -6,22 +6,39 @@ Hay, además de la complejidad,  otros problemas con los métodos directos. Por 
 \section{Un ejemplo: distribución de temperatura}
 \label{sec:piston}
 Ciertas ecuaciones diferenciales lineales  pueden resolverse de modo aproximado a través de \emph{discretizaciones}.
-En dimensión uno es fácil imaginar como puede hacerse. Por ejemplo, la distribución estacionaria de la temperatura a lo largo de una barra o alambre se modeliza (sin  tener en cuenta las constantes físicas) a través de la ecuación
-$$
-u''(x)=f(x),
-$$
-donde $u(x)$ representa la temperatura en de la barra en el punto $x$ y $f(x)$ una fuente de calor. Si asumimos que la barra ocupa un intervalo $[a,b]\subset \R$ podemos tomar puntos equiespaciados sobre la barra
-$a=x_0<x_1<\cdots <x_{n+1}=b$ definidos como $x_i=a+ih$ donde $h=\frac{b-a}{n+1}$. Cuando $n\to \infty$ (aumentamos el número de puntos) resulta que $h\to 0$ y como\footnote{Usar Taylor para verficar la última identidad.}
+En dimensión uno es fácil imaginar como puede hacerse. Por ejemplo, consideremos en el intervalo $[a,b]$ la ecuación diferencial
+\begin{equation}
+ \label{eq:calor1d}
+\left\lbrace
+\begin{matrix}
+u''(x)&=f(x),\\
+u(a)&=0,\\
+u(b)&=0.
+\end{matrix}
+\right.
+\end{equation}
+
+Aquí, $f(x)$ representa un dato conocido. Podemos aproximar el problema en dimensión finita del siguiente modo: consideramos puntos (en este ejemplo uniformemente distribuidos) $a=x_0<x_1<\cdots <x_{n+1}=b$ tales que $x_i=a+ih$ donde $h=\frac{b-a}{n+1}$.  Cuando $n\to \infty$ (aumentamos el número de puntos) resulta que $h\to 0$ y como
 $$
 \frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{h^2}=
-\frac{u(x_{i}+h)-2u(x_i)+u(x_{i}-h)}{h^2}=
-u''(x_i)+\mathcal{O}(h^2),
+\frac{u(x_{i}+h)-2u(x_i)+u(x_{i}-h)}{h^2}
 $$
-vemos que podemos aproximar la temperatura en el punto $x_i$ resolviendo
+tenemos para $u$ suficientemente derivable
+$$
+u(x_{i}+h)=u(x_{i})+u'(x_i)h+u''(x_i)h^2/2+u'''(x_i)h^3/3!+\mathcal{O}(h^4)
+$$
+$$
+u(x_{i}-h)=u(x_{i})-u'(x_i)h+u''(x_i)h^2/2-u'''(x_i)h^3/3!+\mathcal{O}(h^4)
+$$
+y así
+$$
+\frac{u(x_{i}+h)-2u(x_i)+u(x_{i}-h)}{h^2}=u''(x_i)+\mathcal{O}(h^2),
+$$
+por lo que usando que $u''(x_i)=f(x_i)$, vemos que podemos aproximar la temperatura en el punto $x_i$ resolviendo
 $$
 u(x_{i+1})-2u(x_i)+u(x_{i-1})=f(x_i)h^2,
 $$
-lo que conduce a un sistema (una ecuación por cada $x_i$) \emph{tridiagonal} que en este caso simplificado se escribe
+lo que conduce a un sistema \emph{tridiagonal y simétrico}, con una ecuación por cada $x_i$,  que se escribe\footnote{$u(x_0)=u(x_{n+1})=0$ no son incógnitas del sistema, por ello no están en la ecuación.}
 $$\begin{pmatrix}
 -2&1&0&0&\cdots &0&0\\
 1&-2&1&0&\cdots &0&0\\
@@ -35,7 +52,7 @@ $$\begin{pmatrix}
  u(x_2)\\
  \vdots\\
  u(x_n)
- \end{pmatrix}=
+ \end{pmatrix}=h^2
  \begin{pmatrix}
  f(x_1)\\
  f(x_2)\\
@@ -43,23 +60,23 @@ $$\begin{pmatrix}
  f(x_n)
  \end{pmatrix}.
 $$
-En dimensión mas alta (por ejemplo en dimensión 3) el problema de la difusión del calor se modeliza con la ecuación
+La ecuación \eqref{eq:calor1d} modeliza (en un caso muy elemental y sin contemplar constantes físicas) el problema de la distribución de temperatura en una barra unidimensional. En dimensión mas alta (por ejemplo en dimensión 3) el problema se puede modelizar con la  ecuación\footnote{Recordar que $\Delta$ representa al Laplaciano de $u$. En dimensión 3 por ejemplo se escribe $\Delta u=u_{xx}+u_{yy}+u_{zz}$.}
 $$
-\Delta u(x)=f(x),
+\Delta u(x)=f(x).
 $$
-donde $\Delta u(x)=u_{xx}(x)+u_{yy}(x)+u_{zz}(x)$ representa al Laplaciano de $u$. Para ver un ejemplo concreto en la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor). La distribución de temperatura en esa pieza puede aproximarse resolviendo una discretización la ecuación del calor.
+Para ver un ejemplo concreto en la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor). La distribución de temperatura en esa pieza puede aproximarse como antes  través de una discretización.
 \begin{figure}[h]
 \centering\includegraphics[width=0.3\linewidth]{piston.png}
 \label{fig:disc_piston}
 \caption{Distribución de temperatura en un pistón. Se visualiza un cuarto de la pieza.}
 \end{figure}
-No vamos a describir aquí como hacer esto, pero una vez discretizado, el problema puede escribirse como un sistema lineal de ecuaciones\footnote{La discretización de ecuaciones diferenciales \emph{lineales} conduce a sistemas lineales.}. En este ejemplo particular, el sistema resultante  puede escribirse de la forma
+No vamos a describir aquí como hacer esto, pero una vez discretizado, el problema puede escribirse, al igual que el problema unidimensional, como un sistema lineal de ecuaciones. En este ejemplo particular, se obtiene un sistema
  $$
  \Ab\xb=\bb,
  $$
- donde
+
  $$\Ab\in \R^{3319\times 3319}$$
-cada incógnita es el valor de la temperatura en un punto interior del pistón. Este ejemplo que llamaremos $(E)$ nos servirá para ejemplificar algunas particularidades que aparecen en este capítulo. En este problema aparece una propiedad que puede verse en muchas otras aplicaciones: la matriz resulta rala\footnote{ En inglés sparse: un porcentaje significativo de elementos de la matriz es nulo.} además de \emph{simétrica}. En la Figura \ref{fig:matrizA}
+donde cada incógnita es el valor de la temperatura en un punto interior del pistón. Este ejemplo (que llamaremos $(E)$ ) nos servirá para ejemplificar algunas particularidades que aparecen en este capítulo. Si bien esta matriz $\Ab$ no es mas tridiagonal \emph{sí es simétrica}, además de  rala\footnote{ En inglés sparse: un porcentaje significativo de elementos de la matriz es nulo.}. En la Figura \ref{fig:matrizA}
 \begin{figure}[h]
 \label{fig:matrizA}
 \centering\includegraphics[width=0.4\linewidth]{matrizA.png}
