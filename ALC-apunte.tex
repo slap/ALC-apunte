@@ -78,16 +78,20 @@ literate=%
 \newtheorem{teo}{Teorema}[chapter]
 \newtheorem{lema}{Lema}[chapter]
 \newtheorem{prop}{Proposici\'on}[chapter]
+\newtheorem{proposicion}{Proposici\'on}[chapter]
 \newtheorem{cor}{Corolario}[chapter]
 \newtheorem{coro}{Corolario}[chapter]
+\newtheorem{corolario}{Corolario}[chapter]
 \newtheorem{remark}{Observaci\'on}[chapter]
 \newtheorem{rem}{Observaci\'on}[chapter]
+\newtheorem{observacion}{Observaci\'on}[chapter]
 
 \newtheoremstyle{def2}{6pt}{6pt}{}{}{\scshape}{.}{.5em}{}
 \theoremstyle{def2}
 \newtheorem{ejemplo}{Ejemplo}[chapter]
 \newtheorem{aplicacion}{Aplicaci\'on}[chapter]
 \newtheorem{defi}{Definici\'on}[chapter]
+\newtheorem{definicion}{Definici\'on}[chapter]
 \newtheorem{ej}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
 \newtheorem{ejercicio}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
 %en cada 'capítulo'.
@@ -147,6 +151,7 @@ literate=%
 \newcommand{\Rn}{\R^{n}}
 \newcommand{\Cn}{\C^{n}}
 
+\newcommand{\Sigmab}{\bm{\Sigma}}
 \newcommand{\pib}{\bm{\pi}}
 \newcommand{\tbb}{\bm{t}}
 \newcommand{\sbb}{\bm{s}}
@@ -173,24 +178,25 @@ literate=%
 \newcommand{\Ab}{\bm{A}}
 \newcommand{\Bb}{\bm{B}}
 \newcommand{\Cb}{\bm{C}}
+\newcommand{\Db}{\bm{D}}
 \newcommand{\Eb}{\bm{E}}
 \newcommand{\Fb}{\bm{F}}
 \newcommand{\Gb}{\bm{G}}
-\newcommand{\Lb}{\bm{L}}
-\newcommand{\Mb}{\bm{M}}
-\newcommand{\Tb}{\bm{T}}
-\newcommand{\Ub}{\bm{U}}
-\newcommand{\Qb}{\bm{Q}}
-\newcommand{\Rb}{\bm{R}}
-\newcommand{\Sb}{\bm{S}}
-\newcommand{\Vb}{\bm{V}}
-\newcommand{\Db}{\bm{D}}
-\newcommand{\Pb}{\bm{P}}
-\newcommand{\Id}{\bm{I}}
 \newcommand{\Ib}{\bm{I}}
 \newcommand{\Hb}{\bm{H}}
 \newcommand{\Hbb}{\bm{H}}
+\newcommand{\Lb}{\bm{L}}
+\newcommand{\Mb}{\bm{M}}
+\newcommand{\Pb}{\bm{P}}
+\newcommand{\Qb}{\bm{Q}}
+\newcommand{\Rb}{\bm{R}}
+\newcommand{\Sb}{\bm{S}}
+\newcommand{\Tb}{\bm{T}}
+\newcommand{\Ub}{\bm{U}}
+\newcommand{\Vb}{\bm{V}}
 \newcommand{\Xb}{\bm{X}}
+
+\newcommand{\Id}{\bm{I}}
 \newcommand{\cero}{\bm{0}}
 
 \newcommand{\tBb}{\tilde\Bb}
@@ -227,6 +233,8 @@ literate=%
 \DeclareMathOperator{\rank}{rango}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\diag}{diag}
 
 \hyphenation{lon-gi-tud} \hyphenation{tra-yec-to-ria}
 \hyphenation{ve-ri-fi-que ve-ri-fi-car ve-ri-fi-ca-do}
@@ -307,6 +315,7 @@ su-pon-ga-mos su-pon-ga su-pu-sie-ra}
 \include{chapterDiagonalizacion}
 %\include{chapterFactorizacion}
 \include{chapterMetodosIterativos}
+\include{chapterSVD}
 
 
 \include{bibliografia}
