@@ -1,23 +1,84 @@
 \chapter{Métodos Iterativos}
 Como ya hemos visto, los métodos directos poseen en general una complejidad de orden cúbico en el número de incógnitas $\mathcal{O}(N^3)$. Esto dice que si en un problema determinado se duplica el número de incógnitas entonces el número de operaciones se multiplica por 8. Eso ha llevado a intentar desarrollar métodos de orden menor \footnote{Observe que el límite inferior para un método de resolución  es $\mathcal{O}(N^2)$ ya que ese es el número de coeficientes de la matriz.} y los métodos iterativos son una posible alternativa.
 
-Hay, además de la complejidad,  otros problemas con los métodos directos. Por ejemplo, en muchas aplicaciones aparecen problemas con un número muy grande de incógnitas pero con matrices \emph{ralas}, es decir, matrices con un elevado porcentaje de coeficiente nulos. Esto permite en principio reducir notablemente el número de operaciones del algoritmo pero sin embargo como desventaja aparece un ``rellenado'' innecesario en la factorización resultante. Veamos un ejemplo sencillo.
+Hay, además de la complejidad,  otros problemas con los métodos directos. Por ejemplo, en muchas aplicaciones aparecen problemas con un número muy grande de incógnitas pero con matrices \emph{ralas}, es decir, matrices con un elevado porcentaje de coeficiente nulos. Esto permite en principio reducir notablemente el número de operaciones del algoritmo pero sin embargo como desventaja aparece un ``rellenado'' innecesario en la factorización resultante. En la siguiente sección vemos un ejemplo sencillo.
 
 \section{Un ejemplo: distribución de temperatura}
 \label{sec:piston}
-Ciertas ecuaciones lineales en derivadas parciales pueden resolverse de modo aproximado a través de discretizaciones. En la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor).La distribución de temperatura en esa pieza puede calcularse resolviendo la ecuación del calor.  
+Ciertas ecuaciones diferenciales lineales  pueden resolverse de modo aproximado a través de \emph{discretizaciones}.
+En dimensión uno es fácil imaginar como puede hacerse. Por ejemplo, consideremos en el intervalo $[a,b]$ la ecuación diferencial
+\begin{equation}
+ \label{eq:calor1d}
+\left\lbrace
+\begin{matrix}
+u''(x)&=f(x),\\
+u(a)&=0,\\
+u(b)&=0.
+\end{matrix}
+\right.
+\end{equation}
+
+Aquí, $f(x)$ representa un dato conocido. Podemos aproximar el problema en dimensión finita del siguiente modo: consideramos puntos (en este ejemplo uniformemente distribuidos) $a=x_0<x_1<\cdots <x_{n+1}=b$ tales que $x_i=a+ih$ donde $h=\frac{b-a}{n+1}$.  Cuando $n\to \infty$ (aumentamos el número de puntos) resulta que $h\to 0$ y como
+$$
+\frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{h^2}=
+\frac{u(x_{i}+h)-2u(x_i)+u(x_{i}-h)}{h^2}
+$$
+tenemos para $u$ suficientemente derivable
+$$
+u(x_{i}+h)=u(x_{i})+u'(x_i)h+u''(x_i)h^2/2+u'''(x_i)h^3/3!+\mathcal{O}(h^4)
+$$
+$$
+u(x_{i}-h)=u(x_{i})-u'(x_i)h+u''(x_i)h^2/2-u'''(x_i)h^3/3!+\mathcal{O}(h^4)
+$$
+y así
+$$
+\frac{u(x_{i}+h)-2u(x_i)+u(x_{i}-h)}{h^2}=u''(x_i)+\mathcal{O}(h^2),
+$$
+por lo que usando que $u''(x_i)=f(x_i)$, vemos que podemos aproximar la temperatura en el punto $x_i$ resolviendo
+$$
+u(x_{i+1})-2u(x_i)+u(x_{i-1})=f(x_i)h^2,
+$$
+lo que conduce a un sistema \emph{tridiagonal y simétrico}, con una ecuación por cada $x_i$,  que se escribe\footnote{$u(x_0)=u(x_{n+1})=0$ no son incógnitas del sistema, por ello no están en la ecuación.}
+\begin{equation}
+\label{eq:unid}
+\begin{pmatrix}
+-2&1&0&0&\cdots &0&0\\
+1&-2&1&0&\cdots &0&0\\
+0&1&-2&1&\cdots &0&0 \\
+\vdots&\vdots&\vdots&\vdots&
+\cdots &\vdots&\vdots\\
+0&0&0&0&\cdots& 1&-2
+\end{pmatrix}
+\begin{pmatrix}
+ u(x_1)\\
+ u(x_2)\\
+ \vdots\\
+ u(x_n)
+ \end{pmatrix}=h^2
+ \begin{pmatrix}
+ f(x_1)\\
+ f(x_2)\\
+ \vdots\\
+ f(x_n)
+ \end{pmatrix}.
+\end{equation}
+La ecuación \eqref{eq:calor1d} modeliza (en un caso muy elemental y sin contemplar constantes físicas) el problema de la distribución de temperatura en una barra unidimensional. En dimensión mas alta (por ejemplo en dimensión 3) el problema se puede modelizar con la  ecuación\footnote{Recordar que $\Delta$ representa al Laplaciano de $u$. En dimensión 3 por ejemplo se escribe $\Delta u=u_{xx}+u_{yy}+u_{zz}$.}
+$$
+\Delta u(x)=f(x).
+$$
+Para ver un ejemplo concreto en la Figura \ref{fig:disc_piston} se muestra un cuarto de pistón (pieza que se desplaza dentro de uno de los cilindros de un motor). La distribución de temperatura en esa pieza puede aproximarse como antes  través de una discretización.
 \begin{figure}[h]
 \centering\includegraphics[width=0.3\linewidth]{piston.png}
 \label{fig:disc_piston}
 \caption{Distribución de temperatura en un pistón. Se visualiza un cuarto de la pieza.}
 \end{figure}
-No vamos a describir aquí como hacer esto, pero una vez discretizado, el problema puede escribirse como un sistema lineal de ecuaciones\footnote{La discretización de ecuaciones diferenciales \emph{lineales} conduce a sistemas lineales.}. En este ejemplo particular, el sistema resultante  puede escribirse de la forma
+No vamos a describir aquí como hacer esto, pero una vez discretizado, el problema puede escribirse, al igual que el problema unidimensional, como un sistema lineal de ecuaciones. En este ejemplo particular, se obtiene un sistema
  $$
  \Ab\xb=\bb,
  $$
- donde
+
  $$\Ab\in \R^{3319\times 3319}$$
-cada incógnita es el valor de la temperatura en un punto interior del pistón. Este ejemplo que llamaremos $(E)$ nos servirá para ejemplificar algunas particularidades que aparecen en este capítulo. En este problema aparece una propiedad que puede verse en muchas otras aplicaciones: la matriz resulta rala\footnote{ En inglés sparse: un porcentaje significativo de elementos de la matriz es nulo.} además de \emph{simétrica}. En la Figura \ref{fig:matrizA}
+donde cada incógnita es el valor de la temperatura en un punto interior del pistón. Este ejemplo (que llamaremos $(E)$ ) nos servirá para ejemplificar algunas particularidades que aparecen en este capítulo. Si bien esta matriz $\Ab$ no es mas tridiagonal \emph{sí es simétrica}, además de  rala\footnote{ En inglés sparse: un porcentaje significativo de elementos de la matriz es nulo.}. En la Figura \ref{fig:matrizA}
 \begin{figure}[h]
 \label{fig:matrizA}
 \centering\includegraphics[width=0.4\linewidth]{matrizA.png}
@@ -201,7 +262,6 @@ se tiene, para todo $1\le i\le n$
 $$
 \sum_{j=1}^na_{i,j}x_j=b_i,
 $$
-
 en Jacobi se escribe (asumiendo $a_{i,i}\neq0$)
 $$
 x_i=\left(-\sum_{j=1,j\neq i}^na_{i,j}x_j+b_i\right)/a_{i,i}\, \qquad \forall 1\le i\le n
@@ -279,21 +339,66 @@ $$
 $$
 por ser EDD.
 \end{proof}
-\tcc
-Volviendo a nuestro ejemplo $(E)$ de distribución de temperatura, la matriz $\Ab$ no es EDD sino solamente DD. Sin embargo cumple con otras hipótesis (que no veremos en este curso) que garantizan que Jacobi y Gauss-Seidel convergen. En este ejemplo, usando el método de la potencia,  obtenemos
- $\rho(M_J)\sim 0.998$ y  $\rho(\Mb_{GS})\sim 0.996$. En muchos casos como en este ocurre que 
+Si trabajamos una matriz \emph{tridiagonal}, como por ejemplo el de la ecuación \eqref{eq:unid},  podemos probar fácilmente la propiedad siguiente
+ \begin{prop}
+\label{prop:mat_trid_gs_j}
+Sea $\Ab\in \Knn$ tridiagonal (i.e. $|a_{i,j}|=0$ si $|j-i|>1$) con $a_{ii}\neq 0$ para todo $1\le i\le n$.  Entonces
+$\rho(\Mb_{GS})=\rho(\Mb_{J})^2$. 
+\end{prop}
+\begin{proof}
+Escribimos $\Ab=\Lb+\Db+\Ub$. Sea $0\neq \lambda$ autovalor de la matriz $\Mb_{J}=-\Db^{-1}(\Lb+\Ub)$. Queremos ver que $\lambda^2$ es autovalor de $\Mb_{GS}=-(\Db +\Lb)^{-1}\Ub$. En particular
 $$
-\rho(\Mb_{GS})=\rho(\Mb_{J})^2
+\det \left( -\Db^{-1}(\Lb+\Ub)-\lambda \Ib \right) =0
+$$ por lo tanto (sacando $-\Db^{-1}$ de factor común y usando propiedades del determinante)
+$$\det \left(\Lb+\Ub+\lambda \Db \right) =0$$
+donde la matriz $\Mb=\Lb+\Ub+\lambda \Db $ es \emph{tridiagonal}. En particular, tomando un $0\neq\alpha\in \K$ cualquiera tenemos que 
 $$
-lo que indica que GS converge con el doble de velocidad que J. Este resultado no vale siempre pero ocurre  en muchas matrices asociadas a estas ecuaciones diferenciales.
-Como es vemos, precisaríamos unas 3500 iteraciones para que en J se reduzca el error en un orden $10^{-3}$ y unas 1750 en GS para el mismo nivel de reducción del error.
-\etcc
-Veamos otro resultado general.
+\det(\Mb)=\det\left(
+\begin{pmatrix}
+\alpha&0&0&\cdots&0\\
+0&\alpha^2&0&\cdots&0\\
+0&0&\alpha^3&\cdots&0\\
+\vdots&\vdots&\vdots&\cdots&\vdots\\
+0&0&0&\cdots&\alpha^{n}
+\end{pmatrix}
+\Mb
+\begin{pmatrix}
+\alpha^{-1}&0&0&\cdots&0\\
+0&\alpha^{-2}&0&\cdots&0\\
+0&0&\alpha^{-3}&\cdots&0\\
+\vdots&\vdots&\vdots&\cdots&\vdots\\
+0&0&0&\cdots&\alpha^{-n}
+\end{pmatrix}\right),
+$$
+propiedad que vale para cualquier matriz $\Mb$ pero en este caso particular, \emph{por ser tridiagonal}, un cálculo directo muestra que 
+$$
+\begin{pmatrix}
+\alpha&0&0&\cdots&0\\
+0&\alpha^2&0&\cdots&0\\
+0&0&\alpha^3&\cdots&0\\
+\vdots&\vdots&\vdots&\cdots&\vdots\\
+0&0&0&\cdots&\alpha^{n}
+\end{pmatrix}
+\Mb
+\begin{pmatrix}
+\alpha^{-1}&0&0&\cdots&0\\
+0&\alpha^{-2}&0&\cdots&0\\
+0&0&\alpha^{-3}&\cdots&0\\
+\vdots&\vdots&\vdots&\cdots&\vdots\\
+0&0&0&\cdots&\alpha^{-n}
+\end{pmatrix}=\alpha^{-1} \Lb+\lambda \Db +\alpha\Ub
+$$
+por lo que tomando $\alpha^{-1}=\lambda$ tenemos que 
+$$0=\det \left(\Lb+\Ub+\lambda \Db \right)=(-\lambda)^n \det \left(-\Lb-\Db -\alpha^2\Ub \right)=(-\lambda)^n \det \left(-(\Lb+\Db)^{-1}\Ub -\lambda^2\Ib \right),$$
+es decir $\lambda^2$ es autovalor de $\Mb_{GS}$. Queda como ejercicio seguir los pasos en sentido inverso y ver que si $\lambda^2\neq 0$ es autovalor de $\Mb_{GS}$ entonces
+$\lambda$ lo es de $\Mb_{J}$. Los autovalores nulos no son de interés, porque no modifican el radio espectral.
+\end{proof}
+
 
 \tcc
 \begin{prop}
 
- Si $\Ab\in\Knn$  DP, entonces Gauss-Seidel converge.
+ Si $\Ab\in\Knn$ Hermitiana y definida positiva, entonces Gauss-Seidel converge.
 \end{prop}
 \etcc
 \begin{proof} Sea $\vb$ autovector de autovalor $\lambda$ de la matriz de iteraciones:
@@ -313,7 +418,7 @@ $$
 $$
 \frac{\lambda}{\lambda-1}=\frac{\vb^*\Ub\vb}{\vb^*\Ab\vb}
 $$
-como $\lambda\neq 1$ y $\Ab$ es Hermitiana (simétrica) $\Ub=\Lb^*$,
+como $\lambda\neq 1$ y $\Ab$ es Hermitiana (simétrica, en el caso real) $\Ub=\Lb^*$,
 $$
 2Re\left(\frac{\lambda}{\lambda-1}\right)=\frac{\vb^*(\Ub+\Lb)\vb}{\vb^*\Ab\vb}=\frac{\vb^*\Ub\vb}{\vb^*\Ab\vb}=1-\frac{\vb^*\Db\vb}{\vb^*\Ab\vb}<1.
 $$
@@ -324,6 +429,18 @@ $$
 y así
 $|\lambda|^2=a^2+b^2<1.$
 \end{proof}
+\tcc
+Volviendo a nuestro ejemplo $(E)$ de distribución de temperatura, la matriz $\Ab$ es simétrica y definida positiva (no estamos probando esta última afirmación). Por la proposición anterior sabemos que GS converge. Por otro lado no es EDD sino solamente DD, tampoco es tridiagonal,  sin embargo cumple con otras hipótesis (que no veremos en este curso) que garantizan que 
+$$
+\rho(\Mb_{GS})=\rho(\Mb_{J})^2,
+$$
+por lo cual Jacobi y Gauss-Seidel convergen. En este ejemplo (E), usando el método de la potencia,  obtenemos
+ $\rho(M_J)\sim 0.998$ y  $\rho(\Mb_{GS})\sim 0.996$ que satisface la relación predicha. Este resultado no vale siempre pero ocurre  en muchas matrices asociadas a estas ecuaciones diferenciales.
+Como vemos, precisaríamos unas 3500 iteraciones para que en J se reduzca el error en un orden $10^{-3}$ y unas 1750 en GS para el mismo nivel de reducción del error.
+\etcc
+
+
+
 Observemos que todos los métodos estudiados se originaron a partir de la identidad
 $$
 \xb=-\Bb^{-1}\Cb\xb+\Bb^{-1}\bb,
@@ -341,20 +458,16 @@ $$
 \xb_{j+1}=(1-\omega)\xb_j+
 \omega(\xb_j-\Bb^{-1}(\Ab\xb_j-\bb)),
 $$
-dando mas o menos importancia a la iteración original. Si $0<\omega<1$ estamos \emph{atenuado} y si $\omega>1$ estamos  \emph{amplificado} la corrección. Si aplicamos estas ideas a Gauss-Seidel obtenemos el denominado método SOR\footnote{Sobre Relajación Sucesiva.}. Para estudiarlo un poco reescribamos la iteración adecuadamente: de
+dando mas o menos importancia a la iteración original. Si $0<\omega<1$ estamos \emph{atenuado} y si $\omega>1$ estamos  \emph{amplificado} la corrección. Si aplicamos estas ideas a Gauss-Seidel obtenemos el denominado método SOR\footnote{Sobre Relajación Sucesiva.}. Para estudiarlo un poco reescribamos la iteración adecuadamente:
+para Gauss-Seidel (GS) tenemos que $B=L+D$ y $C=U$, en particular podemos escribir en la coordenada $i-esima$ como:
 $$
-\xb^{k+1}=(1-\omega)\xb^k+
-\omega(\xb^k-\Bb^{-1}(\Ab\xb^k-\bb)),
+\xb^{k+1}_i=\frac{1}{a_{i,i}}\left(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i\right),
 $$
-tenemos
-$$
-\xb^{k+1}=(1-\omega)\xb^k+
-\omega(-\Bb^{-1}\Cb\xb^k+\bb),
-$$
-para Gauss-Seidel $B=L+D$ y $C=U$, en particular podemos escribir en la coordenada $i-esima$ como:
+por lo tanto, el método SOR
+ en la coordenada $i-esima$, toma la forma
 $$
 \xb^{k+1}_i=(1-\omega)\xb^k_i+
-\frac{\omega}{a_{i,i}}(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i),
+\frac{\omega}{a_{i,i}}\left(-\sum_{j=1}^{i-1}a_{i,j}\xb_j^{k+1}-\sum_{j=i+1}^{n}a_{i,j}\xb_j^k+\bb_i\right),
 $$
 o sea
 $$
@@ -365,7 +478,7 @@ En términos matriciales
 $$
 (\Db+\omega \Lb)\xb^{k+1}=\left((1-\omega)\Db-\omega\Ub\right)\xb^{k}-\omega \bb,
 $$
-es decir que el método SOR tiene una matriz de iteraciones que puede escribirse
+en particular, y como es de esperar, $\omega=1$ recupera a GS. El método SOR tiene una matriz de iteraciones que puede escribirse
 $$
 \Mb_\omega=(\Db+\omega \Lb)^{-1}\left((1-\omega)\Db-\omega\Ub\right).
 $$
@@ -375,48 +488,52 @@ $$
 $$
 lo que dice que 
 $\rho(\Mb_\omega)\ge |1-\omega|$
-en particular, vemos qus una condición necesaria para la convergencia del  m\'etodo  es que $0<\omega<2$. 
+en particular y vemos que una condición necesaria para la convergencia del  m\'etodo  es que $0<\omega<2$.
 \tcc
-Ese resultado en general, pero para las matrices que son como las del ejemplo $(E)$ de distribución de temperatura se puede probar que el método converge sí y solo sí $0<\omega<2$. Además, trabajando numéricamente con la matriz podemos ver como se comporta $\rho(\Mb_\omega)$ en términos del $\omega$. En nuestro ejemplo:
+El hecho de que la condición $0<\omega<2$ sea \emph{necesaria} para la convergencia de SOR es resultado general (vale para matrices arbitrarias). Para las matrices que son como las del ejemplo $(E)$ de distribución de temperatura se puede probar que el método converge sí y solo sí $0<\omega<2$. Además, trabajando numéricamente\footnote{En realidad hay una teoría completa que predice el comportamiento del método SOR para estas matrices pero no veremos esos detalles aquí.} con la matriz podemos ver como se comporta $\rho(\Mb_\omega)$ en términos del $\omega$ (ver Figura \ref{fig:omegasSor}). En nuestro ejemplo:
 tenemos $\omega_{opt}\sim 1.904$,
 $$
-\rho(\Mb_{\omega_{opt}})\sim 0.89
+\rho(\Mb_{\omega_{opt}})\sim 0.9
 $$
-tenemos un error de orden $10^{-4}$ en 150 iteraciones!.
+con lo cual podemos lograr una reducción del error en $10^{-4}$ con solo 150 iteraciones!.
 \etcc
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.6\linewidth]{omegaopt.png}
+\label{fig:omegasSor}
+\centering\includegraphics[width=0.4\linewidth]{omegaopt.png}
+\caption{Comportamiento de $\rho(\Mb_\omega)$. Se ve que tiene un mínimo cerca de $\omega=1.904$ que se corresponde con un radio espectral cercano a $0.9$. }
 \end{figure}
 
 \section{Método de gradiente (o del descenso mas rápido)}
-
-Cuando trabajamos con matrices definidas positivas es posible reemplazar el problema:
+Cuando trabajamos con matrices simétricas definidas positivas es posible reemplazar el problema:
 $$
 \mbox{(P1) Hallar $\xb\in \R^n$ tal que
 }\,\Ab\xb=\bb
 $$
-por un problema de minimización  asociado a la función $J(\zb)=\frac{1}{2}\zb^*\Ab\zb-\zb^*\bb$:
+por un problema de minimización  asociado a la función  $J:\Rn\to \R$, $J(\zb)=\frac{1}{2}\zb^T\Ab\zb-\zb^T\bb$:
 $$
 \mbox{(P2) Hallar $\xb\in \Rn$ tal que}\, J(\xb)=
-\min_{\yb\in \R^n}J(\yb)
+\min_{\yb\in \R^n}J(\yb).
 $$
-En efecto, supongamos que $\xb$ resuelve (P1). Calculamos para $\zb\ne\cero$
+En efecto, calculemos para $\xb\in \Rn$, $\zb\in \Rn, \zb\ne\cero$ y $t\in \R$ arbitrarios, la expresión
 $$
-h(t)=J(\xb+t\zb)= \frac{1}{2}(\xb+t\zb)^*\Ab(\xb+t\zb)-(\xb+t\zb)^*\bb=
+h(t)=J(\xb+t\zb)= \frac{1}{2}(\xb+t\zb)^T\Ab(\xb+t\zb)-(\xb+t\zb)^T\bb,
 $$
-$$
-\frac{1}{2}t^2\zb^*\Ab\zb+t\left(\zb^*\Ab\xb-\zb^*\bb\right) +\frac{1}{2}\xb^*\Ab\xb-\xb^*\bb
-$$
-y observamos que $h(t)$ resulta ser una cuadr\'atica en la variable $t$, con mínimo en
-$$
-t_m=\frac{\zb^*\Ab\xb-\zb^*\bb}{\zb^*\Ab\zb},
-$$
-pero por otro lado como $\Ab\xb=\bb$, debe ser $t_m=0$. Entonces
+desarrollando los términos resulta
+\begin{equation}
+\label{eq:derideh}
+h(t)=\frac{1}{2}t^2\zb^T\Ab\zb+t\left(\zb^T\Ab\xb-\zb^T\bb\right) +\frac{1}{2}\xb^T\Ab\xb-\xb^T\bb
+\end{equation}
+una cuadr\'atica en la variable $t$, con mínimo en
+\begin{equation}
+\label{eq:minsearch}
+t_m=\frac{\zb^T\Ab\xb-\zb^T\bb}{\zb^T\Ab\zb}=\frac{\zb^T(\Ab\xb-\bb)}{\zb^T\Ab\zb}.
+\end{equation}
+\emph{Supongamos que $\xb$ resuelve (P1)}. En ese caso debe ser $t_m=0$ y entonces
 $$
 J(\xb)=h(0)\le h(t)=J(\xb+t\zb)
 $$
-para todo $t$ entonces
+para todo $t$ y vemos que  
 $$
 J(\xb)=\min_{\yb\in\Rn}J(\yb),
 $$
@@ -426,11 +543,11 @@ $$
 J(\xb)=\min_{\yb\in\Rn}J(\yb),
 $$
 repetimos la cuenta anterior y vemos que el mínimo de $h(t)$ está en $t=0$ lo que dice que
-$$0=\frac{\zb^*\Ab\xb-\zb^*\bb}{\zb^*\Ab\zb}
+$$0=\frac{\zb^T\Ab\xb-\zb^T\bb}{\zb^T\Ab\zb}
 $$
 es decir
 $$
-\zb^*(\Ab\xb-\bb)=0,
+\zb^T(\Ab\xb-\bb)=0,
 $$
 para todo $\zb\neq \cero$, lo que indica que \footnote{Tomando, por ejemplo, $\zb=\Ab\xb-\bb$.}
 $$
@@ -441,31 +558,32 @@ $$
 \Ab\xb=\bb.
  $$
  y entonces $\xb$ resuelve $(P1)$.
-
-Ejemplo en $\R^2$: $
+\tcc
+Ejemplo en $\R^2$: Consideremos la matriz $
 \Mb=\begin{pmatrix}
      5&2\\
      2&4
     \end{pmatrix}
-$, $
+$ y el vector  $
 \bb=\begin{pmatrix}
      1\\
      0
     \end{pmatrix}
-$,
+$. El sistema asociado
 $$
-\Mb\xb=\bb
+\Mb\xb=\bb,
 $$
-$\xb=\begin{pmatrix}
+tiene por solución $\xb=\begin{pmatrix}
     1/4\\
     -1/8
-     \end{pmatrix}
+     \end{pmatrix}.
 $
+Por otro lado, 
 $$
-J(x_1,x_2)=5/2x_1^2+2x_2^2+2x_1x_2-x_1
+J(x_1,x_2)=5/2x_1^2+2x_2^2+2x_1x_2-x_1,
 $$
-En la Figura \ref{fig:curvasdeJ} vemos las curvas de nivel de $J$ y el punto $\xb$ (en rojo) solución del sistema. 
-
+y en la Figura \ref{fig:curvasdeJ} vemos las curvas de nivel de $J$ y el punto $\xb$ (en rojo) solución del sistema. 
+\etcc
 
 \begin{figure}[h]
 \centering\includegraphics[width=0.4\linewidth]{curvasnivel.png}
@@ -474,8 +592,15 @@ En la Figura \ref{fig:curvasdeJ} vemos las curvas de nivel de $J$ y el punto $\x
 J(x_1,x_2)=5/2x_1^2+2x_2^2+2x_1x_2-x_1
 $.}
 \end{figure}
-
-Podemos comenzar simplificando el problema de minimización en $\R^n$ y llevarlo a uno que sea iterativo en $\R$. Este es un m\'etodo de busqueda por líneas. Dado $\xb_i$ elegimos una dirección de búsqueda $\zb_i$ y un escalar $\lambda_i$ tal que
+\tcc
+Antes de continuar observemos que tomando en \eqref{eq:derideh} , $\zb=\eb_i$ (el canónico $i$) se tiene que
+$$\frac{\partial J(\xb)}{\partial x_i}=\lim_{t\to 0} \frac{J(\xb+t\eb_i)-J(\xb)}{t}=[\Ab\xb-\bb]_i,$$
+donde el corchete representa la coordenada $i$ del vector $\Ab\xb-\bb$. En particular tenemos
+$$
+\nabla J(\xb)=\Ab\xb-\bb.
+$$
+\etcc
+Lo que hemos visto indica que para resolver un sistema con una matriz SDP podemos alternativamente atacar un problema de minimización en $\Rn$. Para comenzar simplificando este nuevo problema vamos a intentar llevarlo a uno que sea iterativo en $\R$. Este es un m\'etodo de busqueda por líneas: dado $\xb_i$ elegimos una dirección de búsqueda $\zb_i$ y un escalar $\lambda_i$ tal que
 $$
 \xb_{i+1}=\xb_i+\lambda_i\zb_i.
 $$
@@ -483,34 +608,31 @@ En un caso general quisieramos $\lambda_i$ tal que
 $$
 J(\xb_{i}+\lambda_i\zb_i )=\min_{t\in \R}J(\xb_i+t\zb_i),
 $$
-
 lo que nos llevaría a resolver
 $$
-0=\frac{dJ(\xb_{i}+t\zb_i )}{dt}=\nabla J(\xb_{i}+t\zb_i )^*\zb_i.
+0=\frac{dJ(\xb_{i}+t\zb_i )}{dt}|_{t=\lambda_i}=\nabla J(\xb_{i}+\lambda_i\zb_i )^T\zb_i.
 $$
-En el caso que nos interesa ya sabemos despejar $\lambda_i$:
+En el caso que nos interesa ya sabemos despejar $\lambda_i$ (ver \eqref{eq:minsearch}):
 $$
-\lambda_i=\frac{\zb_i^*(\Ab\xb_i-\bb)}{\zb_i^*\Ab\zb_i}=
-\frac{\zb_i^*\rb_i}{\zb_i^*\Ab\zb_i}
+\lambda_i=-\frac{\zb_i^T(\Ab\xb_i-\bb)}{\zb_i^T\Ab\zb_i}=
+\frac{\zb_i^T\rb_i}{\zb_i^T\Ab\zb_i}
 $$
-donde $\rb_i=\Ab\xb_i-\bb$ es el residuo.
+donde $\rb_i=\bb-\Ab\xb_i$ es el residuo.
 
-Este método no nos sugiere como elegir el vector de búsqueda $\zb_i$ en cada paso. Una forma natural es utilizar la dirección de mayor decrecimiento\footnote{O crecimiento que son opuestas.} de la función $J$ en el punto $\xb_i$ : $\nabla J(\xb_i)=\Ab\xb_i-\bb=\rb_i$. Esto da lugar al método del gradiente o del descenso más rápido:
+Este método no nos sugiere como elegir el vector de búsqueda $\zb_i$ en cada paso. Una forma natural es utilizar la dirección de mayor decrecimiento de la función $J$ en el punto $\xb_i$ : $-\nabla J(\xb_i)=\bb-\Ab\xb_i=\rb_i$. Esto da lugar al método del gradiente o del descenso más rápido:
 $$
-\xb_{i+1}=\xb_i+\frac{\rb_i^*\rb_i}{\rb_i^*\Ab\rb_i}
+\xb_{i+1}=\xb_i+\frac{\rb_i^T\rb_i}{\rb_i^T\Ab\rb_i}
 \rb_i.
 $$
+El proceso anterior puede converger muy lentamente. En cada paso minimizamos (de forma exacta en aritmética exacta) a lo largo de la recta $\xb_i+\lambda \zb_i$. 
 
-
-El proceso anterior puede converger muy lentamente. 
-En cada paso minimizamos (de forma exacta en aritmética exacta) a lo largo de la recta $\xb_i+\lambda \zb_i$.
-
-Una mejora sustancial sería intentar minimizar el paso $i$ $$
+Una mejora sustancial sería comenzar en un $x_0$, minimizar a lo largo de una recta, luego a lo largo de un plano, e ir aumentando la dimensión. Por ejemplo podríamos  intentar minimizar el paso $i$ en 
+$$
 J(\xb_{i+1})=\min_{\yb\in \langle \zb_0,\cdots\zb_i \rangle + x_0}J(\yb)
 $$
-que claramente daría un algoritmo que finaliza\footnote{Al menos en aritmética exacta.} en a lo sumo $n$ pasos. Ese algoritmo lo estudiamos en la siguiente sección.
+que claramente daría un algoritmo que finaliza\footnote{Al menos en aritmética exacta.} en a lo sumo $n$ pasos. Obviamente, vemos que el problema que aparece es la dificultad de minimizar en dimensiones mayores a uno. Hay, sin embargo, un modo de lograr nuestro propósito minimizando sobre líneas, si es que elegimos las direcciones de búsqueda de modo adecuado. Este algoritmo lo estudiamos en la siguiente sección.
 \section{Gradiente Conjugado}
-Observemos, antes de continuar, que una matriz (simétrica o Hermitiana) definida positiva define un producto interno a través de la operación\footnote{Dejamos como ejercicio esta afirmación.}
+Observemos, antes de continuar, que una matriz simétrica (o Hermitiana) definida positiva define un producto interno a través de la operación\footnote{Dejamos como ejercicio esta afirmación.}
 $$
 \xb^T\Ab\yb.
 $$
@@ -531,16 +653,14 @@ $$
  Sea $W_{i+1}=\langle \zb_0,\zb_1,\cdots,\zb_i \rangle$ y tomo $\zb\in \xb_0+W_{i+1}$ arbitrario. Por construcción, se puede escribir 
  $$\zb=\yb+t\zb_i$$ con $\yb\in \xb_0+ W_i=\xb_0+\langle \zb_0,\zb_1,\cdots,\zb_{i-1} \rangle$. 
  
- Observamos que  
+Observamos que  
   $$
  \min_{\zb\in \xb_0+W_{i+1}}J(\zb)=\min_{\yb\in\xb_0+W_{i},t \in \R} J(\yb+t \zb_i) 
  $$
-
- $$
- $$
+ 
 Escribimos 
 $$
-J(z)=J(\yb+t\zb_i)=\frac{1}{2}t^2\zb_i^T\Ab\zb_i+t\left(\zb_i^T\Ab\yb-\zb_i^*\bb\right) +\frac{1}{2}\yb^*\Ab\yb-\yb^*\bb
+J(z)=J(\yb+t\zb_i)=\frac{1}{2}t^2\zb_i^T\Ab\zb_i+t\left(\zb_i^T\Ab\yb-\zb_i^T\bb\right) +\frac{1}{2}\yb^T\Ab\yb-\yb^T\bb
 $$
 pero, usando que $\zb_i^T\Ab\zb_j=0$ 
 $$
@@ -555,7 +675,7 @@ para minimizar en $\zb$ basta minimizar ambos términos: el primero en $t\in \R$
 \end{proof}
 
 \tccdefi
-\begin{center}Las direcciones $\Ab$ ortogonales suelen llamarse conjugadas
+\begin{center}Las direcciones $\Ab$ ortogonales suelen llamarse conjugadas lo que da nombre al algoritmo que veremos mas adelante.
 \end{center}
 \etcc
 Queremos un método que minimice sobre direcciones conjugadas (y no sea costoso)
@@ -636,7 +756,7 @@ $
 end
 
 Aplicado a nuestro caso de ejemplo: para un error de orden $10^{-4}$ tarda $0.057$ segundos...
-
+\section{GC y aproximación polinomial}
 Para estudiar el error del GC notemos
 $$
 W_i=\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i-1}\rb_0\rangle
@@ -656,18 +776,15 @@ $$W_{i}\ni \rb_{i-1},\zb_{i-1}\in \langle \rb_0, \Ab\rb_0, \cdots ,\Ab^{i-1}\rb_
 se tiene que  $\rb_{i}=\rb_{i-1}-\lambda_{i-1}\Ab\zb_{i-1}\in \langle \rb_0, \Ab\rb_0, \cdots ,\Ab^{i}\rb_0\rangle$
 que es lo que queríamos ver.
 
-
-Estos subespacios se llaman de Krylov. A veces se escribe
-$\langle \bb, \Ab\bb, \cdots ,\Ab^{i}\bb\rangle$
-
-
+En general, dada una matriz $\Ab$, subespacios de la forma
+$\langle \bb, \Ab\bb, \cdots ,\Ab^{i}\bb\rangle$, se llaman subespacios
+de Krylov. La identidad de abajo permite relacionar esos subespacios con polinomios.
 $$\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i-1}\rb_0\rangle=\{ p(\Ab)\rb_0: p\in P_{i-1}[x]\}=$$
 $$=\{ q(\Ab)(\xb-\xb_0): q\in P_{i}[x],\ q(0)=0\}$$
 
-Va a resultar cómodo estudiar el error en la norma $\|\cdot\|_A$: es decir quiero acotar 
+Va a resultar cómodo estudiar el error en la norma $\|\cdot\|_A$: es decir,  acotar 
 $$
 \|\xb-\xb_i\|_{A}$$
-
 Como $\rb_i$ es ortogonal a $W_i$, $\xb-\xb_i
 $ es $A$ ortogonal a $W_i$
 $$
@@ -675,7 +792,7 @@ $$
 $$
 como $\xb_0-\xb_i\in W_i$
 $$
-\|\xb-\xb_i\|=\inf_{\yb\in W_i}
+\|\xb-\xb_i\|_{A}=\inf_{\yb\in W_i}
 \|\xb-\xb_0-\yb\|_{A}
 =$$
 
