@@ -37,32 +37,61 @@ $$
 $$
 
 Vemos que lo que determina que una matriz está mal condicionada es la relación entre el autovalor de mayor módulo y el autovalor de menor módulo.
-
-
-
 \section{Introducción}
+Comencemos la sección con un experimento numérico. Generemos matrices simétricas al azar y grafiquemos la imagen del círculo unitario por la transformación lineal resultante. Para conseguir figuras uniformes, reescalamos los gráficos de modo que el círculo unitario (en azul) contenga a su imagen (en rojo). El resultado obtenido es esperable. Las imágenes son elípses debido a que cada una de estas matrices posee una base
+$\{\vb_1,\vb_2\}$ de autovectores ortonormales. Es decir $\Ab\vb_i=\lambda_i\vb_i$, por lo que cualquier punto $\vb$ del círculo unitario puede escribirse como $\vb=x_1\vb_1+x_2\vb_2$ con $1=x_1^2+x_2^2$, por lo que $A\vb=x_1\lambda_1\vb_1+x_2\lambda_2\vb_2$ es un punto de una elipse de semiejes a lo largo de
+las rectas generadas por $\vb_1$ y $\vb_2$ de longitudes $|\lambda_1|$ y $|\lambda_2|$.
 
-La descomposición en valores singulares (SVD) generaliza el cálculo de autovalores y la
-diagonalización de matrices cuadradas a matrices generales.
+\begin{figure}\label{fig:expsimetrico}
+\includegraphics[scale=.15]{randsim1.png}
+\includegraphics[scale=.15]{randsim2.png}
+\includegraphics[scale=.15]{randsim3.png}
+\caption{Elípses obtenidas por el mapeo del circulo unitario a través de matrices simétricas.}
+\end{figure}
+Lo extraordinario es que algo similar ocurre con matrices aleatorias cualesquiera, como podemos ver en la Figura \ref{fig:expgral}. En este caso no podemos garantizar una base de autovectores ortonormales, sin embargo podemos estudiar las preimágenes de los semiejes de las elipses (en verde y rosa respectivamente) y notamos que provienen de vectores unitarios ortogonales (con el mismo color en las figuras). Es decir que nuestro experimento sugiere la existencia de dos pares de vectores ortonormales $\{\vb_1,\vb_2\}$
+y $\{\ub_1,\ub_2\}$ y dos escalares $\sigma_1,\sigma_2$, que podemos suponer ordenados (i.e. $\sigma_1\ge\sigma_2\ge 0$) y no negativos, cambiando si hicera falta $\ub_i$ por $-\ub_i$, tales que  $\Ab\vb_i=\sigma_i\wb_i$.
 
+Esta observación nos permite escribir
+$$
+\Ab\Vb=\Ub\Sigmab
+$$
+donde
+$$
+\Vb=\begin{pmatrix} \vert &  \vert \\  \vb_1 &  \vb_2 \\ \vert &  \vert \end{pmatrix}\qquad
+\Sigmab=\begin{pmatrix} \sigma_1 &  0 \\  0 &  \sigma_2 \end{pmatrix}\qquad
+\Ub=\begin{pmatrix} \vert &  \vert \\  \ub_1 &  \ub_2 \\ \vert &  \vert \end{pmatrix}
+$$
+con matrices $\Vb,\Ub$ ortogonales. Dicho otro modo puede factorizarse $\Ab$ como
+$$
+\Ab=\Ub\Sigmab\Vb^*.
+$$
+
+\begin{figure}\label{fig:expgral}
+\includegraphics[scale=.15]{rand1.png}
+\includegraphics[scale=.15]{rand2.png}
+\includegraphics[scale=.15]{rand3.png}
+\caption{Elípses obtenidas por el mapeo del circulo unitario a través de matrices generales.}
+\end{figure}
+
+\tcc
+Esta factorización generaliza en algún sentido a la obtenida al diagonalizar matrices simétricas. Si bien, no toda matriz es diagonalizable en una base ortonormal $\{\vb_1,\vb_2\}$, nuestro experimento dice que algo similar puede obtenerse si nos permiten trabajar con \emph{bases diferentes}: una $\{\vb_1,\vb_2\}$ para el espacio de partida y otra $\{\ub_1,\ub_2\}$ para el de llegada.
+\etcc
+Lo realmente notable, como veremos en breve, es que esta factorización siempre existe y no solo para matrices cuadradas.
 \begin{definicion}
-Dada $\Ab \in \K^{m \times n}$, la descomposición SVD es
+Dada $\Ab \in \K^{m \times n}$, la descomposición en valores singulares SVD es una factorización de $\Ab$
 $$\Ab = \Ub \Sigmab \Vb^*,$$
 con $\Ub \in \K^{m \times m}$ y $\Vb \in \K^{n \times n}$
-matrices unitarias y  $\Sigmab \in \R^{m \times n}$. Si $m \ge n$,
+matrices unitarias y  $\Sigmab \in \R^{m \times n}$. La matriz $\Sigmab$ tiene la forma
 $$
 \Sigmab = \begin{pmatrix} \Db \\ \cero_{(m-n) \times n}\end{pmatrix},
 $$
-con $\Db \in \mathbb{R}^{n \times n}$ una matriz diagonal con elementos en
-la diagonal $d_{11} \ge d_{22} \ge \dots \ge d_{nn} \ge 0$.
-
-Los elementos no nulos de la diagonal de $\Db$ se denominan valores singulares de
-$\Ab$, y se notan $\sigma_i(\Ab) = d_{ii}$.
-
-Si $n > m$, la descomposición SVD es $\Ab = \Ub \Sigmab \Vb^*$, con
+si $m \ge n$, o la forma
 $$\Sigmab = \begin{pmatrix} \Db & \cero_{m \times (n-m)} \end{pmatrix}$$
- y $\Db \in \mathbb{R}^{m \times m}$ diagonal.
-\end{definicion}
+si $n > m$. En ambos casos $\Db \in \mathbb{R}^{p \times p}$, donde $p=\min \{m,n\}$, es una matriz diagonal con elementos en
+la diagonal $d_{11} \ge d_{22} \ge \dots \ge d_{pp} \ge 0$.
+Los elementos no nulos de la diagonal de $\Db$ se denominan \emph{valores singulares} de
+$\Ab$, y se notan $\sigma_i(\Ab) = d_{ii}$.
+ \end{definicion}
 
 \begin{ejemplo}
 $$
