@@ -5,7 +5,7 @@
 \subsection{Vectores}
 Para $n \in \N$, definimos un vector de $n$ coordenadas como una sucesión de $n$ n\'umeros reales o complejos $\vb = (v_1, \dots, v_n)$.
 Denotamos $\R^n$ al conjunto de todos los vectores reales de $n$ coordenadas y $\C^n$ al conjunto de todos los vectores complejos de $n$ coordenadas.
-Ya que la mayoría de los resultados que veremos valen tanto en $\R$ como en $\C$, los enunciamos usando la letra $\K$. En los casos en que debamos restringirnos a $\R$ o $\C$ lo señalaremos explícitamente. Solo haremos uso de  definiciones y propiedades elementales de los complejos, antes de continuar recordamos algunas de ellas que aparecerán más adelante 
+Ya que la mayoría de los resultados que veremos valen tanto en $\R$ como en $\C$, los enunciamos usando la letra $\K$. En los casos en que debamos restringirnos a $\R$ o $\C$ lo señalaremos explícitamente. Solo haremos uso de  definiciones y propiedades elementales de los complejos, antes de continuar recordamos algunas de ellas que aparecerán más adelante
 \begin{enumerate}
 \item $i^2=-1$.
  \item Si $z=a+ib$ el conjugado se define como $\overline{z}=a-ib$.
@@ -15,11 +15,11 @@ Ya que la mayoría de los resultados que veremos valen tanto en $\R$ como en $\C
  \item $|z|^2=z\overline{z}$, en particular se observa que si $z\neq 0$, $z\frac{\overline{z}}{|z|^2}=1$. Llamamos $z^{-1}=\frac{\overline{z}}{|z|^2}$.
  \item $\forall \theta\in \R$, se define $e^{i\theta}=\cos(\theta)+i\sen(\theta)$, en particular $|e^{i\theta}|=1$. Por otro lado, usando trigonometría elemental, se ve que si $|w|=1$, existe $\theta\in \R$ tal que $w=e^{i\theta}$.
  \item Ya que si $z\neq 0$ se tiene que $\left| \frac{z}{|z|}\right|=1$, del ítem previo se observa que si $z\neq 0$, puede escribirse $z=|z|e^{i\theta}$ con $\theta\in \R$.
- \item Todo polinomio a coeficientes en $\mathbb{C}$ de grado $n\ge 1$ tiene exactamente $n$ raíces -contadas con su multiplicidad- en $\C$ (resultado que suele llamarse Teorema Fundamental del Álgebra). 
+ \item Todo polinomio a coeficientes en $\mathbb{C}$ de grado $n\ge 1$ tiene exactamente $n$ raíces -contadas con su multiplicidad- en $\C$ (resultado que suele llamarse Teorema Fundamental del Álgebra).
 \end{enumerate}
 
 
- 
+
 \begin{ejemplo}\leavevmode
 \begin{itemize}
 \item   $\R^2$ es el plano coordenado.
@@ -639,7 +639,7 @@ Los siguientes conjuntos son espacios vectoriales definiendo la suma y el produc
 \item $\K[x]$ el conjunto de todos los polinomios en una variable a coeficientes reales o complejos.
 \item $\R[x]_d$, el conjunto de polinomios en una variable de grado menor o igual que $d$.
 \item $(a_1, a_2, a_3, \dots)$, el conjunto de sucesiones infinitas de números reales o complejos.
-\item $\K$ es un $\K$ espacio vectorial. Pero note que $\C$ tambi\'en es un $\R$ espacio vectorial. 
+\item $\K$ es un $\K$ espacio vectorial. Pero note que $\C$ tambi\'en es un $\R$ espacio vectorial.
 \end{enumerate}
 
 Los siguientes conjuntos \emph{no} son espacios vectoriales.
@@ -693,9 +693,9 @@ Dado $V$ un $\K$ espacio vectorial, un subconjunto $U\subset V$ se llama subespa
 \begin{enumerate}
 \item $\cero \in U$
 \item $\forall \ub,\vb \in U$ $\ub+\vb\in U$
-\item $\forall \ub \in U$, $\forall \alpha \in\K$ $\alpha \ub \in U$. 
+\item $\forall \ub \in U$, $\forall \alpha \in\K$ $\alpha \ub \in U$.
 \end{enumerate}
-Notar que  $U$  es a la vez un espacio vectorial. 
+Notar que  $U$  es a la vez un espacio vectorial.
 
 \begin{ejemplo}
 Algunos ejemplos de subespacios vectoriales son
@@ -704,7 +704,7 @@ Algunos ejemplos de subespacios vectoriales son
 \item El conjunto de matrices diagonales de $3 \times 3$ es un subespacio vectorial de $\mathbb{R}^{3 \times 3}$.
 \item El conjunto de matrices simétricas de $n \times n$ es un subespacio vectorial de $\mathbb{R}^{n \times n}$.
 \item El subconjunto de vectores $\mathbb{R}^5$ tales que la primera coordenada es $1$ \textbf{no} es un subespacio vectorial de $\R^5$.
-\item El conjunto de todos los polinomios en $\R[X]$ que se anulan en $1$.  
+\item El conjunto de todos los polinomios en $\R[X]$ que se anulan en $1$.
 \end{enumerate}
 \end{ejemplo}
 
@@ -791,7 +791,7 @@ $$
 $$
 es una base de $V$.
 
-Ahora queremos reemplazar a $\wb_{k+1}$ por alg\'un vector $\vb_i$, $i \> k$. Siguiendo la demostración del Lema de Intercambio, escribimos a $\wb_{k+1}$ como combinaci\'on no nula de los elementos de la base:
+Ahora queremos reemplazar a $\wb_{k+1}$ por alg\'un vector $\vb_i$, $i > k$. Siguiendo la demostración del Lema de Intercambio, escribimos a $\wb_{k+1}$ como combinaci\'on no nula de los elementos de la base:
 $$ \wb_{k+1} = c_1 \wb_1 + \dots + c_k \wb_k + c_{k+1} \vb_{k+1} + \dots + c_s \vb_s.$$
 No pueden ser todos los coeficientes $c_{k+1}, \dots, c_s$ iguales a 0, porque entonces $\tilde\B$ no sería base de $V$. Luego podemos elegir $j > k$ tal que $c_j \neq 0$, y siguiendo la demostraci\'on del Lema de Intercambio, obtenemos que reemplazando a $\vb_j$ por $\wb_k$ obtenemos una nueva base de $V$.
 
@@ -1083,25 +1083,25 @@ Dados los subespacios de $\R^4$, $S = \langle (1, 0, -3, 1), (2, 0, 3, -2)\rangl
 \end{ejercicio}
 Es simple determinar la relación entre las dimensiones de los espacios $S$,$U$, su suma y su intersección. De eso trata el siguiente resultado.
 \begin{prop}\label{prop:dimsum}
-Sean $U$ y $V$ dos subespacios de un $\K$ espacio vectorial de dimensión finita. Entonces 
+Sean $U$ y $V$ dos subespacios de un $\K$ espacio vectorial de dimensión finita. Entonces
 $$
 dim(U+ V)=dim(U)+dim(V)-dim(U\cap V).
 $$
 \end{prop}
 \begin{proof}
-Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $dim(U\cap V)=0$, por lo cual basta ver que $dim(U+ V)=dim(U)+dim(V)$. 
+Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $dim(U\cap V)=0$, por lo cual basta ver que $dim(U+ V)=dim(U)+dim(V)$.
 
 Para ello consideramos $\B=\{\ub_1,\cdots,\ub_k\}$ y $\B'=\{\vb_1,\cdots,\vb_n\}$ bases de $U$ y $V$ respectivamente y notemos que si tomamos un $\wb \in U+V$ deben existir $\ub \in U$ y $\vb\in V$ de modo tal que $\wb=\ub+\vb$. En particular, como $\B$ y $\B'$ son bases de $U$ y $V$,  deben existir escalares $\{\alpha_i\}_{1\le i\le k}$ y $\{\beta_j\}_{1\le j\le n}$ de modo tal que
 $$
 \ub= \sum_{i_1}^k\alpha_i\ub_i \qquad \vb=\sum_{j=1}^n\beta_j\vb_j,
 $$
-de donde conclu\'imos que el conjunto 
+de donde conclu\'imos que el conjunto
 $$\tilde{\B}=\B\cup \B'=\{ \ub_1,\cdots,\ub_k, \vb_1,\cdots,\vb_n\}$$
 es un sistema de generadores de $U+V$. Decimos que $\tilde{\B}$ es L.I. con lo cual resultaría una base y por ende $dim(U+V)=\# \B + \#\B'=dim(U)+dim(V)$ como queríamos probar. Para ver que $\tilde{\B}$ es L.I. suponemos que para cierta combinación lineal, se tiene
 $$
 \sum_{i_1}^k\alpha_i\ub_i + \sum_{j=1}^n\beta_j\vb_j=\cero,
 $$
-y notamos que en ese caso 
+y notamos que en ese caso
 $$
  U \ni \sum_{i_1}^k\alpha_i\ub_i = \sum_{j=1}^n(-\beta_j)\vb_j \in V,
 $$
@@ -1113,7 +1113,7 @@ y resulta $\alpha_1=\cdots=\alpha_k=\beta_1=\cdots=\beta_n=0$, indicando que $\t
 
 Resta probar el caso en que $U\cap V\neq \{\cero\}$. En este caso tomamos una base
 $\B''=\{\zb_1,\cdots,\zb_r\}$ de $U\cap V$ y como $U\cap V\subset U$ gracias a la Proposición \ref{prop:extension}, podemos extender $\B''$ a una base $\B$ de $U$,
-$\B=\{\zb_1,\cdots,\zb_r, \ub_{r+1},\cdots, \ub_k \}$.  Análogamente, $\B''$ se extiende a una base $\B'$ de $V$, $\B'=\{\zb_1,\cdots,\zb_r, \vb_{r+1},\cdots, \vb_n\}$.  Notemos, antes de proseguir, que las dimensiones de los espacios involucrados son $r$,$k$ y $n$ para  $U\cap V$, $U$ y $V$ respectivamente. Decimos que 
+$\B=\{\zb_1,\cdots,\zb_r, \ub_{r+1},\cdots, \ub_k \}$.  Análogamente, $\B''$ se extiende a una base $\B'$ de $V$, $\B'=\{\zb_1,\cdots,\zb_r, \vb_{r+1},\cdots, \vb_n\}$.  Notemos, antes de proseguir, que las dimensiones de los espacios involucrados son $r$,$k$ y $n$ para  $U\cap V$, $U$ y $V$ respectivamente. Decimos que
  $\tilde{\B}=\{\zb_1,\cdots,\zb_r,\ub_{r+1},\cdots, \ub_k, \vb_{r+1},\cdots, \vb_n\}$ es base de $U+V$. En efecto, es trivial ver que genera y para ver que es L.I. escribimos
  $$
  \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{n}\alpha_j \ub_j +\sum_{l=r+1}^{k}\beta_l \vb_l = \cero,
@@ -1125,16 +1125,16 @@ U \ni  \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{k}\alpha_j \ub_j =\sum_{l=r+1}^
  \end{equation}
  de donde en particular
  $\sum_{l=r+1}^{n}(-\beta_l) \vb_l \in U\cap V = \langle \zb_1,\cdots,\zb_r \rangle$, es decir, que $\beta_{r+1}=\beta_{r+2}=\cdots = \beta_n=0$.  Volviendo a \eqref{eq:totalsum}, vemos
- que 
+ que
   $$
   \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{k}\alpha_j \ub_j=\cero,
   $$
   y entonces
   $\gamma_1=\gamma_2=\cdots=\gamma_r=\alpha_{r+1}=\cdots=\alpha_{k}=0$ porque
-  $\B$ es base y por lo tanto L.I. 
-  
-  Hemos probado que 
+  $\B$ es base y por lo tanto L.I.
+
+  Hemos probado que
   $$\tilde{\B}=\{\zb_1,\cdots,\zb_r,\ub_{r+1},\cdots, \ub_k, \vb_{r+1},\cdots, \vb_n\}$$
-  es una base de $U+V$, por lo tanto 
+  es una base de $U+V$, por lo tanto
   $$dim(U+V)=r+(k-r)+(n-r)=k+n-r=dim(U)+dim(V)-dim(U\cap V),$$
-  como queríamos probar. \end{proof}
+  como queríamos probar. \end{proof} 
