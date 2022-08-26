@@ -130,7 +130,7 @@ print(np.transpose(A))
 ## [[ 5  3]
 ##  [ 7 -1]]
 \end{verbatim}
- 
+
 En lo que sigue resulta de utilidad definir lo siguiente: consideremos $\vb\in \Kn$, $\Ab\in \Knn$, con $\overline{\vb}\in \Kn$ (resp. $\overline{\Ab}\in \Knn$), denotamos el vector (resp. matrix) que tiene los mismos elementos que $\vb$ (resp. $\Ab$) pero conjugados. Obviamente si $\K=\R$, $\overline{\vb}=\vb$,  $\overline{\Ab}=\Ab$.
 
 La siguiente definición generaliza a la traspuesta en las matrices y a la conjugación en los escalares.
@@ -366,7 +366,7 @@ print(row_echelon(A))
 
 La función \texttt{row\_echelon} que estamos utilizando coloca 1's como primer elemento no nulo de cada fila, dividiendo cada fila por el escalar apropiado.
 
-A partir de la matriz escalonada podemos ahora encontrar fácilmente las casillas $b_{ij}$ de $\Bb$. Por ejemplo, la última fila será $[-0.2 0.4 0.2]$. Para las filas anteriores, podemos realizar ahora la triangulación hacia arriba: 
+A partir de la matriz escalonada podemos ahora encontrar fácilmente las casillas $b_{ij}$ de $\Bb$. Por ejemplo, la última fila será $[-0.2 0.4 0.2]$. Para las filas anteriores, podemos realizar ahora la triangulación hacia arriba:
 $$
 \left(\begin{array}{ccc|ccc}
  1. &  0. & -1. &  0.5 &  0.  &  0.  \\
@@ -485,12 +485,12 @@ print("Traza de A = ", tr(A)
 El determinante de una matriz \emph{cuadrada} se puede definir recursivamente por la siguiente fórmula
 
 $$
-\det(A)= \begin{cases}
+\det(\Ab)= \begin{cases}
 a_{11} & \text{si } n = 1 \\
-\sum _{j=1}^{n}(-1)^{i+j}a_{ij}M_{ij} & \text{si } n > 1,
+\sum _{j=1}^{n}(-1)^{i+j}a_{ij} \det(\Mb_{ij}) & \text{si } n > 1,
 \end{cases}
 $$
-donde $M_{ij}$ es la matrix de $(n-1) \times (n-1)$ que se obtiene al eliminar la fila $i$ y la columna $j$ de $A$.
+donde $\Mb_{ij}$ es la matrix de $(n-1) \times (n-1)$ que se obtiene al eliminar la fila $i$ y la columna $j$ de $\Ab$.
 
 \begin{ejemplo}\leavevmode
 \begin{enumerate}
@@ -645,4 +645,4 @@ Tenemos una base $\B=\{b_1, \dots, b_n\}$ de un espacio vectorial $V$ de dimensi
 \item Construimos la matriz $\Cb_{\B\E} = \begin{pmatrix} \mid & \mid & & \mid \\ {\bb}_{1} & {\bb}_{2} & \cdots & {\bb}_{n}\\ \mid & \mid & & \mid \\ \end{pmatrix}$.
 \item Para pasar un vector en base $\B$ a base canónica, usamos $\vb_\E= \Cb_{\B\E} \vb_\B$.
 \item Para pasar un vector en base base canónica a la base $\B$, definimos $\Cb_{\E\B} = (\Cb_{\B\E})^{-1}$ y usamos $\vb_\B= \Cb_{\E\B} \vb_\E$.
-\end{enumerate}
+\end{enumerate} 

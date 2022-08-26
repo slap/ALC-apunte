@@ -3,9 +3,9 @@ Consideremos el problema
 $$
 \Ab\xb=\bb
 $$
-con $\Ab\in \Rmn$. La existencia de soluciones de este problema equivale a que 
-$\bb\in \langle \ab_1,  \ab_2,\cdots , \ab_n\rangle$ ($\ab_{i}$ son las columnas de $\Ab$) y en ese caso la unicidad depende de que el conjunto 
-$\{ \ab_1,  \ab_2,\cdots , \ab_n\}$ sea $l.i.$. 
+con $\Ab\in \Rmn$. La existencia de soluciones de este problema equivale a que
+$\bb\in \langle \ab_1,  \ab_2,\cdots , \ab_n\rangle$ ($\ab_{i}$ son las columnas de $\Ab$) y en ese caso la unicidad depende de que el conjunto
+$\{ \ab_1,  \ab_2,\cdots , \ab_n\}$ sea $l.i.$.
 
 En el caso en que $\bb\notin \langle  \ab_1,  \ab_2,\cdots , \ab_n\rangle$
 podemos intentar minimizar el residuo
@@ -16,14 +16,14 @@ Para eso nos conviene usar una norma: la norma $2$  es la mas adecuada como vere
 
 El problema es entonces,  hallar $\xb\in \Rn$ tal que
 $$
-\|\Ab\xb-\bb\|_2=min_{\zb\in \Rn}\|\Ab\zb-\bb\|_2
+\|\Ab\xb-\bb\|_2=\min_{\zb\in \Rn}\|\Ab\zb-\bb\|_2
 $$
-o el equivalente 
+o el equivalente
 hallar $\xb\in \Rn$ tal que
 $$
-\|\Ab\xb-\bb\|_2^2=min_{\zb\in \Rn}\|\Ab\zb-\bb\|_2^2
+\|\Ab\xb-\bb\|_2^2=\min_{\zb\in \Rn}\|\Ab\zb-\bb\|_2^2
 $$
-el enfoque tradicional (fuera del álgebra lineal numérica) es buscar una ecuación para el punto crítico $\xb$ como minimizante. 
+el enfoque tradicional (fuera del álgebra lineal numérica) es buscar una ecuación para el punto crítico $\xb$ como minimizante.
 
 Eso equivale a anular el gradiente de la función $F:\Rn\to \R$, $F(\zb)=\|\Ab\zb-\bb\|_2^2$, es decir
 $$
@@ -32,7 +32,7 @@ $$
 $$
 \sum_{i=1}^m\frac{\partial \left( \sum_{j=1}^na_{ij}z_j-b_i \right)^2}{\partial z_k}|_{\xb}=2\sum_{i=1}^m\left( \sum_{j=1}^na_{ij}x_j-b_i\right)a_{ik}
 $$
-La validez de esta identidad para todo $1\le k\le n$ dice que 
+La validez de esta identidad para todo $1\le k\le n$ dice que
 $$
 \Ab^T(\Ab\xb-\bb)=\cero
 $$
@@ -41,12 +41,12 @@ Dicho de otro modo
 $$
 \Ab^T\Ab\xb=\Ab^T\bb
 $$
-estas se llaman las ecuaciones normales. 
+estas se llaman las ecuaciones normales.
 
 A pesar de su popularidad esta no siempre es la mejor manera de calcular $\xb$.
 
 
-Desde esas ecuaciones podemos deducir cuando habrá solución única de nuestro problema: si las columnas de $A$ son $l.i.$ entonces $\Ab^T\Ab\xb=\cero$ implica 
+Desde esas ecuaciones podemos deducir cuando habrá solución única de nuestro problema: si las columnas de $A$ son $l.i.$ entonces $\Ab^T\Ab\xb=\cero$ implica
 $$
 0=(\Ab^T\Ab\xb)^T\xb=(\Ab\xb)^T\Ab\xb=\|\Ab\xb\|_2^2,
 $$
@@ -57,7 +57,7 @@ En particular podemos resolver el sistema usando Cholesky a un costo $\sim mn^2+
 
 En gran parte de las aplicaciones $m >> n$ y las columnas de $\Ab$ son $l.i.$ lo cual muestra el éxito relativo de las ecuaciones normales.
 \section{Interpolación Polinomial}
-Un caso tradicional de uso de cuadrados mínimos es en aproximación polinomial. 
+Un caso tradicional de uso de cuadrados mínimos es en aproximación polinomial.
 
 El problema de la interpolación consiste en lo siguiente: dados $n+1$ pares de puntos $\{(x_{0},y_{0}),(x_{1},y_{1})\cdots ,(x_{n},y_{n})\}\subset \Kn$ hallar un polinomio $p_{n}(x)$ de grado a lo sumo $n$ tal que $p_{n}(x_{i})=y_{i}$.
 
@@ -65,7 +65,7 @@ El problema de la interpolación consiste en lo siguiente: dados $n+1$ pares de 
 Con los $x_{i}\neq x_{j}$ este problema siempre tiene solución única gracias a las siguientes observaciones.
 
 
- 
+
  Se propone $p_{n}(x)=a_{0}+ a_{1}x+\cdots +a_{n-1}x^{n-1} +a_{n}x^{n}$ y se hace $p_{n}(x_{i})=y_{i}$ para todo $0\le i\le n$ que conduce a un sistema lineal con matriz de Vandermonde $V[x_0,x_1,\cdots,x_n]$
  $$
  \begin{pmatrix}
@@ -91,19 +91,19 @@ y_{0}\\
  $$
  \det V[x_0,x_1,\cdots,x_n]=\Pi_{0\le i<j\le n}(x_j-x_i).
  $$
- (La demo mas corta que conozco...) 
- 
- Vale en $2\times 2$ y sale por inducción: supongo que vale hasta $n-1$. 
- 
+ (La demo mas corta que conozco...)
+
+ Vale en $2\times 2$ y sale por inducción: supongo que vale hasta $n-1$.
+
  LLamo
  $p_n(x)=\det V[x_0,x_1,\cdots,x_{n-1},x]$, claramente es polinomio y tiene grado $n$, su coeficiente principal es (desarrollo por la primera fila y uso hipótesis inductiva) $\det V[x_0,x_1,\cdots,x_{n-1}]=\Pi_{0\le i<j\le n-1}(x_j-x_i)$.
- 
+
   Ademas las raíces de $p_n(x)$ son exactamente $x_0,x_1,\cdots, x_{n-1}$, luego se escribe como
  $$
  p_n(x)=\Pi_{0\le i<j\le n-1}(x_j-x_i)\Pi_{k=0}^{n-1}(x-x_k),
  $$
- evaluando en $x=x_n$ se obtiene el resultado mencionado. 
- 
+ evaluando en $x=x_n$ se obtiene el resultado mencionado.
+
  En particular el problema de interpolación tiene solución única...
 
 Hay otros enfoques... Lagrange
@@ -119,7 +119,7 @@ $$
  La unicidad sale aparte...
 
  Problemas de la interpolación:
- 
+
  \begin{figure}
 \centering\includegraphics[width=0.4\linewidth]{interp5.png}
 \end{figure}
@@ -138,7 +138,7 @@ $$
 \centering\includegraphics[width=0.4\linewidth]{recta5.png}
 \end{figure}
 
- 
+
  \begin{figure}
 \centering\includegraphics[width=0.4\linewidth]{linea5rand.png}
 \end{figure}
@@ -162,10 +162,10 @@ La teoría anterior se aplica igual las matrices de Vandermonde son ($m>>n$)
  1&x_{m}&x_{m}^{2}&\cdots &x_{m}^{n}\\
  \end{pmatrix}
 $$
-notar que las columnas son $l.i.$ porque las primeras $n+1$ filas forman una matriz de Vandermonde 
+notar que las columnas son $l.i.$ porque las primeras $n+1$ filas forman una matriz de Vandermonde
 cuadrada invertible.
 
-Si hacemos $n=1$ 
+Si hacemos $n=1$
 $$
  \begin{pmatrix}
  1&x_{0}\\
@@ -198,7 +198,7 @@ $$
 \frac{1}{m+1}\sum_{i=0}^my_i\\
  \frac{1}{m+1}\sum_{i=0}^mx_iy_i
  \end{pmatrix}.
-$$ 
+$$
 
  \begin{figure}[h]
 \centering\includegraphics[width=0.4\linewidth]{minimosminimos.png}
@@ -208,7 +208,7 @@ $$
  $$
  \Ab=\Ub\Sigma\Vb^*
  $$
- y $\Ab\in \R^{m\times n}$, vimos que puede definirse la condición de $\Ab$ como $\frac{\sigma_1}{\sigma_n}$. Si hacemos $\Ab^T\Ab=\Vb\Sigma^2\Vb^*$ vemos que en las ecuaciones normales la condición de la matriz final empeora $\kappa(\Ab^T\Ab)=\left(\frac{\sigma_1}{\sigma_n}\right)^2$. 
+ y $\Ab\in \R^{m\times n}$, vimos que puede definirse la condición de $\Ab$ como $\frac{\sigma_1}{\sigma_n}$. Si hacemos $\Ab^T\Ab=\Vb\Sigma^2\Vb^*$ vemos que en las ecuaciones normales la condición de la matriz final empeora $\kappa(\Ab^T\Ab)=\left(\frac{\sigma_1}{\sigma_n}\right)^2$.
 
 Problema revisitado
 \begin{figure}[h]
@@ -218,8 +218,8 @@ Problema revisitado
 El gráfico sugiere otro enfoque: construir el proyector $P$ sobre la imagen de $\Ab$. Esto es , si $\{\qb_1,\cdots,\qb_n\}$ es una base ortonormal de $\mathcal{S}=Im(\Ab)$ tenemos
 $$
 P_{\mathcal{S}}\bb=\Qb\Qb^*\bb
-$$ 
-donde 
+$$
+donde
 $$
 \Qb=
 \begin{pmatrix}
@@ -230,9 +230,9 @@ La obtención de $\Qb\in \R^{m\times n}$ puede hacerse con la factorización $QR
 $$
 \Ab=\Qb\Rb
 $$
-con $\Rb\in \R^{n\times n}$ triangular superior.  
+con $\Rb\in \R^{n\times n}$ triangular superior.
 
-Escribimos  
+Escribimos
 $$
 \Qb\Rb\xb=\Ab\xb=P_{\mathcal{S}}\bb=\Qb\Qb^*\bb
 $$
@@ -240,7 +240,7 @@ es decir que basta resolver
 $$
 \Rb\xb=\Qb^*\bb
 $$
-Este algoritmo es mas estable que el de las ecuaciones normales su costo esta gobernado por $QR$  que es 
+Este algoritmo es mas estable que el de las ecuaciones normales su costo esta gobernado por $QR$  que es
 $\sim 2mn^2-\frac13n^3$.
 Volvemos a las ecuaciones normales: supongamos que $\Ab\in \R^{m\times n}$, $m>>n$, rango $n$  (columnas l.i.): debemos resolver
 $$
@@ -251,7 +251,7 @@ $$
 \Vb\Sigma^t\Sigma\Vb^t\xb=\Ab^t\Ab\xb=\Ab^t\bb=\Vb\Sigma^t\Ub^t\bb
 $$
 
-Como 
+Como
 $$\Sigma=
 \begin{pmatrix}
 \sigma_1&0&0&\cdots &0\\
@@ -306,11 +306,11 @@ Recordemos que de $\Ab=\Ub\Sigma\Vb^t$, tenemos que para $1\le i\le r$
 $$
 \Ab\vb_i=\Ub\Sigma\Vb^t\vb_i=\Ub\Sigma\eb_i=\Ub\sigma_i\eb_i=\sigma_i\Ub_i
 $$
-y 
+y
 $$
 \Ab\vb_i=\cero
 $$
-si $r<i\le n$. 
+si $r<i\le n$.
 
 
 Luego $ker(\Ab)=\langle \vb_{r+1},\cdots,\vb_n\rangle $ y
@@ -336,7 +336,7 @@ $$
 
 Queremos estudiar $\Ab^+\bb$ en este caso.
 
-El producto 
+El producto
 $$
 \Ub^t\bb=
 \begin{pmatrix}
@@ -392,25 +392,25 @@ $$
 \|\xb\|<\|\tilde\xb\|
 $$
 la pseudoinversa da la solución de menor norma $2$.
- 
- \centerline {Relación con regularización:} 
+
+ \centerline {Relación con regularización:}
 
 En el caso de rango $r<n$ (o muy mal condicionado) también se puede pensar el problema del modo siguiente: minimizar
  $$
  F(\zb)=\|\Ab\zb-\bb\|^2+\alpha^2\|\zb\|^2
  $$
- y luego hacer $\alpha\to 0$. 
- 
+ y luego hacer $\alpha\to 0$.
+
  \begin{itemize}
  \item  El término se elige $\alpha^2$ para garantizar signo
 \item La expresión: $\alpha^2\|\zb\|^2$ se denomina penalización (se penalizan valores grandes de  $\|\zb\|$.
 \item Para cada $\alpha$ tenemos una solución: la denotamos $\xb_\alpha$.
  \end{itemize}
- Decimos que 
+ Decimos que
  $$
  \xb_\alpha\to \xb \, \mbox{solución dada por}\, \Ab^+
  $$
- En efecto: para el mínimo de $F$ se tiene 
+ En efecto: para el mínimo de $F$ se tiene
  $$
  2(\Ab^t(\Ab\xb_\alpha-\bb)+\alpha^2\xb_\alpha)=\cero
  $$
@@ -419,7 +419,7 @@ En el caso de rango $r<n$ (o muy mal condicionado) también se puede pensar el p
  $$
  en el caso mas interesante en que $\Ab$ tene rango $r<n$ la matriz simétrica $\Ab^t\Ab$
  no es invertible pero para todo $\alpha\neq 0$, $\Ab^t\Ab+\alpha^2 \Ib$ sí lo es.
- 
+
  $$
  \xb_\alpha= (\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Ab^t\bb
  $$
@@ -452,7 +452,7 @@ $$
 
 $$
 (\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Ab^t=(\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Vb\Sigma^t\Ub^t=
-$$ 
+$$
 $$\Vb \begin{pmatrix}
 \frac{\sigma_1}{\sigma_1^2+\alpha^2}&0&0&\cdots &0&\cdots &0\\
 0&\frac{\sigma_2}{\sigma_2^2+\alpha^2}&0&\cdots &0&\cdots &0\\

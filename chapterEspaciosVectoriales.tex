@@ -263,7 +263,7 @@ Resolvemos escalonando el sistema
 $$
 \left\{
 \begin{aligned}
-x_1 + 2x_2 &= -1 \\
+x_1 + 2x_2 - x_3 &= -1 \\
 2x_1 + 4x_2 + 3 x_3 &= 4 \\
 3 x_3 &= 6.
 \end{aligned}
@@ -274,14 +274,14 @@ $$
 \begin{enumerate}
 \item Construimos la matriz ampliada
 $$\tilde \Ab = \left( \begin{array}{ccc|c}
-1 & 2 & 0 & -1 \\ 2 & 4 & 3 & 4 \\ 0 & 0 & 3 & 6 \end{array} \right).$$
+1 & 2 & -1 & -1 \\ 2 & 4 & 3 & 4 \\ 0 & 0 & 3 & 6 \end{array} \right).$$
 \item Para conseguir 0's abajo de la casilla $(1,1)$, realizamos la operación $f_2 - 2f_1 \rightarrow f_2$.  Obtenemos
 $$\tilde \Ab_1 = \left( \begin{array}{ccc|c}
-1 & 2 & 0 & -1 \\ 0 & 0 & 3 & 6 \\ 0 & 0 & 3 & 6 \end{array} \right).$$
+1 & 2 & -1 & -1 \\ 0 & 0 & 3 & 6 \\ 0 & 0 & 3 & 6 \end{array} \right).$$
 
 \item Como deseamos tener en cada fila m\'as ceros que en la anterior, debemos ahora obtener un 0 abajo de la casilla $(2, 3)$. Para eso realizamos la operaci\'on $f_3 - f_2 \rightarrow f_3$.  Obtenemos la matriz
 $$
-\tilde \Ab_2 = \left( \begin{array}{ccc|c} 1 & 2 & 0 & -1 \\ 0 & 0 & 3 & 6 \\ 0 & 0 & 0 & 0 \end{array}\right),
+\tilde \Ab_2 = \left( \begin{array}{ccc|c} 1 & 2 & -1 & -1 \\ 0 & 0 & 3 & 6 \\ 0 & 0 & 0 & 0 \end{array}\right),
 $$
 que es una matriz escalonada, por lo que finalizamos el proceso.
 \end{enumerate}
@@ -791,7 +791,7 @@ $$
 $$
 es una base de $V$.
 
-Ahora queremos reemplazar a $\wb_{k+1}$ por alg\'un vector $\vb_i$, $i > k$. Siguiendo la demostración del Lema de Intercambio, escribimos a $\wb_{k+1}$ como combinaci\'on no nula de los elementos de la base:
+Ahora queremos reemplazar a $\wb_{k+1}$ por alg\'un vector $\vb_i$, $i \ge k+1$. Siguiendo la demostración del Lema de Intercambio, escribimos a $\wb_{k+1}$ como combinaci\'on no nula de los elementos de la base:
 $$ \wb_{k+1} = c_1 \wb_1 + \dots + c_k \wb_k + c_{k+1} \vb_{k+1} + \dots + c_s \vb_s.$$
 No pueden ser todos los coeficientes $c_{k+1}, \dots, c_s$ iguales a 0, porque entonces $\tilde\B$ no sería base de $V$. Luego podemos elegir $j > k$ tal que $c_j \neq 0$, y siguiendo la demostraci\'on del Lema de Intercambio, obtenemos que reemplazando a $\vb_j$ por $\wb_k$ obtenemos una nueva base de $V$.
 
