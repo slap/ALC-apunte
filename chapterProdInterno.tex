@@ -199,12 +199,12 @@ sen(\alpha +\beta)=sen(\alpha)cos(\beta)+cos(\alpha)sen(\beta).
 $
 }
 $$
-\langle \xb,\yb\rangle= \|\xb\|_2\|\yb\|_2\left(\cos(\alpha)\cos(\beta)+\sen(\alpha)\sen(\beta)\right)=\|\vb\|_2\|\wb\|_2\cos(\alpha-\beta),
+\langle \xb,\yb\rangle= \|\xb\|_2\|\yb\|_2\left(\cos(\alpha)\cos(\beta)+\sen(\alpha)\sen(\beta)\right)=\|\xb\|_2\|\yb\|_2\cos(\alpha-\beta),
 $$
 lo que dice que puede escribirse
 \begin{equation}
  \label{eq:calculodeAng}
-\cos(\theta)=\frac{\langle \xb,\yb\rangle}{\|\vb\|_2\|\wb\|_2},
+\cos(\theta)=\frac{\langle \xb,\yb\rangle}{\|\xb\|_2\|\yb\|_2},
 \end{equation}
 con $\theta$ el ángulo\footnote{Considerando que $\cos(\mu)=\cos(2\pi-\mu)$ siempre puede elegirse $0\le \theta < \pi$.} entre $\xb$ y $\yb$.
 \begin{center}
@@ -230,7 +230,7 @@ De \eqref{eq:calculodeAng} vemos que $\theta=\pi/2$ si y solo si $\vb^*\wb=0$, d
 \etcc
 Los conjuntos ortogonales tienen muchas propiedades que pueden explotarse, tanto teóricamente como en la práctica.
 
-Veamos una de ellas de importancia fundamental. Sea $\mathcal{B}=\{\vb\}_{1\le i\le n}\subset \K^n$ una \emph{base} ortonormal de $\K^n$. Dado $\wb\in \K^n$ queremos conocer las coordenadas de $\wb$ en la base $\mathcal{B}$. Esto se reduce a hallar los  $\{\alpha_i\}_{1\le i\le n}\subset \K$ tales que
+Veamos una de ellas de importancia fundamental. Sea $\mathcal{B}=\{\vb_i\}_{1\le i\le n}\subset \K^n$ una \emph{base} ortonormal de $\K^n$. Dado $\wb\in \K^n$ queremos conocer las coordenadas de $\wb$ en la base $\mathcal{B}$. Esto se reduce a hallar los  $\{\alpha_i\}_{1\le i\le n}\subset \K$ tales que
 \begin{equation}
 \label{eq:escritura_ort}
 \wb=\sum_{i=1}^n\alpha_i\vb_i,
@@ -442,7 +442,7 @@ es decir que
 \label{eq:isometria}
 \|\Qb\xb\|_2=\|\xb\|_2, \, \forall \xb\in \K^n.
 \end{equation}
- Vemos que las matrices unitarias son \emph{isometrías}, es decir, no cambian las longitudes. Tampoco cambian los ángulos ya que preservan el producto interno, propiedad que resaltamos a continuación 
+ Vemos que las matrices unitarias son \emph{isometrías}, es decir, no cambian las longitudes. Tampoco cambian los ángulos ya que preservan el producto interno, propiedad que resaltamos a continuación
  \tcc
  \begin{equation}
  \label{eq:preservaPI}
@@ -518,8 +518,8 @@ Para $(3)$, notemos que por $(1)$ se tiene
 
 
 \section{Condicion de Matrices}
-Sea $\Ab\in \R^{n\times m}$,  queremos estudiar en más detalle la condición de evaluar $\Ab\vb$ (pensado como transformación lineal). Notemos que podemos hacerlo con bastante en general aprovechando la linealidad.
-En efecto, para una perturbación arbitraria $\hb$ de $\vb$ tenemos que el error relativo de evaluar en $\vb$ (asumiendo que $\vb\notin Nu(\Ab)$) puede escribirse
+Sea $\Ab\in \R^{n\times m}$,  queremos estudiar en más detalle la condición de evaluar $\Ab\vb$ (pensado como transformación lineal). Notemos que podemos hacerlo con bastante generalidad aprovechando la linealidad.
+En efecto, para una perturbación arbitraria $\hb$ de $\vb$ tenemos que el error relativo de evaluar en $\vb$ (asumiendo que $\vb\notin \Nu(\Ab)$) puede escribirse
 $$
 \frac{\|\Ab(\vb+\hb)-\Ab\vb \|}{\|\Ab\vb\|}=\frac{\|\Ab\hb\|}{\|\Ab\vb\|},
 $$
@@ -529,7 +529,7 @@ $$
 $$
 El número que está a la derecha es independiente de $\hb$ y podemos usarlo como representante de la condición de evaluar $\Ab$ en $\vb$ y de hecho vemos que  coincide con la expresión sugerida para la condición en el caso general  (i.e. $
 \frac{\|x_0\|\|Df(x_0)\|}{\|f(x_0)\|}
-$). Si quisieramos una expresión independiente de $\vb$ que podríamos hacer?. En el caso en que $n=m$ y $\Ab$ sea invertible, podemos llamar $\wb=\Ab\vb$ y el cociente $\frac{\|\vb\|}{\|\Ab\vb\|}$ puede acotarse idependiente de $\vb$
+$). Si quisieramos una expresión independiente de $\vb$, ¿qué podríamos hacer? En el caso en que $n=m$ y $\Ab$ sea invertible, podemos llamar $\wb=\Ab\vb$ y el cociente $\frac{\|\vb\|}{\|\Ab\vb\|}$ puede acotarse idependiente de $\vb$
 $$
 \frac{\|\vb\|}{\|\Ab\vb\|}=
 \frac{\|\Ab^{-1}\wb\|}{\|\wb\|}
@@ -606,7 +606,7 @@ $$\frac{1}{\kappa(\Ab)}\frac{\|\Delta \bb\|}{\|\bb\|}\le \frac{\|\Delta \xb\|}{\
 \begin{ej}
  Verifique con ejemplos que las desigualdades previas se alcanzan (Sug.: use matrices diagonales adecuadas).
 \end{ej}
-Teniendo en cuenta el ejercicio previo, vemos que la cota superior puede alcanzarse en la pŕactica. En particular nos dice de un modo simplificado que podemos perder $log_{10}(\kappa(\Ab))$ dígitos significativos al resolver el sistema\footnote{Por ejemplo, si $\kappa(\Ab)\sim 10^{16}$ no tenemos la garantía de tener ni un dígito correcto en nuestro resultado.}.
+Teniendo en cuenta el ejercicio previo, vemos que la cota superior puede alcanzarse en la pŕactica. En particular nos dice de un modo simplificado que podemos perder $\log_{10}(\kappa(\Ab))$ dígitos significativos al resolver el sistema\footnote{Por ejemplo, si $\kappa(\Ab)\sim 10^{16}$ no tenemos la garantía de tener ni un dígito correcto en nuestro resultado.}.
 
 El siguiente resultado da una idea cualitativa de $\kappa(\Ab)$ como el recíproco de la distancia relativa de $\Ab$ a las matrices singulares.
 \begin{teo}

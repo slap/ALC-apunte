@@ -100,7 +100,7 @@ En efecto, en este ejemplo, a pesar de que $A$ tiene solo $39753$ elementos no n
 \end{figure}
 
 
-Si bien hay heurísticas para evitar el rellenado, buscando permutar las variables y las ecuaciones no las vamos a comentar en este texto. Vamos a concentrarnos en los métodos iterativos. Estos no buscan ninguna factorización y se basan en iterar un procedimiento de orden $\mathcal{O}(N^2)$ (básicamente el producto de una matriz por vector)  con el esperanza de conseguir una buena aproximación de la solución buscada en unas pocas \footnote{Pocas al menos relativo al tamaño $N$ de la matriz.} iteraciones. 
+Si bien hay heurísticas para evitar el rellenado, buscando permutar las variables y las ecuaciones no las vamos a comentar en este texto. Vamos a concentrarnos en los métodos iterativos. Estos no buscan ninguna factorización y se basan en iterar un procedimiento de orden $\mathcal{O}(N^2)$ (básicamente el producto de una matriz por vector)  con el esperanza de conseguir una buena aproximación de la solución buscada en unas pocas \footnote{Pocas al menos relativo al tamaño $N$ de la matriz.} iteraciones.
 
 Ya hemos visto que $\rho(\Ab)$ no es una norma, sin embargo verifica:
 $$
@@ -211,11 +211,11 @@ $\omega_{opt}$ ocurre en el punto de cruce de los gráficos.
 \label{fig:modulos}
 \centering\includegraphics[width=0.4\linewidth]{modulos.png}
 \end{figure}
-Ese punto puede despejarse 
+Ese punto puede despejarse
 $$
 \omega_{opt}=\frac{2}{\lambda_n+\lambda_1}
 $$
-de donde el respectivo radio espectral óptimo es 
+de donde el respectivo radio espectral óptimo es
 $$\rho(\Mb_I)=\frac{\lambda_n-\lambda_1}{\lambda_n+\lambda_1}=\frac{\kappa(\Ab)-1}{\kappa(\Ab)+1}.
 $$
 Notemos que la velocidad de convergencia del método se deteriora si  $\kappa(\Ab)$ es grande.
@@ -233,7 +233,7 @@ $$\omega_{opt}\sim
 1.04$$
 lo que da
 $$\rho(\Mb_I)\sim 0.99907$$
-si queremos reducir  el error inicial en un orden  de $10^{-3}$ precisamos iterar aproximadamente $60000$ veces, número mucho mayor que el tamaño  $n\sim 3000$ de la matriz. Como vemos no resulta muy competitivo en este caso. 
+si queremos reducir  el error inicial en un orden  de $10^{-3}$ precisamos iterar aproximadamente $60000$ veces, número mucho mayor que el tamaño  $n\sim 3000$ de la matriz. Como vemos no resulta muy competitivo en este caso.
 \etcc
 
 
@@ -343,7 +343,7 @@ Si trabajamos una matriz \emph{tridiagonal}, como por ejemplo el de la ecuación
  \begin{prop}
 \label{prop:mat_trid_gs_j}
 Sea $\Ab\in \Knn$ tridiagonal (i.e. $|a_{i,j}|=0$ si $|j-i|>1$) con $a_{ii}\neq 0$ para todo $1\le i\le n$.  Entonces
-$\rho(\Mb_{GS})=\rho(\Mb_{J})^2$. 
+$\rho(\Mb_{GS})=\rho(\Mb_{J})^2$.
 \end{prop}
 \begin{proof}
 Escribimos $\Ab=\Lb+\Db+\Ub$. Sea $0\neq \lambda$ autovalor de la matriz $\Mb_{J}=-\Db^{-1}(\Lb+\Ub)$. Queremos ver que $\lambda^2$ es autovalor de $\Mb_{GS}=-(\Db +\Lb)^{-1}\Ub$. En particular
@@ -351,7 +351,7 @@ $$
 \det \left( -\Db^{-1}(\Lb+\Ub)-\lambda \Ib \right) =0
 $$ por lo tanto (sacando $-\Db^{-1}$ de factor común y usando propiedades del determinante)
 $$\det \left(\Lb+\Ub+\lambda \Db \right) =0$$
-donde la matriz $\Mb=\Lb+\Ub+\lambda \Db $ es \emph{tridiagonal}. En particular, tomando un $0\neq\alpha\in \K$ cualquiera tenemos que 
+donde la matriz $\Mb=\Lb+\Ub+\lambda \Db $ es \emph{tridiagonal}. En particular, tomando un $0\neq\alpha\in \K$ cualquiera tenemos que
 $$
 \det(\Mb)=\det\left(
 \begin{pmatrix}
@@ -370,7 +370,7 @@ $$
 0&0&0&\cdots&\alpha^{-n}
 \end{pmatrix}\right),
 $$
-propiedad que vale para cualquier matriz $\Mb$ pero en este caso particular, \emph{por ser tridiagonal}, un cálculo directo muestra que 
+propiedad que vale para cualquier matriz $\Mb$ pero en este caso particular, \emph{por ser tridiagonal}, un cálculo directo muestra que
 $$
 \begin{pmatrix}
 \alpha&0&0&\cdots&0\\
@@ -388,7 +388,7 @@ $$
 0&0&0&\cdots&\alpha^{-n}
 \end{pmatrix}=\alpha^{-1} \Lb+\lambda \Db +\alpha\Ub
 $$
-por lo que tomando $\alpha^{-1}=\lambda$ tenemos que 
+por lo que tomando $\alpha^{-1}=\lambda$ tenemos que
 $$0=\det \left(\Lb+\Ub+\lambda \Db \right)=(-\lambda)^n \det \left(-\Lb-\Db -\alpha^2\Ub \right)=(-\lambda)^n \det \left(-(\Lb+\Db)^{-1}\Ub -\lambda^2\Ib \right),$$
 es decir $\lambda^2$ es autovalor de $\Mb_{GS}$. Queda como ejercicio seguir los pasos en sentido inverso y ver que si $\lambda^2\neq 0$ es autovalor de $\Mb_{GS}$ entonces
 $\lambda$ lo es de $\Mb_{J}$. Los autovalores nulos no son de interés, porque no modifican el radio espectral.
@@ -430,7 +430,7 @@ y así
 $|\lambda|^2=a^2+b^2<1.$
 \end{proof}
 \tcc
-Volviendo a nuestro ejemplo $(E)$ de distribución de temperatura, la matriz $\Ab$ es simétrica y definida positiva (no estamos probando esta última afirmación). Por la proposición anterior sabemos que GS converge. Por otro lado no es EDD sino solamente DD, tampoco es tridiagonal,  sin embargo cumple con otras hipótesis (que no veremos en este curso) que garantizan que 
+Volviendo a nuestro ejemplo $(E)$ de distribución de temperatura, la matriz $\Ab$ es simétrica y definida positiva (no estamos probando esta última afirmación). Por la proposición anterior sabemos que GS converge. Por otro lado no es EDD sino solamente DD, tampoco es tridiagonal,  sin embargo cumple con otras hipótesis (que no veremos en este curso) que garantizan que
 $$
 \rho(\Mb_{GS})=\rho(\Mb_{J})^2,
 $$
@@ -482,11 +482,11 @@ en particular, y como es de esperar, $\omega=1$ recupera a GS. El método SOR ti
 $$
 \Mb_\omega=(\Db+\omega \Lb)^{-1}\left((1-\omega)\Db-\omega\Ub\right).
 $$
-No vamos a estudiar con detalle la convergencia para este método, pero observemos que como $\Mb_\omega$ es producto de matrices triangulares, es fácil ver que  
+No vamos a estudiar con detalle la convergencia para este método, pero observemos que como $\Mb_\omega$ es producto de matrices triangulares, es fácil ver que
 $$
 \det (\Mb_\omega)=(1-\omega)^n,
 $$
-lo que dice que 
+lo que dice que
 $\rho(\Mb_\omega)\ge |1-\omega|$
 en particular y vemos que una condición necesaria para la convergencia del  m\'etodo  es que $0<\omega<2$.
 \tcc
@@ -504,7 +504,7 @@ con lo cual podemos lograr una reducción del error en $10^{-4}$ con solo 150 it
 \caption{Comportamiento de $\rho(\Mb_\omega)$. Se ve que tiene un mínimo cerca de $\omega=1.904$ que se corresponde con un radio espectral cercano a $0.9$. }
 \end{figure}
 
-\section{Método de gradiente (o del descenso mas rápido)}
+\section{Método de gradiente (o del descenso más rápido)}
 Cuando trabajamos con matrices simétricas definidas positivas es posible reemplazar el problema:
 $$
 \mbox{(P1) Hallar $\xb\in \R^n$ tal que
@@ -533,12 +533,12 @@ t_m=\frac{\zb^T\Ab\xb-\zb^T\bb}{\zb^T\Ab\zb}=\frac{\zb^T(\Ab\xb-\bb)}{\zb^T\Ab\z
 $$
 J(\xb)=h(0)\le h(t)=J(\xb+t\zb)
 $$
-para todo $t$ y vemos que  
+para todo $t$ y vemos que
 $$
 J(\xb)=\min_{\yb\in\Rn}J(\yb),
 $$
 lo que dice que $\xb$ resuelve $(P2)$.
-Recíprocamente: si $\xb$ es tal que 
+Recíprocamente: si $\xb$ es tal que
 $$
 J(\xb)=\min_{\yb\in\Rn}J(\yb),
 $$
@@ -578,11 +578,11 @@ tiene por solución $\xb=\begin{pmatrix}
     -1/8
      \end{pmatrix}.
 $
-Por otro lado, 
+Por otro lado,
 $$
 J(x_1,x_2)=5/2x_1^2+2x_2^2+2x_1x_2-x_1,
 $$
-y en la Figura \ref{fig:curvasdeJ} vemos las curvas de nivel de $J$ y el punto $\xb$ (en rojo) solución del sistema. 
+y en la Figura \ref{fig:curvasdeJ} vemos las curvas de nivel de $J$ y el punto $\xb$ (en rojo) solución del sistema.
 \etcc
 
 \begin{figure}[h]
@@ -624,9 +624,9 @@ $$
 \xb_{i+1}=\xb_i+\frac{\rb_i^T\rb_i}{\rb_i^T\Ab\rb_i}
 \rb_i.
 $$
-El proceso anterior puede converger muy lentamente. En cada paso minimizamos (de forma exacta en aritmética exacta) a lo largo de la recta $\xb_i+\lambda \zb_i$. 
+El proceso anterior puede converger muy lentamente. En cada paso minimizamos (de forma exacta en aritmética exacta) a lo largo de la recta $\xb_i+\lambda \zb_i$.
 
-Una mejora sustancial sería comenzar en un $x_0$, minimizar a lo largo de una recta, luego a lo largo de un plano, e ir aumentando la dimensión. Por ejemplo podríamos  intentar minimizar el paso $i$ en 
+Una mejora sustancial sería comenzar en un $x_0$, minimizar a lo largo de una recta, luego a lo largo de un plano, e ir aumentando la dimensión. Por ejemplo podríamos  intentar minimizar el paso $i$ en
 $$
 J(\xb_{i+1})=\min_{\yb\in \langle \zb_0,\cdots\zb_i \rangle + x_0}J(\yb)
 $$
@@ -636,7 +636,7 @@ Observemos, antes de continuar, que una matriz simétrica (o Hermitiana) definid
 $$
 \xb^T\Ab\yb.
 $$
-En particular este producto posee la siguiente norma asociada 
+En particular este producto posee la siguiente norma asociada
 $$
 \|\xb\|_A=\sqrt{\xb^T\Ab\xb}.
 $$
@@ -650,26 +650,26 @@ $$
 \end{lema}
 \etcc
 \begin{proof}
- Sea $W_{i+1}=\langle \zb_0,\zb_1,\cdots,\zb_i \rangle$ y tomo $\zb\in \xb_0+W_{i+1}$ arbitrario. Por construcción, se puede escribir 
- $$\zb=\yb+t\zb_i$$ con $\yb\in \xb_0+ W_i=\xb_0+\langle \zb_0,\zb_1,\cdots,\zb_{i-1} \rangle$. 
- 
-Observamos que  
+ Sea $W_{i+1}=\langle \zb_0,\zb_1,\cdots,\zb_i \rangle$ y tomo $\zb\in \xb_0+W_{i+1}$ arbitrario. Por construcción, se puede escribir
+ $$\zb=\yb+t\zb_i$$ con $\yb\in \xb_0+ W_i=\xb_0+\langle \zb_0,\zb_1,\cdots,\zb_{i-1} \rangle$.
+
+Observamos que
   $$
- \min_{\zb\in \xb_0+W_{i+1}}J(\zb)=\min_{\yb\in\xb_0+W_{i},t \in \R} J(\yb+t \zb_i) 
+ \min_{\zb\in \xb_0+W_{i+1}}J(\zb)=\min_{\yb\in\xb_0+W_{i},t \in \R} J(\yb+t \zb_i)
  $$
- 
-Escribimos 
+
+Escribimos
 $$
 J(z)=J(\yb+t\zb_i)=\frac{1}{2}t^2\zb_i^T\Ab\zb_i+t\left(\zb_i^T\Ab\yb-\zb_i^T\bb\right) +\frac{1}{2}\yb^T\Ab\yb-\yb^T\bb
 $$
-pero, usando que $\zb_i^T\Ab\zb_j=0$ 
+pero, usando que $\zb_i^T\Ab\zb_j=0$
 $$
 \zb_i^T\Ab\yb=\zb_i^T\Ab\xb_0=\zb_i^T\Ab\xb_i
 $$
 $$
 J(\yb+t\zb_i)=\left(\frac{1}{2}t^2\zb_i^T\Ab\zb_i+t\left(\zb_i^T\Ab\xb_i-\zb_i^T\bb\right)\right) +\frac{1}{2}\yb^T\Ab\yb-\yb^T\bb
 $$
-de donde resulta que 
+de donde resulta que
 para minimizar en $\zb$ basta minimizar ambos términos: el primero en $t\in \R$ el segundo en $\yb\in W_i$. Pero el $t$ óptimo es justamente $\lambda=\frac{\zb_i^T\Ab\rb_i}{\zb_i^T\Ab\zb_i}$ provisto por nuestro método. En definitiva
   el resultado sale por inducción.
 \end{proof}
@@ -685,7 +685,7 @@ Idea: A-ortogonalizar los residuos
  \item $\zb_0=\rb_0$
  \item $\zb_i=\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\zb_j$
 \end{itemize}
- 
+
 
 
 Vale lo siguiente
@@ -696,26 +696,26 @@ Vale lo siguiente
 $$
 0=\rb_j^T(\Ab\xb_i-\bb)=\rb_j^T\rb_i.
 $$
-\item Existe $m\le n$ tal que 
+\item Existe $m\le n$ tal que
 $$
 \xb_0\neq \xb_1\neq \cdots \neq \xb_m= \xb
 $$
 $$
 W_{0}\subsetneq W_1\subsetneq \cdots \subsetneq W_m
 $$
- 
+
 \item Para todo $1\le i\le m$, $\{ \zb_0,\zb_1\cdots \zb_{i-1}\}$ (resp. $\{ \rb_0,\rb_1\cdots \rb_{i-1}\}$) es una base $A$ ortogonal (resp. ortogonal) de $W_i$.
- \item $\zb_i^T\rb_i=\rb_i^T\rb_i$. Pues 
- $\zb_i=\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\zb_j$ y entonces 
+ \item $\zb_i^T\rb_i=\rb_i^T\rb_i$. Pues
+ $\zb_i=\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\zb_j$ y entonces
  $$\rb_i^T\zb_i=\rb_i^T\rb_i-\sum_{j=0}^{i-1}\frac{\zb_j^T\Ab\rb_i}{\zb_j^T\Ab\zb_j}\rb_i^T\zb_j=\rb_i^T\rb_i$$
  pues para cada $j\le i-1$,
- $\zb_j\in W_i=\langle \rb_0,\cdots,\rb_{i-1}\rangle$, $\rb_i^T\zb_j=0.$ 
+ $\zb_j\in W_i=\langle \rb_0,\cdots,\rb_{i-1}\rangle$, $\rb_i^T\zb_j=0.$
  \end{itemize}
 
 
  Queremos hallar las direcciones de búsqueda sin hacer Gram-Schmidt (o sea mas rápido)
 
-Escribamos $\zb_i$ en la base de los residuos (ortogonales), 
+Escribamos $\zb_i$ en la base de los residuos (ortogonales),
 $$
 \zb_i=\sum_{j=0}^{i}\frac{\zb_i^T\rb_j}{\rb_j^T\rb_j}\rb_j,
 $$
@@ -735,8 +735,8 @@ entonces
 $$
 \zb_i=\rb_i+\frac{\rb_i^T\rb_i}{\rb_{i-1}^T\rb_{i-1}}\zb_{i-1}
 $$
-los residuos  pueden obtenerse de 
-$$\xb_{i+1}=\xb_i+\lambda \zb_i$$ 
+los residuos  pueden obtenerse de
+$$\xb_{i+1}=\xb_i+\lambda \zb_i$$
 $$
 \rb_{i+1}=\rb_i+\lambda_i\Ab\zb_i
 $$
@@ -761,14 +761,14 @@ Para estudiar el error del GC notemos
 $$
 W_i=\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i-1}\rb_0\rangle
 $$
-lo cual se ve por inducción. Si $i=1$ es cierto, y asumiendo que vale para $i$ queremos ver que vale para $i+1$. Para eso vemos que basta con ver que 
+lo cual se ve por inducción. Si $i=1$ es cierto, y asumiendo que vale para $i$ queremos ver que vale para $i+1$. Para eso vemos que basta con ver que
 $$
 W_{i+1}\subset
 \langle \rb_0, \Ab\rb_0, \cdots \Ab^{i}\rb_0\rangle
 $$
 puesto que $dim(W_{i+1})=i+1$
 
-Asumiendo entonces que   
+Asumiendo entonces que
 $$W_{i}\ni \rb_{i-1},\zb_{i-1}\in \langle \rb_0, \Ab\rb_0, \cdots ,\Ab^{i-1}\rb_0\rangle$$
 
 
@@ -782,7 +782,7 @@ de Krylov. La identidad de abajo permite relacionar esos subespacios con polinom
 $$\langle \rb_0, \Ab\rb_0, \cdots \Ab^{i-1}\rb_0\rangle=\{ p(\Ab)\rb_0: p\in P_{i-1}[x]\}=$$
 $$=\{ q(\Ab)(\xb-\xb_0): q\in P_{i}[x],\ q(0)=0\}$$
 
-Va a resultar cómodo estudiar el error en la norma $\|\cdot\|_A$: es decir,  acotar 
+Va a resultar cómodo estudiar el error en la norma $\|\cdot\|_A$: es decir,  acotar
 $$
 \|\xb-\xb_i\|_{A}$$
 Como $\rb_i$ es ortogonal a $W_i$, $\xb-\xb_i
@@ -822,7 +822,7 @@ $$
 En definitiva
 
 $$
-\|p(\Ab)\|_A\le  \max_{x\in [\lambda_1,\lambda_n]}|p(x)| 
+\|p(\Ab)\|_A\le  \max_{x\in [\lambda_1,\lambda_n]}|p(x)|
 $$
 y hay que acotar
 $$
@@ -832,16 +832,16 @@ esto, por suerte, lo estudió Chebyshev.
 
 En el intervalo $[-1,1]$ los polinomios de Chebyshev son
 $$
-T_0(x)=1,T_1(x)=x,T_2(x)=2x^2-1,\cdots 
+T_0(x)=1,T_1(x)=x,T_2(x)=2x^2-1,\cdots
 $$
 en general
 $$
 T_{n+1}(x)=2T_{n}(x)-T_{n-1}(x)
 $$
 
-Para $x\in [-1,1]$, $|T_n(x)|\le 1$ 
+Para $x\in [-1,1]$, $|T_n(x)|\le 1$
 
-(de hecho 
+(de hecho
 en ese rango $T_n(x)=\cos(n\cos^{-1}(x))$)
 
 para $|x|\ge 1$
@@ -857,13 +857,13 @@ $$
 
 $$
 \inf_{p\in P_i[x],p(0)=1}\max_{x\in [\lambda_1,\lambda_n]}|p(x)|
-\le \frac{2}{\left( \frac{\sqrt{\frac{\lambda_n}{\lambda_1}}+1}{\sqrt{\frac{\lambda_n}{\lambda_1}}-1}\right)^i+\left( \frac{\sqrt{\frac{\lambda_n}{\lambda_1}}-1}{\sqrt{\frac{\lambda_n}{\lambda_1}}+1}\right)^i}$$ 
+\le \frac{2}{\left( \frac{\sqrt{\frac{\lambda_n}{\lambda_1}}+1}{\sqrt{\frac{\lambda_n}{\lambda_1}}-1}\right)^i+\left( \frac{\sqrt{\frac{\lambda_n}{\lambda_1}}-1}{\sqrt{\frac{\lambda_n}{\lambda_1}}+1}\right)^i}$$
 es decir
 $$
 \inf_{p\in P_i[x],p(0)=1}\max_{x\in [\lambda_1,\lambda_n]}|p(x)|
 \le 2\left(\frac{\sqrt{\kappa(\Ab)}-1}{\sqrt{\kappa(\Ab)}+1}\right)^i
 $$
- 
+
 $$\|\xb-\xb_i\|_{A}\le 2\left(\frac{\sqrt{\kappa(\Ab)}-1}{\sqrt{\kappa(\Ab)}+1}\right)^i\|\xb-\xb_0\|_{A}$$
 
- 
+
