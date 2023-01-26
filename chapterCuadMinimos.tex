@@ -1,4 +1,77 @@
 \chapter{Cuadrados Mínimos}
+
+\section{Ajuste lineal}
+Comenzamos con el caso más simple. Dada un conjunto finito de $N$ puntos $\{(x_i, y_i)\}_{1 \le i \le N}$ en el plano, queremos encontrar una recta $y = c_1 x + c_0$ que mejor aproxime los datos.
+
+Para una recta dada $f(x) = c_1 x + c_0$, definimos los residuos
+$$
+r_i = f(x_i) - y_i = (c_1 x_i + c_0) - y_i, \quad 1 \le i \le N.
+$$
+
+En el problema de cuadrados mínimos, buscamos minimizar la suma de los cuadrados de los residuos
+$$
+S = \sum_{i = 1}^N r_i^2 = \sum (y_i - f(x_i))^2.
+$$
+
+Para resolver el problema, lo planteamos en forma matricial. Definimos una matriz $\Ab \in \R^{N \times 2}$ con unos en la primera columna y los valores $x_i$ en la segunda,
+$$
+\Ab = \begin{pmatrix}
+1 & x_1 \\
+1 & x_2 \\
+\vdots & \vdots \\
+1 & x_N
+\end{pmatrix}
+$$
+y verificamos
+$$
+\begin{pmatrix}
+r_1 \\
+r_2 \\
+\vdots \\
+r_N
+\end{pmatrix} =
+\begin{pmatrix}
+1 & x_1 \\
+1 & x_2 \\
+\vdots & \vdots \\
+1 & x_N
+\end{pmatrix}
+\begin{pmatrix}
+c_0 \\
+c_1
+\end{pmatrix}
+- \begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_N
+\end{pmatrix}.
+$$
+
+Llamando $\rb = \begin{pmatrix}
+r_1 \\
+r_2 \\
+\vdots \\
+r_N
+\end{pmatrix}$,
+$\cb = \begin{pmatrix}
+c_0 \\
+c_1
+\end{pmatrix}$ e  $\yb = \begin{pmatrix}
+y_1 \\
+r_2 \\
+\vdots \\
+y_N
+\end{pmatrix}$, obtenemos $\rb = \Ab \cb - \yb$.
+
+Por lo tanto, $S = \|\Ab \cb - \yb\|_2^2 = \|\rb\|_2^2$. Es decir, buscamos el vector $\cb = \begin{pmatrix}
+c_0 \\
+c_1
+\end{pmatrix}$ que minimice la norma-2 al cuadrado del vector de residuos.
+
+
+
+
 Consideremos el problema
 $$
 \Ab\xb=\bb
@@ -21,9 +94,11 @@ $$
 o el equivalente
 hallar $\xb\in \Rn$ tal que
 $$
-\|\Ab\xb-\bb\|_2^2=\min_{\zb\in \Rn}\|\Ab\zb-\bb\|_2^2
+\|\Ab\xb-\bb\|_2^2=\min_{\zb\in \Rn}\|\Ab\zb-\bb\|_2^2.
 $$
-el enfoque tradicional (fuera del álgebra lineal numérica) es buscar una ecuación para el punto crítico $\xb$ como minimizante.
+
+\subsection{Mínimos cuadrados como problema de minimización}
+Un enfoque posible (fuera del álgebra lineal numérica) es buscar una ecuación para el punto crítico $\xb$ como minimizante.
 
 Eso equivale a anular el gradiente de la función $F:\Rn\to \R$, $F(\zb)=\|\Ab\zb-\bb\|_2^2$, es decir
 $$
@@ -55,11 +130,200 @@ es decir $\Ab\xb=\cero$ y así $\xb=\cero$ por ser las columnas de $\Ab$ $l.i.$,
 Observemos que en este caso $\Ab^T\Ab\in \Rnn$ resulta \emph{simétrica definida positiva}.
 En particular podemos resolver el sistema usando Cholesky a un costo $\sim mn^2+ \frac{1}{3}n^{3}$
 
-En gran parte de las aplicaciones $m >> n$ y las columnas de $\Ab$ son $l.i.$ lo cual muestra el éxito relativo de las ecuaciones normales.
+En gran parte de las aplicaciones $m \gg n$ y las columnas de $\Ab$ son $l.i.$ lo cual muestra el éxito relativo de las ecuaciones normales.
+
+Intuitivamente si
+$$
+\Ab=\Ub\Sigmab\Vb^*
+$$
+y $\Ab\in \R^{m\times n}$, vimos que puede definirse la condición de $\Ab$ como $\frac{\sigma_1}{\sigma_n}$. Si hacemos $\Ab^T\Ab=\Vb\Sigmab^2\Vb^*$ vemos que en las ecuaciones normales la condición de la matriz final empeora $\kappa(\Ab^T\Ab)=\left(\frac{\sigma_1}{\sigma_n}\right)^2$.
+
+
+\subsection{Enfoque geométrico}
+
+Como vimos, para el sistema $\Ab\xb=\bb$, con $\Ab\in \Rmn$, la existencia de soluciones de este problema equivale a que
+$\bb\in \langle \ab_1,  \ab_2,\cdots , \ab_n\rangle$ (donde $\ab_{i}$ son las columnas de $\Ab$). Es decir, el sistema tiene solución cuando $\bb$ pertenece al espacio generado por las columnas de $\Ab$, o equivalentemente, a la imagen de $\Ab$. Si $\tilde \xb$ es la solución, vale $\|\Ab \tilde \xb - \bb\| = 0$.
+
+Cuando $\bb$ no pertenece a la imagen de $\Ab$, el problema de mínimos cuadrados consiste en encontrar el vector $\tilde \xb$ que minimice $\|\Ab \tilde \xb - \bb\|_2$. Como $\Ab \xb$ es un punto en el subespacio $\Pi$ generado por las columnas de $\Ab$, buscamos el punto de dicho subespacio más cercano a $\bb$.
+Podemos entonces encontrar $\tilde \xb$ calculando la proyección $\pb$ de $\bb$ sobre $\Pi$ y luego buscando $\tilde \xb$ tal que $\Ab \tilde \xb = \pb$.
+
+\begin{center}
+\includegraphics{Geometric-Interpretation-of-Least-Squares-Method_W640.jpg}
+\end{center}
+
+Veamos cómo seguir este enfoque en forma práctica. Definimos el proyector $P$ sobre la imagen de $\Ab$. Esto es, si $\{\qb_1,\cdots,\qb_n\}$ es una base ortonormal de $\mathcal{S}=\im(\Ab)$, tenemos
+$$
+P_{\mathcal{S}}(\bb)=\Qb\Qb^*\bb
+$$
+donde
+$$
+\Qb=
+\begin{pmatrix}
+\qb_1|\qb_2|\cdots |\qb_n
+\end{pmatrix}.
+$$
+
+Podemos obtener la matriz $\Qb\in \R^{m\times n}$ mediante la factorización $QR$ de $\Ab$, es decir
+$$
+\Ab=\Qb\Rb
+$$
+con $\Rb\in \R^{n\times n}$ triangular superior.
+
+Escribimos
+$$
+\Qb\Rb\xb=\Ab\xb=P_{\mathcal{S}}(\bb)=\Qb\Qb^*\bb
+$$
+y como $\Qb^*\Qb = \Id$ (porque las columnas de $\Qb$ son ortonormales), basta resolver
+$$
+\Rb\xb=\Qb^*\bb
+$$
+Este algoritmo es más estable que el de las ecuaciones normales (ya que no elevamos al cuadrado la condición del problema) y su costo está gobernado por el costo de obtener la descomposición $QR$, que es
+$\sim 2mn^2-\frac13n^3$.
+
+\subsection{Mínimos cuadrados y pseudo-inversa}
+
+Volvemos a las ecuaciones normales: supongamos que $\Ab\in \R^{m\times n}$, $m \gg n$ tiene rango $n$ (es decir, las columnas de $\Ab$ son l.i.). Debemos resolver
+$$
+\Ab^t\Ab\xb=\Ab^t\bb.
+$$
+
+Si escribimos $\Ab=\Ub\Sigmab\Vb^*$, tenemos
+$$
+\Vb\Sigmab^t\Sigmab\Vb^t\xb=\Ab^t\Ab\xb=\Ab^t\bb=\Vb\Sigmab^t\Ub^t\bb.
+$$
+
+Como
+$$\Sigmab= \left( \begin{array}{ccc|c@{\mskip5mu}}\sigma_1 & & \\ & \ddots & & \text{\Large 0}           \\ & & \sigma_m\end{array} \right)$$
+y
+$$\Sigmab^t=
+\left(\begin{array}{ccc}\sigma_1 & & \\ & \ddots & \\ & &  \sigma_n\\\hline         & \rule{0cm}{15pt} \text{\Large 0} &
+ \end{array}\right)
+$$
+tenemos
+$$
+\Sigmab^t\Sigmab=
+\begin{pmatrix}
+\sigma_1^2&0&\cdots &0\\
+0&\sigma_2^2&\cdots &0\\
+0&0&\ddots&\vdots\\
+0&0&\cdots&\sigma_n^2
+\end{pmatrix}
+$$.
+
+Luego $\Sigmab^t\Sigmab$ es inversible (porque supusimos que $\Ab$ tiene rango $n$ y por lo tanto $\sigma_i \neq 0$ para todo $1 \le i \le n$).
+
+Como $\Vb$ es unitaria, de la igualdad anterior obtenemos $\Sigmab^t\Sigmab\Vb^t\xb=\Sigmab^t\Ub^t\bb$ y por lo tanto, $\xb = \Vb (\Sigmab^t\Sigmab)^{-1} \Sigmab^t\Ub^t\bb$.
+Obtenemos
+$$
+\xb = \Vb \left( \begin{array}{ccc|c@{\mskip5mu}}\sigma_1^{-1} & & \\ & \ddots & & \text{\Large 0} \\ & & \sigma_m^{-1}\end{array} \right) \Ub^t\bb
+$$
+o sea
+$$
+\xb = \Ab^{+}\bb
+$$
+y la pseudoinversa funciona como ``inversa''.
+
+
+En general en el caso $m \gg n$ podríamos tener rango menor a $n$ (digamos $r<n$).
+
+Recordemos que de $\Ab=\Ub\Sigmab\Vb^t$, tenemos que para $1\le i\le r$
+$$
+\Ab\vb_i=\Ub\Sigmab\Vb^t\vb_i=\Ub\Sigmab\eb_i=\Ub\sigma_i\eb_i=\sigma_i\Ub_i
+$$
+y
+$$
+\Ab\vb_i=\cero
+$$
+si $r<i\le n$.
+
+
+Luego $\ker(\Ab)=\langle \vb_{r+1},\cdots,\vb_n\rangle $ y
+$\im(\Ab)=\langle \ub_1,\cdots,\ub_r\rangle$.
+
+De hecho
+$$
+\Ab^+\Ab=
+\vb\Sigmab^+\Sigmab\vb^t=
+\vb\begin{pmatrix}
+1&0&\cdots &0&\cdots &0\\
+0&1&\cdots &0&\cdots &0\\
+\vdots&\vdots&&\vdots&&\vdots\\
+0&0&\cdots &1&\cdots &0\\
+0&0&\cdots &0&\cdots &0\\
+\vdots &\vdots&\vdots &\vdots &\vdots\\
+
+0&0& \cdots &0&\cdots &0\\
+
+\end{pmatrix}
+\vb^t
+$$
+
+Queremos estudiar $\Ab^+\bb$ en este caso.
+
+El producto
+$$
+\Ub^t\bb=
+\begin{pmatrix}
+\ub_1^t\bb\\
+\ub_2^t\bb\\
+\vdots\\
+\ub_m^t\bb
+\end{pmatrix}
+$$
+así
+$$
+\Sigmab^+\Ub^t\bb=
+\begin{pmatrix}
+\sigma_1^{-1}(\ub_1^t\bb)\\
+\sigma_2^{-1}(\ub_2^t\bb)\\
+\vdots\\
+\sigma_r^{-1}(\ub_r^t\bb)\\
+0\\
+\vdots\\
+0
+\end{pmatrix} \in \R^{n\times 1}
+$$
+entonces
+$$
+\xb=\Vb\Sigmab^+\Ub^t\bb=
+\sum_{j=1}^r\sigma_j^{-1}(\ub_j^t\bb)\vb_j
+$$
+Chequeamos
+$$
+\Ab\xb=\sum_{j=1}^r\sigma_j^{-1}(\ub_j^t\bb)\Ab\vb_j=\sum_{j=1}^r(\ub_j^t\bb)\ub_j=P_{\im(A)}(\bb)
+$$
+y vemos que es solución del problema de cuadrados mínimos.
+
+Si hubiera otro $\tilde \xb$ tal que $\Ab\tilde\xb=P_{\im(A)}(\bb)$ entonces
+$$
+\Ab(\tilde\xb-\xb)=\cero
+$$
+luego
+$$
+\tilde\xb-\xb=\sum_{j=r+1}^n\alpha_j\vb_j
+$$
+$$
+\tilde\xb= \xb+\sum_{j=r+1}^n\alpha_j\vb_j
+$$
+y como $\xb\perp \vb_j$ para todo $r+1\le j\le n$, obtenemos
+$$
+\|\tilde\xb\|_2^2=\tilde\xb^t\tilde\xb=\xb^t\xb+\sum_{j=r+1}^n|\alpha_j|^2
+$$
+
+Concluimos que
+$$
+\|\xb\|_2<\|\tilde\xb\|_2,
+$$
+es decir, la pseudoinversa da la solución de menor norma $2$.
+
+
+
 \section{Interpolación Polinomial}
 Un caso tradicional de uso de cuadrados mínimos es en aproximación polinomial.
 
-El problema de la interpolación consiste en lo siguiente: dados $n+1$ pares de puntos $\{(x_{0},y_{0}),(x_{1},y_{1})\cdots ,(x_{n},y_{n})\}\subset \Kn$ hallar un polinomio $p_{n}(x)$ de grado a lo sumo $n$ tal que $p_{n}(x_{i})=y_{i}$.
+El problema de la interpolación consiste en lo siguiente: dados $n+1$ pares de puntos
+$$\{(x_{0},y_{0}),(x_{1},y_{1})\cdots ,(x_{n},y_{n})\}\subset \Kn$$
+hallar un polinomio $p_{n}(x)$ de grado a lo sumo $n$ tal que $p_{n}(x_{i})=y_{i}$.
 
 
 Con los $x_{i}\neq x_{j}$ este problema siempre tiene solución única gracias a las siguientes observaciones.
@@ -151,7 +415,7 @@ $$
 \centering\includegraphics[width=0.4\linewidth]{linea20rand.png}
 \end{figure}
 
-La teoría anterior se aplica igual las matrices de Vandermonde son ($m>>n$)
+La teoría anterior se aplica igual las matrices de Vandermonde son ($m \gg n$)
  $$
  \begin{pmatrix}
  1&x_{0}&x_{0}^{2}&\cdots &x_{0}^{n}\\
@@ -204,196 +468,7 @@ $$
 \centering\includegraphics[width=0.4\linewidth]{minimosminimos.png}
 \end{figure}
 
- Intuitivamente si
- $$
- \Ab=\Ub\Sigma\Vb^*
- $$
- y $\Ab\in \R^{m\times n}$, vimos que puede definirse la condición de $\Ab$ como $\frac{\sigma_1}{\sigma_n}$. Si hacemos $\Ab^T\Ab=\Vb\Sigma^2\Vb^*$ vemos que en las ecuaciones normales la condición de la matriz final empeora $\kappa(\Ab^T\Ab)=\left(\frac{\sigma_1}{\sigma_n}\right)^2$.
-
-Problema revisitado
-\begin{figure}[h]
-\centering\includegraphics[width=0.4\linewidth]{cuadmin.png}
-\end{figure}
-
-El gráfico sugiere otro enfoque: construir el proyector $P$ sobre la imagen de $\Ab$. Esto es , si $\{\qb_1,\cdots,\qb_n\}$ es una base ortonormal de $\mathcal{S}=Im(\Ab)$ tenemos
-$$
-P_{\mathcal{S}}\bb=\Qb\Qb^*\bb
-$$
-donde
-$$
-\Qb=
-\begin{pmatrix}
-\qb_1|\qb_2|\cdots |\qb_n
-\end{pmatrix}
-$$
-La obtención de $\Qb\in \R^{m\times n}$ puede hacerse con la factorización $QR$, es decir
-$$
-\Ab=\Qb\Rb
-$$
-con $\Rb\in \R^{n\times n}$ triangular superior.
-
-Escribimos
-$$
-\Qb\Rb\xb=\Ab\xb=P_{\mathcal{S}}\bb=\Qb\Qb^*\bb
-$$
-es decir que basta resolver
-$$
-\Rb\xb=\Qb^*\bb
-$$
-Este algoritmo es mas estable que el de las ecuaciones normales su costo esta gobernado por $QR$  que es
-$\sim 2mn^2-\frac13n^3$.
-Volvemos a las ecuaciones normales: supongamos que $\Ab\in \R^{m\times n}$, $m>>n$, rango $n$  (columnas l.i.): debemos resolver
-$$
-\Ab^t\Ab\xb=\Ab^t\bb
-$$
-si escribimos $\Ab=\Ub\Sigma\Vb^*$, tenemos
-$$
-\Vb\Sigma^t\Sigma\Vb^t\xb=\Ab^t\Ab\xb=\Ab^t\bb=\Vb\Sigma^t\Ub^t\bb
-$$
-
-Como
-$$\Sigma=
-\begin{pmatrix}
-\sigma_1&0&0&\cdots &0\\
-0&\sigma_2&0&\cdots &0\\
-0&0&0&\cdots&\sigma_n\\
-0&0&0&\cdots&0\\
-\vdots&\vdots&\vdots&\cdots&\vdots\\
-0&0&0&\cdots&0
-\end{pmatrix}
-$$
-y
-$$\Sigma^t=
-\begin{pmatrix}
-\sigma_1&0&0&\cdots &0&\cdots&0\\
-0&\sigma_2&0&\cdots &0&\cdots&0\\
-0&0&0&\cdots&\sigma_n&\cdots&0
-\end{pmatrix}
-$$
-tenemos
-
-$$
-\Sigma^t\Sigma=
-\begin{pmatrix}
-\sigma_1^2&0&0&\cdots &0\\
-0&\sigma_2^2&0&\cdots &0\\
-0&0&\ddots&0&0\\
-0&0&\ddots&0&\sigma_n^2
-\end{pmatrix}
-$$
-entonces
-
-$$
-\xb=
-\Vb
-\begin{pmatrix}
-\sigma_1^{-1}&0&0&\cdots &0&\cdots&0\\
-0&\sigma_2^{-1}&0&\cdots &0&\cdots&0\\
-0&0&0&\cdots&\sigma_n^{-1}&\cdots&0
-\end{pmatrix}
-\Ub^t\bb
-$$
-o sea
-$$
-\xb=
-\Ab^+\bb
-$$
-y la pseudoinversa funciona como "inversa".
-
-En general en el caso $m>>n$ podríamos tener rango menor a $n$ (digamos $r<n$).
-
-Recordemos que de $\Ab=\Ub\Sigma\Vb^t$, tenemos que para $1\le i\le r$
-$$
-\Ab\vb_i=\Ub\Sigma\Vb^t\vb_i=\Ub\Sigma\eb_i=\Ub\sigma_i\eb_i=\sigma_i\Ub_i
-$$
-y
-$$
-\Ab\vb_i=\cero
-$$
-si $r<i\le n$.
-
-
-Luego $ker(\Ab)=\langle \vb_{r+1},\cdots,\vb_n\rangle $ y
-$Im(\Ab)=\langle \ub_1,\cdots,\ub_r\rangle$.
-
-De hecho
-$$
-\Ab^+\Ab=
-\vb\Sigma^+\Sigma\vb^t=
-\vb\begin{pmatrix}
-1&0&\cdots &0&\cdots &0\\
-0&1&\cdots &0&\cdots &0\\
-\vdots&\vdots&&\vdots&&\vdots\\
-0&0&\cdots &1&\cdots &0\\
-0&0&\cdots &0&\cdots &0\\
-\vdots &\vdots&\vdots &\vdots &\vdots\\
-
-0&0& \cdots &0&\cdots &0\\
-
-\end{pmatrix}
-\vb^t
-$$
-
-Queremos estudiar $\Ab^+\bb$ en este caso.
-
-El producto
-$$
-\Ub^t\bb=
-\begin{pmatrix}
-\ub_1^t\bb\\
-\ub_2^t\bb\\
-\vdots\\
-\ub_m^t\bb
-\end{pmatrix}
-$$
-así
-$$
-\Sigma^+\Ub^t\bb=
-\begin{pmatrix}
-\sigma_1^{-1}(\ub_1^t\bb)\\
-\sigma_2^{-1}(\ub_2^t\bb)\\
-\vdots\\
-\sigma_r^{-1}(\ub_r^t\bb)\\
-0\\
-\vdots\\
-0
-\end{pmatrix} \in \R^{n\times 1}
-$$
-
-entonces
-$$
-\xb=\Vb\Sigma^+\Ub^t\bb=
-\sum_{j=1}^r\sigma_j^{-1}(\ub_j^t\bb)\vb_j
-$$
-Chequeamos
-$$
-\Ab\xb=\sum_{j=1}^r\sigma_j^{-1}(\ub_j^t\bb)\Ab\vb_j=\sum_{j=1}^r(\ub_j^t\bb)\ub_j=P_{Im(A)}\bb
-$$
-y vemos que es solución del problema de cuadrados mínimos.
-
-Si hubiera otro $\tilde \xb$ tal que $\Ab\tilde\xb=P_{Im(A)}\bb$ entonces
-$$
-\Ab(\tilde\xb-\xb)=\cero
-$$
-luego
-$$
-\tilde\xb-\xb=\sum_{j=r+1}^n\alpha_j\vb_j
-$$
-$$
-\tilde\xb= \xb+\sum_{j=r+1}^n\alpha_j\vb_j
-$$
-
-como $\xb\perp \vb_j$ para todo $r+1\le j\le n$
-$$
-\|\tilde\xb\|^2=\tilde\xb^t\tilde\xb=\xb^t\xb+\sum_{j=r+1}^n|\alpha_j|^2
-$$
-i.e.
-$$
-\|\xb\|<\|\tilde\xb\|
-$$
-la pseudoinversa da la solución de menor norma $2$.
-
- \centerline {Relación con regularización:}
+\section{Regularización}
 
 En el caso de rango $r<n$ (o muy mal condicionado) también se puede pensar el problema del modo siguiente: minimizar
  $$
@@ -451,7 +526,7 @@ $$
 
 
 $$
-(\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Ab^t=(\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Vb\Sigma^t\Ub^t=
+(\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Ab^t=(\Ab^t\Ab+\alpha^2 \Ib)^{-1}\Vb\Sigmab^t\Ub^t=
 $$
 $$\Vb \begin{pmatrix}
 \frac{\sigma_1}{\sigma_1^2+\alpha^2}&0&0&\cdots &0&\cdots &0\\
