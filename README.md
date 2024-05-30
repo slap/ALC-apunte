@@ -1,6 +1,6 @@
 # Álgebra Lineal Computacional - Apunte teórico
 
-[Descargar archivo PDF](ALC-apunte.pdf)
+[Descargar archivo PDF](../../raw/main/ALC-apunte.pdf)
 
 Apunte de la materia Álgebra Lineal Computacional de la Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires.
 
