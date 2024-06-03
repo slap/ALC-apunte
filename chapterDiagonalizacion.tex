@@ -643,10 +643,10 @@ Si todos los autovalores de $\Ab$ son reales, los autovectores pueden elegirse t
 
 \section{Autovalores y autovectores de matrices especiales}
 
-\textbf{Matrices ortogonales.} Si $\Ab \in \K^{n \times n}$ es unitaria,
+\subsection{Matrices ortogonales.} Si $\Ab \in \K^{n \times n}$ es unitaria,
     todos sus autovalores cumplen $|\lambda| = 1$.
 
-\textbf{Matrices normales.}
+\subsection{Matrices normales.}
 Decimos que una matriz $\Ab$ es normal si conmuta con la matriz adjunta, es decir, si $\Ab \Ab^* = \Ab^* \Ab$.
 
 Recordemos que dos matrices $\Ab$ y $\Bb$ son unitariamente equivalentes si existe $\Ub$ unitaria tal que
@@ -706,6 +706,7 @@ Comparando la casilla $(1,1)$ del producto a ambos lados,
 $$
 \bar t_{11} t_{11} = t_{11} \bar t_{11} + \sum_{j = 2}^n t_{1j} \bar t_{j1}.
 $$
+
 Recordando que para cualquier $a \in \C$, $a \bar a = \bar a a = |a|^2$, obtenemos
 $$
 |t_{11}|^2 = |t_{11}|^2  + \sum_{j = 2}^n |t_{1j}|^2.
@@ -714,6 +715,7 @@ y por lo tanto
 $$
 0 = \sum_{j = 2}^n |t_{1j}|^2.
 $$
+
 Una suma de términos no-negativos solo puede dar 0 si todos sus términos son 0, luego
 $$
 t_{1j} = 0, j = 2, \dots, n.
@@ -742,7 +744,7 @@ porque $\Tb$ es triangular superior, concluimos que $\Tb$ es diagonal.
 
 
 
-\textbf{Matrices simétricas y hermitianas.} Una matriz $\Ab \in \Rnn$ es simétrica si $\Ab = \Ab^T$. Más generalmente, $\Ab \in \Cnn$ es Hermitiana si $\Ab = \Ab^*$.
+\subsection{Matrices simétricas y hermitianas.} Una matriz $\Ab \in \Rnn$ es simétrica si $\Ab = \Ab^T$. Más generalmente, $\Ab \in \Cnn$ es Hermitiana si $\Ab = \Ab^*$.
 
 \begin{prop}
 Si $\Ab$ es Hermitiana, entonces
@@ -805,27 +807,27 @@ diagonal tales que $\Ab = \Qb^T \Db \Qb$.
 
 \end{ejercicio}
 
-\subsection{Matrices definidas positivas} 
+\subsection{Matrices definidas positivas. }
 
-QUITAR
+%QUITAR
 
-Cuando $\Ab$ es simétrica, con autovalores $\lambda_1, \dots, \lambda_n$ ,
-definimos:
+Decimos que una matriz $\Ab \in \C^{n \times n}$ es \emph{semidefinida positiva} si es hermitiana y 
+    $\vb^T \Ab \vb \ge 0$ para todo $\vb \in \R^n$. Si $\vb^T \Ab \vb > 0$ para todo $\vb \in \R^n$ decimos que $\Ab$ es \emph{definida positiva}.
 
+Como $\Ab$ es hermitiana, todos los autovalores de $\Ab$ son reales. 
+
+\begin{prop} Para $\Ab$ hermitiana con autovalores $\lambda_1, \dots, \lambda_n$, 
 \begin{itemize}
-\item   $\Ab$ es \emph{definida positiva} si $\lambda_i(\Ab) > 0$ para todo
+\item   $\Ab$ es \emph{definida positiva} si y solo si $\lambda_i(\Ab) > 0$ para todo
     $1 \le i \le n$.
-\item  $\Ab$ es \emph{semidefinida positiva} si $\lambda_i(\Ab) \ge 0$ para todo
+\item  $\Ab$ es \emph{semidefinida positiva} si y solo si $\lambda_i(\Ab) \ge 0$ para todo
     $1 \le i \le n$.
 \end{itemize}
+\end{prop}
 
-\begin{prop}
+\begin{proof}
 
-\item   $\Ab \in \R^{n \times n}$ es \emph{semidefinida positiva} si y solo si
-    $\vb^T \Ab \vb \ge 0$ para todo $\vb \in \R^n$.
-
-\textbf{Demostración / ejemplo:}
-
+Lo vemos en el caso $\Ab \in \R^{2 \times 2}$. 
 Si $\Ab = \begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}$, y
 $v = (v_1, v_2)$,
 $$ \begin{aligned} \vb^T \Ab \vb &=
@@ -836,10 +838,10 @@ $$ \begin{aligned} \vb^T \Ab \vb &=
 y $\lambda_1 v_1^2 + \lambda_2 v_2^2 \ge 0$ si
 $\lambda_1, \lambda_2 \ge 0$.
 
-\end{prop}
+\end{proof}
 
 \begin{prop}
- $\Ab^T\Ab$ y $\Ab\Ab^T$ son matrices simétricas y semidefinidas positivas.
+Si $\Ab \in \R^{n \times m}$, $\Ab^T\Ab$ y $\Ab\Ab^T$ son matrices simétricas y semidefinidas positivas.
  \end{prop}
 
 \begin{proof}Ejercicio.\end{proof}
@@ -1142,12 +1144,12 @@ Esa simple observación motiva la siguiente definición.
 \begin{defi}
  Dada $\Ab\in \Knn$ definimos el radio espectral de $\Ab$ como
  $$
- \rho(\Ab)=\max\{|\lambda|, \, \mbox{con}\, \lambda \,\mbox{autovalor de}\, \Ab\}  
+ \rho(\Ab)=\max\{|\lambda|, \, \mbox{con}\, \lambda \,\mbox{autovalor de}\, \Ab\}
  $$
 \end{defi}
 
 \etcc
-Supongamos que $\Ab\in \Rnn$ es simétrica, sea $\mathcal{B}=\{\vb_1,\cdots,\vb_n\}$ una base ortonormal de autovectores y  $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores. 
+Supongamos que $\Ab\in \Rnn$ es simétrica, sea $\mathcal{B}=\{\vb_1,\cdots,\vb_n\}$ una base ortonormal de autovectores y  $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores.
 Sea $\xb\in\R^n$ tal que $\|\xb\|_2=1$, escribiendo $\xb$ en la base $\mathcal{B}$ se tiene
 $$
 \xb=\sum_{i=1}^n\alpha_i\vb_i,
@@ -1159,13 +1161,13 @@ $$
 Por otro lado, como $\Ab\xb=\sum_{i=1}^n\alpha_i\lambda_i\vb_i,
 $ usando nuevamente la  Observación \ref{obs:pitagoras}
 $$
-\|\Ab\xb\|_2^2=\sum_{i=1}^n\alpha_i^2\lambda_i^2. 
+\|\Ab\xb\|_2^2=\sum_{i=1}^n\alpha_i^2\lambda_i^2.
 $$
 Por lo tanto
 $$
 \frac{\|\Ab\xb\|^2}{\|\xb\|^2}=\sum_{i=1}^n\alpha_i^2\lambda_i^2\le \rho(\Ab)^2,\qquad, \, \forall \xb, \|\xb\|\le 1
 $$
-ya que cada $|\lambda_i|\le \rho(\Ab)$. Por otro lado, llamando $j$ a un índice tal que $|\lambda_j|=\rho(\Ab)$ y considerando el vector de norma 1 $\xb=\vb_j$, se tiene 
+ya que cada $|\lambda_i|\le \rho(\Ab)$. Por otro lado, llamando $j$ a un índice tal que $|\lambda_j|=\rho(\Ab)$ y considerando el vector de norma 1 $\xb=\vb_j$, se tiene
 $$
 \|\Ab\xb\|^2=|\lambda_j|^2\|\xb\|_2^2=\rho(\Ab)^2.
 $$
@@ -1199,7 +1201,7 @@ $$
 \qquad 1=\|\xb\|_2^2=\sum_{i=1}^n\alpha_i^2, \qquad \Mb\xb=\sum_{i=1}^n\alpha_i\Mb\vb_i=\sum_{i=1}^n\lambda_i\alpha_i\vb_i
 $$
 de donde por la ortonormalidad de los $\vb_i$
-$$ 
+$$
 \xb^T\Mb\xb=\sum_{i=1}^n\lambda_i\alpha_i^2.
 $$
 Luego,
@@ -1208,7 +1210,7 @@ $$
 $$
 En definitiva tenemos
 \tcc
-Sea $\Ab\in \Rnn$, entonces\footnote{También vale la demostración escrita mas arriba para el caso de matrices rectangulares.}
+Sea $\Ab\in \Rnn$, entonces\footnote{También vale la demostración escrita más arriba para el caso de matrices rectangulares.}
 $$
 \|\Ab\|_2=\sqrt{\rho(\Ab^T\Ab)}.
 $$
@@ -1232,50 +1234,52 @@ Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada
  $$
  \Ab\vb=\lambda\vb,
  $$
- de donde 
+ de donde
  $\|\Ab\vb\|\le |\lambda|\|\vb\|=|\lambda|.$ Por lo tanto, para todo $\lambda$ autovalor
  $$
  \|\Ab\|=\sup_{\|\xb\|=1}\|\Ab\xb\|\ge \|\Ab\vb\|\ge |\lambda|.
  $$
- de donde 
+ de donde
  $$
  \|\Ab\|\ge \rho(\Ab).
  $$
+ 
  Si $\K=\R$ hay un problema si intentamos repetir el argumento previo vemos que funciona perfectamente si $\lambda \in \R$, sin embargo el autovalor y el autovector podrían ser complejos y no tener sentido la expresión $\|\vb\|$ si se trata de una norma en $\Rn$.
  Supongamos entonces que $\lambda=a+ib\in \C$ y escribamos entonces, \footnote{Debemos este argumento a Ariel Lombardi, colega de la UNR.}
 $$
-\vb=Re(\vb)+iIm(\vb)
+\vb=\Re(\vb)+i\Im(\vb)
 $$
 y
  $$
- \Ab\vb=(a+ib)(Re(\vb)+iIm(vb)),
+ \Ab\vb=(a+ib)(\Re(\vb)+i\Im(vb)),
  $$
  luego
  $$
- \Ab Re(\vb)=aRe(\vb)-bIm(\vb) \qquad 
- \Ab Im(\vb)=bRe(\vb)+bIm(\vb),
- $$
- y entonces 
- $$
- \|\Ab Re(\vb)\|_2^2=a^2\|Re(\vb)\|_2^2-2ab\langle Im(\vb),Re(\vb)\rangle+b^2\|Im(\vb)\|_2^2 
- $$
- $$
- \|\Ab Im(\vb)\|_2^2=b^2\|Re(\vb)\|_2^2-2ab\langle Im(\vb),Re(\vb)\rangle+a^2\|Im(\vb)\|_2^2 
- $$
- sumando miembro a miembro
- $$\|\Ab Re(\vb)\|_2^2+\|\Ab Im(\vb)\|_2^2=(a^2+b^2)\left(\|Re(\vb)\|_2^2+\|Im(\vb)\|_2^2\right) 
- $$
- de donde
- $$
- \left(\|Re(\vb)\|_2^2+\|Im(\vb)\|_2^2\right)\|\Ab\|_2^2\ge (a^2+b^2)\left(\|Re(\vb)\|_2^2+\|Im(\vb)\|_2^2\right) 
+ \Ab \Re(\vb)=a\Re(\vb)-b\Im(\vb) \qquad
+ \Ab \Im(\vb)=b\Re(\vb)+b\Im(\vb),
  $$
  y entonces
  $$
- \|\Ab\|_2^2\ge (a^2+b^2)=|\lambda|^2. 
+ \|\Ab \Re(\vb)\|_2^2=a^2\|\Re(\vb)\|_2^2-2ab\langle \Im(\vb),\Re(\vb)\rangle+b^2\|\Im(\vb)\|_2^2
  $$
- Es decir -ya que $\lambda$ es arbitrario- 
+ $$
+ \|\Ab \Im(\vb)\|_2^2=b^2\|\Re(\vb)\|_2^2-2ab\langle \Im(\vb),\Re(\vb)\rangle+a^2\|\Im(\vb)\|_2^2
+ $$
+ sumando miembro a miembro
+ $$\|\Ab \Re(\vb)\|_2^2+\|\Ab \Im(\vb)\|_2^2=(a^2+b^2)\left(\|\Re(\vb)\|_2^2+\|\Im(\vb)\|_2^2\right)
+ $$
+ de donde
+ $$
+ \left(\|\Re(\vb)\|_2^2+\|\Im(\vb)\|_2^2\right)\|\Ab\|_2^2\ge (a^2+b^2)\left(\|\Re(\vb)\|_2^2+\|\Im(\vb)\|_2^2\right)
+ $$
+ y entonces
+ $$
+ \|\Ab\|_2^2\ge (a^2+b^2)=|\lambda|^2.
+ $$
+ 
+ Es decir -ya que $\lambda$ es arbitrario-
  $$\|\Ab\|_2\ge \rho(\Ab).$$
- Sea ahora $\|\cdot\|$ una norma arbitaria en $\Rn$ y $k\in \N$: por un lado sabemos que\footnote{En realidad vale el igual. Para ver la desigualdad basta notar que si $\lambda$ es autovalor de $ \Ab$ entonces $\lambda^k$ lo es de $\Ab^k$. } 
+ Sea ahora $\|\cdot\|$ una norma arbitaria en $\Rn$ y $k\in \N$: por un lado sabemos que\footnote{En realidad vale el igual. Para ver la desigualdad basta notar que si $\lambda$ es autovalor de $ \Ab$ entonces $\lambda^k$ lo es de $\Ab^k$. }
  $\rho(\Ab)^k\le \rho(\Ab^k)
  $ y que además (por Proposición \ref{prop:equivnorm}) existe una constante $C$ -independiente de $k$- tal que $\|\Ab^k\|_2\le C\|\Ab^k\|$. Por lo tanto,
  $$
@@ -1287,7 +1291,7 @@ y
  $$
  tomando $k\to \infty$ se obtiene $
  \rho(\Ab)\le \|\Ab\|,
- $ 
+ $
  como queríamos probar.
 \end{proof}
 
@@ -1320,7 +1324,7 @@ para cierta norma $\|\cdot\|$ (y por ende para cualquier otra ya que son todas e
  necesariamente
  $\rho(\Mb)<1$.
 \end{proof}
- 
+
 \section{El algoritmo QR}
 
 Vimos anteriormente el método de la potencia para calcular el autovalor de mayor módulo de una matriz. En este sección, veremos otro algoritmo que nos permite aproximar todos los autovalores y autovectores de una matriz de forma muy eficiente.
@@ -1519,7 +1523,7 @@ Llamamos $D(a_{ii}, R_{i}) \subset \C$ al disco cerrado centrado en $a_{ii}$ de 
 
 
 
-\section{Procesos de Markov}
+\chapter{Procesos de Markov}
 
 Estudiamos ahora los procesos de Markov como aplicación de diagonalización de matrices. Comenzamos por un ejemplo.
 

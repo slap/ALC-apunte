@@ -1,4 +1,4 @@
-\chapter{Números de Máquina y Número de Condición}
+\chapter{Números de máquina y número de condición}
 \setcounter{equation}{0}
 \section{Cuestiones previas}
 
@@ -6,7 +6,7 @@ En el \emph{álgebra lineal computacional} (o en el análisis numérico en gener
 
 Comenzamos entonces definiendo de manera informal los números de máquina.
 \tcc
-Los números de máquina, son los que la máquina puede representar de forma exacta. 
+Los números de máquina, son los que la máquina puede representar de forma exacta.
 \etcc
 Notemos que -por su propia definición- podemos sospechar que los números de máquina son finitos y en consecuencia la \emph{mayoría} de los números reales no podrán almacenarse sin cometer errores. Vamos a tratar de precisar este punto en lo que sigue. Vamos a asumir que trabajaremos con número reales o complejos, sin embargo como para almacenar un número complejo basta almacenar su parte real e imaginaria podemos enfocarnos en el caso real.
 
@@ -14,21 +14,21 @@ Consideremos un número cualquiera, por ejemplo $x=125.4$. Estamos habituados a 
 $$
 x=1\,10^2+2\,10^1+5\,10^0+4\,10^{-1}.
 $$
-Para número real (positivo) diferente, la escritura   
+Para número real (positivo) diferente, la escritura
 $$
 \bt_k\bt_{k-1}...\bt_0.\bt_{-1}\bt_{-2}...
 $$
-con $0\le \bt_i\le 9$ y $\bt_k\neq 0$, la asociamos con 
+con $0\le \bt_i\le 9$ y $\bt_k\neq 0$, la asociamos con
 $$
 x=\sum_{-\infty}^k \bt_{i}10^{i}.
 $$
 La escritura hecha de este modo es \'unica, salvo desarrollos periódicos del número $9$ como ocurre en el caso
 $$
 0.999...=1,
-$$ 
+$$
 en el que el mismo número, en este caso $x=1$, puede escribirse de dos modos distintos.
 En este contexto, el número $10$ se denomina la base y los $\bt_i$ los dígitos del desarrollo.
-\section{Bases generales*} 
+\section{Bases generales*}
 En general todo número  $x\in \R$ $x\neq 0$, puede representarse en una base $b\in\N$, $b\ge 2$, de la forma\footnote{$(x)_b$ se lee $x$ en la base $b$.}
 \begin{equation}
  \label{eq:represbaseb}
@@ -85,7 +85,8 @@ Observemos que el exponente es un entero que admite asimismo una representación
 $$e=sg(e)\, c_lc_{l-1}...c_{0}$$
 donde una vez mas $c_l\neq 0$ y
 $e=sg(e)\, \sum_0^{l}c_ib^i$.
-\section{Números de Máquina}
+
+\section{Números de máquina}
 En una máquina, la memoria dedicada para el almacenamiento de los números es limitada dedicando cierta cantidad de dígitos, digamos $m\ge 1$, para la mantisa y cierta cantidad, digamos $E\ge 1$, para el exponente. Los números que pueden representarse de forma exacta con esas limitaciones se denominan \emph{números de máquina}.
 
 La cantidad de números de máquina es obviamente finita.  De hecho podemos calcular fácilmente su cantidad: considerando que $b_0\neq 0$ tenemos $b-1$ posibilidades para la elección del $b_0$, y $b$ posibilidades para cada uno de los restantes $b_i$, $1\le i\le m-1$. La cantidad diferente de mantisas es entonces $(b-1)b^{m-1}$ (para el número cero se utiliza un símbolo especial). Análogamente hay $b^{E}$ distintos exponentes. Considerando los respectivos signos de la mantisa y el exponente, habrá
@@ -228,7 +229,8 @@ $$
 $$
 
 Hay diversas fuentes de errores computacionales que pueden estropear completamente el resultado de los algoritmos. En este sentido hay dos conceptos que nombraremos tangencialmente ya que no son objeto central de este curso: la \emph{condición} y la \emph{estabilidad}.
-\section{Condición y Estabilidad}
+
+\section{Condición y estabilidad}
 De manera muy general, un \emph{problema bien condicionado} es aquél que reacciona benignamente con los errores en los datos. Es decir, que sus soluciones no varían demasiado al no variar demasiado los datos. Por el contrario, si un problema está muy mal condicionado, no lograremos resolverlo con mucha precisión aunque limitemos los errores en los datos (salvo que trabajemos con precisión infinita). La noción de condición es algo \emph{intrínseco del problema} y está mas allá de nuestro algoritmo de resolución.  Por otra parte, cuando los problemas están bien condicionados tenemos esperanza de resolverlos con precisión siempre que nuestro algoritmo no incremente desproporcionadamente los errores inherentes a los datos. En este caso hablaramos de \emph{algoritmos estables} y por el contrario, de  \emph{algoritmos inestables} si no cumplen con este criterio. La estabilidad entonces es algo \emph{intrínseco del algoritmo}.
 
 
@@ -299,14 +301,14 @@ El segundo método es mucho mas estable que el primero. Puede probar los calculo
 \begin{Shaded}
 \begin{lstlisting}[language=python]
 import numpy as np
-import math 
+import math
 v=np.arange(0,50)
-resulI=0.0 
-resulE=0.0 
+resulI=0.0
+resulE=0.0
 for i in v:
 	resulI=resulI+1/math.factorial(i)*(-12.0)**i
-	resulE=resulE+1/math.factorial(i)*(12.0)**i 
-resulE=1/resulE 
+	resulE=resulE+1/math.factorial(i)*(12.0)**i
+resulE=1/resulE
 print(resulInes)
 print(resulEs)
 \end{lstlisting}

@@ -237,7 +237,7 @@ si queremos reducir  el error inicial en un orden  de $10^{-3}$ precisamos itera
 \etcc
 
 
-\section{Algunos Métodos Clásicos}
+\section{Algunos métodos clásicos}
 
 
 
@@ -337,9 +337,9 @@ $$
 \sum_{j=1}^{i-1}|a_{ij}|}
 <1
 $$
-por ser EDD.
+por ser estrictamente diagonal dominante.
 \end{proof}
-Si trabajamos una matriz \emph{tridiagonal}, como por ejemplo el de la ecuación \eqref{eq:unid},  podemos probar fácilmente la propiedad siguiente
+Si trabajamos una matriz \emph{tridiagonal}, como por ejemplo el de la ecuación \eqref{eq:unid},  podemos probar fácilmente la propiedad siguiente.
  \begin{prop}
 \label{prop:mat_trid_gs_j}
 Sea $\Ab\in \Knn$ tridiagonal (i.e. $|a_{i,j}|=0$ si $|j-i|>1$) con $a_{ii}\neq 0$ para todo $1\le i\le n$.  Entonces
@@ -559,7 +559,7 @@ $$
  $$
  y entonces $\xb$ resuelve $(P1)$.
 \tcc
-Ejemplo en $\R^2$: Consideremos la matriz $
+\textbf{Ejemplo en $\R^2$.} Consideremos la matriz $
 \Mb=\begin{pmatrix}
      5&2\\
      2&4
@@ -631,7 +631,7 @@ $$
 J(\xb_{i+1})=\min_{\yb\in \langle \zb_0,\cdots\zb_i \rangle + x_0}J(\yb)
 $$
 que claramente daría un algoritmo que finaliza\footnote{Al menos en aritmética exacta.} en a lo sumo $n$ pasos. Obviamente, vemos que el problema que aparece es la dificultad de minimizar en dimensiones mayores a uno. Hay, sin embargo, un modo de lograr nuestro propósito minimizando sobre líneas, si es que elegimos las direcciones de búsqueda de modo adecuado. Este algoritmo lo estudiamos en la siguiente sección.
-\section{Gradiente Conjugado}
+\section{Gradiente conjugado}
 Observemos, antes de continuar, que una matriz simétrica (o Hermitiana) definida positiva define un producto interno a través de la operación\footnote{Dejamos como ejercicio esta afirmación.}
 $$
 \xb^T\Ab\yb.
