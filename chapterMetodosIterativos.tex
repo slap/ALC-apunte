@@ -109,12 +109,12 @@ $$
 Lo que implica que para todo $0<\varepsilon$ existe una norma $\|\cdot\|$ tal que
 $$\|\Ab\|\le \rho(\Ab)+ \varepsilon$$ Usaremos esta propiedad en la demostración del siguiente resultado que da la clave para predecir el orden de convergencia de los métodos iterativos.
 \tcc
-\begin{prop}
+\begin{proposicion}
  Para toda norma subordinada $\|\cdot\|$ vale que
  $$
  \rho(\Mb)=\lim_{k\to \infty} \|\Mb^k\|^{1/k}.
  $$
-\end{prop}
+\end{proposicion}
 
 \etcc
 
@@ -180,9 +180,9 @@ $$
 $$
 
 \tcc
-\begin{prop}
+\begin{proposicion}
 Si $\Ab$ es SDP, el método de Richardson converge -para todo dato inicial- sí y solo sí $\omega<\frac{2}{\rho(\Ab)}.$
-\end{prop}
+\end{proposicion}
 \etcc
 
 \begin{proof}
@@ -291,9 +291,9 @@ Notar que:
 
 
 \tcc
-\begin{prop}
+\begin{proposicion}
 Sea $\Ab\in \Knn$ estrictamente diagonal dominante, entonces Jacobi y Gauss-Seidel convergen.
-\end{prop}
+\end{proposicion}
 \etcc
 \begin{proof}
 1. Jacobi: sea $\vb\in \Kn$ autovector de $\Mb_J$ de autovalor $\lambda$ q.v.q. $|\lambda|<1$.
@@ -340,11 +340,11 @@ $$
 por ser estrictamente diagonal dominante.
 \end{proof}
 Si trabajamos una matriz \emph{tridiagonal}, como por ejemplo el de la ecuación \eqref{eq:unid},  podemos probar fácilmente la propiedad siguiente.
- \begin{prop}
+ \begin{proposicion}
 \label{prop:mat_trid_gs_j}
 Sea $\Ab\in \Knn$ tridiagonal (i.e. $|a_{i,j}|=0$ si $|j-i|>1$) con $a_{ii}\neq 0$ para todo $1\le i\le n$.  Entonces
 $\rho(\Mb_{GS})=\rho(\Mb_{J})^2$.
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Escribimos $\Ab=\Lb+\Db+\Ub$. Sea $0\neq \lambda$ autovalor de la matriz $\Mb_{J}=-\Db^{-1}(\Lb+\Ub)$. Queremos ver que $\lambda^2$ es autovalor de $\Mb_{GS}=-(\Db +\Lb)^{-1}\Ub$. En particular
 $$
@@ -396,10 +396,10 @@ $\lambda$ lo es de $\Mb_{J}$. Los autovalores nulos no son de interés, porque n
 
 
 \tcc
-\begin{prop}
+\begin{proposicion}
 
  Si $\Ab\in\Knn$ Hermitiana y definida positiva, entonces Gauss-Seidel converge.
-\end{prop}
+\end{proposicion}
 \etcc
 \begin{proof} Sea $\vb$ autovector de autovalor $\lambda$ de la matriz de iteraciones:
 $$

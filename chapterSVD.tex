@@ -141,7 +141,7 @@ En base a estas relaciones, concluimos:
 \end{itemize}
 
 
-Esto nos da un método para calcular la descomposición. 
+Esto nos da un método para calcular la descomposición.
 
 Primero construimos la matriz $\Vb$ tomando una base de autovectores de $\Ab^* \Ab$.
 
@@ -214,7 +214,7 @@ realizando los siguientes pasos:
 
 Ya vimos cómo construir una descomposición SVD. Si repasamos la construcción que realizamos, vemos que utilizamos la existencia de tal descomposición para obtener propiedades de las matrices en la descomposición. Para probar la existencia de la descomposición nos falta completar algunos detalles de la construcción.
 
-\begin{teo}
+\begin{teorema}
 Dada una matriz rectangular $\Ab \in \K^{m \times n}$, existen matrices
 \begin{itemize}
 \item $\Ub \in \K^{m \times m}$ unitaria,
@@ -223,7 +223,7 @@ Dada una matriz rectangular $\Ab \in \K^{m \times n}$, existen matrices
 \end{itemize}
 tales que $\Ab = \Ub \Sigmab \Vb^*$.
 Los valores no nulos $d_{11} \ge \dots \ge d_{ss} > 0$ son \'unicos y se denominan \emph{valores singulares} de $\Ab$, $\sigma_i = d_{ii}$.
-\end{teo}
+\end{teorema}
 
 \begin{proof}
 En la construcción que hicimos, falta ver que los vectores $\ub_i = \frac{1}{\sigma_i} \Ab \vb_i$ construidos son ortogonales. Calculamos
@@ -248,12 +248,12 @@ $$
 
 Ahora estamos en condiciones de retomar la discusión inicial de este cápítulo.
 
-\begin{teo}
+\begin{teorema}
 Dada una matriz rectangular $\Ab \in \K^{m \times n}$,
 $$
 \|\Ab\|_2 = \sigma_1(\Ab).
 $$
-\end{teo}
+\end{teorema}
 
 \begin{proof}
  Recordando que multiplicar por una matriz unitaria es una transformación inversible que no cambia la norma de un vector,
@@ -298,7 +298,7 @@ En otras palabras, buscamos $\Bb \in \K^{n \times n}$ de norma lo más chica pos
 \item Podemos tomar $\Bb = \Ub \Eb \Vb^*$, con $\Eb = \diag(0, 0, \dots, 0, -\sigma_n)$, que cumple $\|\Bb\|_2 = \|\Eb\|_2 = \sigma_n$.
 \end{enumerate}
 
-\begin{teo}
+\begin{teorema}
 Dada $\Ab \in \K^{n \times n}$ inversible, con $\Ab = \Ub \Sigmab \Vb^*$ su descomposición en valores singulares.
 Definiendo
 {\small
@@ -312,7 +312,7 @@ $$\Sigmab_{n-1} =
 $$
 }
 la matriz $\tilde \Ab = \Ub \Sigmab_{n-1} \Vb^*$ es la matriz singular m\'as cercana a $\Ab$ en norma-2.
-\end{teo}
+\end{teorema}
 
 \begin{ejercicio}
 Encontrar la matriz singular más cercana a $\Ab = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 5 \\ 1 & 5 & 8\end{pmatrix}$.
@@ -320,7 +320,7 @@ Encontrar la matriz singular más cercana a $\Ab = \begin{pmatrix} 1 & 2 & 3 \\ 
 
 Podemos ahora el resultado anterior para calcular las matrices más cercanas de distinto rango.
 
-\begin{teo}
+\begin{teorema}
 Sea $\Ab \in \K^{m \times n}$ de rango $k > 0$, con $\Ab = \Ub \Sigmab \Vb^*$ su descomposición en valores singulares. La matriz $\Ab_1 \in \K^{m \times n}$ de rango $k_1 < k$ más cercana a $\Ab$ en la norma 2 o norma Frobenius es $\Ab_1 = \Ub \Sigmab_{1} \Vb^*$, con
 $$\Sigmab_{1} =
 \begin{pmatrix}
@@ -331,7 +331,7 @@ $$\Sigmab_{1} =
 \end{pmatrix},
 $$
 la matriz igual a $\Sigmab$ excepto que solo se usan los valores singulares $\sigma_1, \dots, \sigma_{k_1}$ y los demás se reemplazan por 0.
-\end{teo}
+\end{teorema}
 
 
 \section{Aplicaciones}
@@ -370,7 +370,7 @@ A partir de la descomposición en valores singulares $\Ab = \Ub \Sigma \Vb^*$,
 construimos la pseudo inversa de $\Ab$,
 $$
 \Ab^\dagger = \Vb \Sigmab^\dagger \Ub^*,
-$$ 
+$$
 donde $\Sigmab^\dagger$ se obtiene a partir de $\Sigmab$ transponiéndola y
 reemplazando los elementos no nulos $d_{ii}$ en la diagonal por
 $1 / d_{ii}$.
@@ -417,7 +417,7 @@ Se cumplen las siguientes propiedades.
 \subsection{Resolución de sistemas de ecuaciones}
 
 Enunciamos ahora el resultado principal, cuya demostración veremos en la Práctica 6 de Mínimos Cuadrados.
-\begin{teo}
+\begin{teorema}
 Dada la ecuación $\Ab \xb = \bb$, con $\Ab \in \mathbb{\K}^{m \times n}$, si el
 sistema tiene soluciones entonces
 $$
@@ -425,14 +425,14 @@ $$
 $$
 es una solución y si hay infinitas soluciones, $\zb$ es la solución de
 mínima norma-2.
-\end{teo}
+\end{teorema}
 
 Utilizando la pseudo-inversa podemos obtener también un criterio para determinar si un sistema tiene solución.
 
 
-\begin{teo}
+\begin{teorema}
 El sistema $\Ab \xb = \bb$ tiene solución si y solo si $\Ab \Ab^\dagger \bb = \bb$.
-\end{teo}
+\end{teorema}
 
 \begin{proof}\leavevmode
 \begin{itemize}
@@ -445,7 +445,7 @@ $$\bb = \Ab \vb = \Ab \Ab^\dagger \Ab \vb = \Ab \Ab^\dagger \bb$$
 
 Cuando el sistema solución, la pseudo-inversa nos permite también hallar todas las soluciones.
 
-\begin{teo}
+\begin{teorema}
 Dadas $\Ab \in \K^{m \times n}$ y $\bb \in \K^n$. Si $\Ab \Ab^\dagger \bb = \bb$, todos los vectores de la forma
 $$
 \xb = \Ab^\dagger \bb + (\Ib_n - \Ab^\dagger \Ab) \yb
@@ -454,7 +454,7 @@ con $\yb \in \K^n$ son soluciones del sistema $\Ab \xb = \bb$.
 
 Más aún, cualquier solución la puedo escribir de esa forma.
 
-\end{teo}
+\end{teorema}
 
 \begin{proof} Si $\xb$ es de esa forma,
 $$\begin{aligned}
@@ -595,7 +595,7 @@ y obtenemos la imagen
 
 \end{ejemplo}
 
-\begin{ejercicio} 
+\begin{ejercicio}
 Calcular el porcentaje de compresión (es decir, la relación entre la cantidad de números que guardamos para la imagen comprimida y la cantidad de números de la imagen original).
 \end{ejercicio}
 

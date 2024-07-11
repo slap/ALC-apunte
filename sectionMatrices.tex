@@ -110,12 +110,12 @@ La matriz transpuesta de $\Ab = (a_{ij}) \in {\R^{m \times n}}$ es la matriz que
 \end{itemize}
 \end{ejemplo}
 
-\begin{prop}\leavevmode
+\begin{proposicion}\leavevmode
 \begin{itemize}
 \item $(\Ab^T)^T = \Ab$.
 \item $(\Ab \Bb)^T = \Bb^T \Ab^T$.
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 En \python calculamos la transpuesta de una matriz con el comando \texttt{transpose} de \texttt{numpy}.
 
@@ -182,8 +182,8 @@ Para saber si un sistema de ecuaciones puede tener solución única, infinitas s
 
 El rango de una matriz es la máxima cantidad de filas o columnas linealmente independientes que posee la matriz.
 
-\begin{prop} La máxima cantidad de filas linealmente independientes de una matriz coincide con la máxima cantidad de columnas linealmente independientes.
-\end{prop}
+\begin{proposicion} La máxima cantidad de filas linealmente independientes de una matriz coincide con la máxima cantidad de columnas linealmente independientes.
+\end{proposicion}
 
 Por lo tanto, no es necesario distinguir rango-fila de rango-columna, y hablamos simplemente de \emph{rango}.
 
@@ -198,9 +198,9 @@ Por lo tanto, no es necesario distinguir rango-fila de rango-columna, y hablamos
 
 Para calcular el rango de una matriz, triangulamos la matriz y contamos cuántas filas no nulas quedan.
 
-\begin{prop}
+\begin{proposicion}
 El espacio vectorial generado por las filas de una matriz antes o después de triangular es el mismo.
-\end{prop}
+\end{proposicion}
 
 En \python, calculamos el rango de una matriz con el comando \texttt{matrix\_rank} de \texttt{numpy.linalg}.
 
@@ -284,9 +284,9 @@ $$
 I_n =\begin{pmatrix}1&0&\cdots &0\\0&1&\cdots &0\\\vdots &\vdots &\ddots &\vdots \\0&0&\cdots &1\\\end{pmatrix}
 $$
 
-\begin{prop}
+\begin{proposicion}
 Para toda $\Bb \in \R^{n \times n}$ , $I_n \cdot \Bb = \Bb \cdot I_n = \Bb$.
-\end{prop}
+\end{proposicion}
 
 Podemos usar el comando \texttt{eye} de \texttt{numpy} para definir una matriz identidad.
 
@@ -455,12 +455,12 @@ La traza de una matriz \emph{cuadrada} es la suma de los elementos de la diagona
 
 Si $\Ab = (a_{ij}) \in \R^{n \times n}$, $\tr(\Ab) = a_{11} + a_{22} + \dots + a_{nn} = \sum_{i=1}^n a_{ii}$ .
 
-\begin{prop} Si $\Ab, \Bb \in \R^{n \times n}$:
+\begin{proposicion} Si $\Ab, \Bb \in \R^{n \times n}$:
 \begin{itemize}
 \item $\tr(\Ab^T)=\tr(\Ab)$
 \item $\tr(\Ab+\Bb) = \tr(\Ab) + \tr(\Bb)$.
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 Calculamos la traza en \python con el comando \texttt{trace} de \texttt{numpy}.
 
@@ -499,7 +499,7 @@ donde $\Mb_{ij}$ es la matrix de $(n-1) \times (n-1)$ que se obtiene al eliminar
 \end{enumerate}
 \end{ejemplo}
 
-\begin{prop} Si $\Ab \in  \R^{n \times n}$ y $f_i$, $1 \le i \le n$, son las filas de $\Ab$, las siguientes operaciones en la matriz modifican el determinante:
+\begin{proposicion} Si $\Ab \in  \R^{n \times n}$ y $f_i$, $1 \le i \le n$, son las filas de $\Ab$, las siguientes operaciones en la matriz modifican el determinante:
 \begin{itemize}
 \item transponer la matriz: $\det(\Ab^T) = \det(\Ab)$
 \item multiplicar una fila por un escalar: $\det\begin{pmatrix} \text{---} & f_1 & \text{---}\\ & \vdots & \\ \text{---} & f_{i-1} & \text{---}\\ \text{---} & \alpha f_i & \text{---}\\ \text{---} & f_{i+1} & \text{---} \\ & \vdots & \\ \text{---} & f_n  & \text{---}\end{pmatrix} = \alpha \det(A)$
@@ -508,22 +508,22 @@ donde $\Mb_{ij}$ es la matrix de $(n-1) \times (n-1)$ que se obtiene al eliminar
 \item multiplicar toda la matriz por un escalar: $\det(k\Ab)=k^n \det(\Ab)$, para $k \in \R$.
 \item multiplicar toda la matriz por $(-1)$: $\det(-\Ab)=(-1)^n \det(\Ab)$.
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 En base a esta propiedad podemos demostrar f\'acilmente las siguientes propiedades.
 
-\begin{coro}\leavevmode
+\begin{corolario}\leavevmode
 \begin{itemize}
 \item Si $\Ab$ tiene dos filas iguales, $\det(\Ab)= 0$.
 \item Si $\Ab$ tiene una fila de ceros, $\det(\Ab)= 0$.
 \item $\det(\Ab) = 0$ si y solo si $\Ab$ es singular.
 \end{itemize}
-\end{coro}
+\end{corolario}
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab, \Bb \in \R^{n \times n}$,
 $$\det(\Ab \Bb) = \det(\Ab)\det(\Bb).$$
-\end{prop}
+\end{proposicion}
 
 Calculamos determinantes en \python con el comando \texttt{det} de \texttt{numpy.linalg}.
 \begin{Shaded}

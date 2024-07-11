@@ -1,4 +1,4 @@
- 
+
 \chapter{Métodos Directos Para Sistemas Lineales}
 \setcounter{equation}{0}
 
@@ -16,13 +16,13 @@ $$
 *& 0 & \cdots & 0 \\
 * & * & \cdots & 0 \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-* & * & \cdots & * 
-\end{pmatrix}, 
+* & * & \cdots & *
+\end{pmatrix},
 \Ub= \begin{pmatrix}
 *& * & \cdots & * \\
 0 & * & \cdots & * \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-0 & 0 & \cdots & * 
+0 & 0 & \cdots & *
 \end{pmatrix}
 $$
 y
@@ -41,8 +41,8 @@ $$
 \Ub\xb=\yb,
 $$
 y cada sistema triangular puede resolverse por sustitución (regresiva o progresiva) en $\sim n^2$ operaciones\footnote{De todos modos el costo de la factorización es de orden $\sim \frac23 n^3$ como veremos mas adelante.}.
-\begin{ej} Escriba  un algoritmo para resolver sistemas triangulares con orden $n^2$.
-\end{ej}
+\begin{ejercicio} Escriba  un algoritmo para resolver sistemas triangulares con orden $n^2$.
+\end{ejercicio}
 
 \section{Descomposición $\Lb\Ub=\Ab$}
 
@@ -219,15 +219,15 @@ sean invertibles.
 
 \begin{tcolorbox}
 [colback=black!15!white,colframe=black!75!black]
-\begin{prop}\label{prop:menorenonulos}
+\begin{proposicion}\label{prop:menorenonulos}
  Sea $\Ab\in \Knn$, entonces existe factorización LU de $\Ab$ con $\Lb,\Ub$ \emph{invertibles} sí y solo sí
  para todo  $1\le k\le n$,  $\det(\Ab(1:k,1:k))\neq 0$.
-\end{prop}
+\end{proposicion}
 
 \end{tcolorbox}
  \begin{proof} Veamos primero la implicación $\Leftarrow\,$:
- 
- 
+
+
  Como $a_{11}=A(1,1)$ resulta $a_{11}\neq 0$ y el primer pivot es no nulo. LLevado adelante el proceso de eliminación, vemos que se puede escribir
 $$
 \Ab=\Mb_1^{-1}\Ub_1
@@ -242,13 +242,13 @@ $$
 \frac{a_{3,1}}{a_{1,1}} & 0
 \vdots  & \vdots  & \ddots & \vdots  \\
 \vdots  & \vdots  & \ddots &1&  \vdots  \\
-\frac{a_{n,1}}{a_{1,1}} &  0 & \cdots & 0& 1 
+\frac{a_{n,1}}{a_{1,1}} &  0 & \cdots & 0& 1
 \end{pmatrix}\begin{pmatrix}
 a_{1,1}& a_{1,2} & a_{1,3} &\cdots & a_{1,n} \\
 0 & a^{(1)}_{2,2} & a^{(1)}_{2,3} &\cdots & a^{(1)}_{2,n} \\
 0 & 0 & &  &  \\
 \vdots  & \vdots &  & \Ab^{(2)} &   \\
-0 & 0&  &  
+0 & 0&  &
 \end{pmatrix}
 $$
 Por lo tanto
@@ -258,7 +258,7 @@ $$
 \frac{a_{2,1}}{a_{1,1}} & 1\\
 \end{pmatrix}\begin{pmatrix}
 a_{1,1}& a_{1,2} \\
-0 & a^{(1)}_{2,2} 
+0 & a^{(1)}_{2,2}
 \end{pmatrix}
 $$
 y como por hip\'otesis
@@ -270,7 +270,7 @@ $\det(A(1:k,1:k))\neq 0$.
 
 Para ver otro criterio necesitamos una definición.
 \tccdefi
-\begin{defi}
+\begin{definicion}
   \label{defi:deDD}
   Una matriz $\Ab\in \Rnn, \Cnn$ se dice \emph{diagonal dominante} (\emph{estrictamente diagonal dominante}) y se denota DD (EDD) si y solo si para todo $i$,
  $1\le i\le n$
@@ -278,13 +278,13 @@ Para ver otro criterio necesitamos una definición.
  \sum_{1\le j \le n, j\neq i}|a_{i,j}|\le (<) |a_{i,i}|.
  $$
 
- \end{defi}
+ \end{definicion}
 \end{tcolorbox}
 Y la siguiente proposición (que puede refinarse en algunos casos como veremos mas adelante).
 \tcc
-\begin{prop}
+\begin{proposicion}
  Sea $\Ab\in \Rnn, \Cnn$ EDD entonces $\Ab$ es invertible.
-\end{prop}
+\end{proposicion}
 \etcc
 \begin{proof}
  Supongamos que no. Existe entonces
@@ -307,59 +307,59 @@ Y la siguiente proposición (que puede refinarse en algunos casos como veremos m
 
 
 \begin{tcolorbox}
-[colback=black!15!white,colframe=black!75!black] \begin{prop}
+[colback=black!15!white,colframe=black!75!black] \begin{proposicion}
   Si $\Ab$ es EDD entonces, trabajando con aritmética exacta, el proceso de eliminación de Gauss no produce pivots nulos.
- \end{prop}
+ \end{proposicion}
 \end{tcolorbox}
 \begin{proof}
  Ejercicio.
 \end{proof}
 
 \begin{tcolorbox}
-\begin{rem}
+\begin{observacion}
  Las matrices DD no son una artificio teórico, aparecen frecuentemente en la práctica como por ejemplo en la  discretización de ecuaciones diferenciales.
-\end{rem}
+\end{observacion}
 \etcc
 
 Aún en el caso en que no aparezcan pivots nulos, el algoritmo de eliminación no delvoverá en general los verdaderos factores $\Lb$ y $\Ub$, sino una aproximación de ellos. Mas explícitamente podemos enunciar el siguiente teorema (ver \cite{TB}).
 \begin{tcolorbox}
 [colback=black!15!white,colframe=black!75!black]
-\begin{teo}\label{teo:errorLU}
+\begin{teorema}\label{teo:errorLU}
  Sea $\Ab\in \Knn$,   si el algoritmo LU no produce pivots nulos,la factorización LU producida por la máquina verifica
  $$
  \tilde\Lb\tilde \Ub= \Ab + \Delta \Ab
  $$
 donde $|\Delta\Ab|\lesssim 2(n-1)\varepsilon(| \Ab|+|\tilde \Lb||\tilde \Ub|).
 $
-\end{teo}
+\end{teorema}
 
 \end{tcolorbox}
 
 
 \begin{tcolorbox}
-\begin{rem}
+\begin{observacion}
  El Teorema \ref{teo:errorLU}, sugiere controlar el tamaño de los factores
 $\tilde\Lb,\tilde\Ub$. En efecto, si el producto
 $|\tilde \Lb||\tilde \Ub|$ es muy grande no tendremos control (al menos teórico) sobre el error. El \emph{pivoteo parcial} permite garantizar al menos el control $|\Lb|\le 1$ a una costo razonable. Si bien, esto no necesariamente implica que $|\tilde \Lb||\tilde \Ub|$ sea pequeño, resulta suficiente en la mayoría de los casos prácticos (ver sin embargo la Observación \ref{obs:malgauss}).
 
-\end{rem}
+\end{observacion}
 
 \end{tcolorbox}
 
 
-\begin{ej}
+\begin{ejercicio}
  Muestre el el número de operaciones necesarias para realizar la factorización LU es $\mathcal{O} (\frac{2n^3}{3})$
-\end{ej}
+\end{ejercicio}
 
 
 El número de elementos de una matriz de $n\times n$ es obviamente $n^2$. El número mínimo de operaciones que un método de resolución puede efectuar debe ser de orden mayor o igual a $n^2$. Todos los métodos directos clásicos son de orden cúbico. Esto presenta problemas para matrices muy grandes ya que en ciertas aplicaciones es posible tener un gran número de incógnitas.
 
 Otro problema importante es el \emph{rellenado} que produce el algoritmo. Esto es, aunque $\Ab$ sea \emph{rala} -cosa que afortunadamente ocurre en muchas aplicaciones, como en ecuaciones diferenciales- los factores $\Lb,\Ub$ pueden no serlo.
 
-\begin{ej}
+\begin{ejercicio}
  Cuanta memoria ocuparía una matriz
  de $10^6\times 10^6$ llena?.
-\end{ej}
+\end{ejercicio}
 
 
 
@@ -488,13 +488,13 @@ $$
 $$
 
 \begin{tcolorbox}
-[colback=black!15!white,colframe=black!75!black] \begin{prop}
+[colback=black!15!white,colframe=black!75!black] \begin{proposicion}
   Trabajando con aritmética exacta se tiene que si $det(\Ab)\neq 0$ el algoritmo de pivoteo parcial no tiene pivots nulos.
- \end{prop}
+ \end{proposicion}
 \end{tcolorbox}
 
 \begin{tcolorbox}
-[colback=black!15!white,colframe=black!75!black] \begin{rem}
+[colback=black!15!white,colframe=black!75!black] \begin{observacion}
 \label{obs:malgauss}
 El proceso de pivoteo parcial garantiza que $|\Lb|\le 1$ pero no
 se  tiene un control demasiado beningno sobre el tamaño de
@@ -510,7 +510,7 @@ $$
 $$
 puede verse que $\|\Ub\|_\infty \ge 2^n\|\Ab\|_\infty$.
 Este ejemplo sin embargo parece ser singular en el sentido de que en los casos genéricos el crecimiento de $|\Ub|$ estaría controlado por $\sqrt{n}$ \cite{TB} \footnote{Al presente no parece haber una demostración rigurosa de esto.}. Esta particularidad parece (junto con el hecho de que su costo es la mitad que el de la factorización $QR$ que veremos mas adelante) haber mantenido el algoritmo de eliminación como uno de los más populares entre los métodos directos.
- \end{rem}
+ \end{observacion}
 \end{tcolorbox}
 
 Controlar el tamaño del ambos factores $\Lb$ y $\Ub$ es posible.
@@ -535,17 +535,17 @@ $$
 $$
 El pivoteo completo no se lleva a cabo en general debido a su alto costo (calcule el número de comparaciones que debe realizar en cada) ya que hay otros métodos estables mas económicos. Wilkinson probó lo siguiente
 \tcc
-\begin{teo}
+\begin{teorema}
  En aritmética exacta, para el algoritmo de pivoteo completo se tiene
  $$
  \|\Ub\|_{\infty}\le \sqrt{n}(2.3^{1/2}.4^{1/3}\cdots n^{1/(n-1)})^{1/2}\|\Ab\|_\infty
  $$
-\end{teo}
+\end{teorema}
 \etcc
-\begin{ej}
+\begin{ejercicio}
  Estimar numéricamente el crecimiento del factor
  $\sqrt{n}(2.3^{1/2}.4^{1/3}\cdots n^{1/(n-1)})^{1/2}$.
-\end{ej}
+\end{ejercicio}
 
 \section{Descomposición $\Lb \Db\Lb^*$ : Cholesky}
 
@@ -553,10 +553,10 @@ El pivoteo completo no se lleva a cabo en general debido a su alto costo (calcul
 En muchos casos es posible explotar la estructura de las matrices a la hora de resolver sistemas. Dicho sea esto a la hora de ahorrar computos o mejorar la estabilidad de los algoritmos.
 
 
-\begin{prop}
+\begin{proposicion}
 \label{prop:defposesinvert}
 Si $\Ab$ es definida positiva entonces es invertible y también lo son todos sus menores.
-\end{prop}
+\end{proposicion}
 \begin{proof}
  En efecto, de no ser invertible, existiría $\cero\neq\vb$ tal que
  $\Ab\vb=\cero$ lo que contradice la definida positividad ya que para ese $\vb$ se tendría $\vb^*\Ab\vb=0$.
@@ -653,10 +653,10 @@ de donde el problema de resolver
 $chol(\Ab(1:n,1:n))$ para una matriz de $n\times n$  se redujo
 a resolver $chol(\Ab(2:n,2:n)-\Cb(2:n,1)\Cb(2:n,1)^*)$ para una matriz de tamaño $(n-1)\times (n-1)$, lo que inductivamente (siempre que la nueva matriz sea definida positiva) nos lleva al problema trivial de factorizar un número real positivo (matriz de $1\times 1$ definida positiva) como el cuadrado de otro positivo. Veamos entonces la siguiente
 \tcc
-\begin{prop}
+\begin{proposicion}
  Si $\Ab$ es SDP entonces $\Ab(2:n,2:n)-\Cb(2:n,1)\Cb(2:n,1)^*$, donde
  $\Cb=(2:n,1)=\Ab(2:n,1)/\sqrt{a_{1,1}}$, es DP.
-\end{prop}
+\end{proposicion}
 \etcc
 \begin{proof}
 Claramente $\Ab(2:n,2:n)-\Cb(2:n,1)\Cb(2:n,1)^*$ es Hermitiana (o simétrica, en el caso real). Por otro lado, y por hipótesis, para todo $\cero\neq \ub=(u_1,\vb)\in \Cn$ se tiene

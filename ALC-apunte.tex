@@ -1,4 +1,11 @@
 \documentclass[11pt,leqno]{amsbook}
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\renewcommand{\sectionmark}[1]{\markright{\thechapter.\arabic{section} #1}}
+%\usepackage{tocloft}
+%\addtolength{\cftsecnumwidth}{10pt}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
 
 % This codes produces an error if some include file is not founded
 \makeatletter
@@ -11,11 +18,13 @@
 
 
 \usepackage{graphicx}
+\graphicspath{ {./imagenes/} }
+
 \usepackage[utf8]{inputenc}
 \usepackage[spanish,es-nodecimaldot, es-noindentfirst]{babel}
 
 % No indent at first paragraph
-\usepackage[noindentafter]{titlesec}
+%\usepackage[noindentafter]{titlesec}
 
 % No indent at first paragraph of proof
 \makeatletter
@@ -76,8 +85,6 @@ literate=%
 }
 
 \usepackage{xspace}
-\usepackage{graphicx}
-\graphicspath{ {./imagenes/} }
 
 %\usepackage{breqn}   %% OJO NO COMPILA!
 
@@ -94,28 +101,29 @@ literate=%
 
 \theoremstyle{noind}
 %\theoremstyle{plain}
-\newtheorem{teo}{Teorema}[chapter]
-\newtheorem{lema}{Lema}[chapter]
-\newtheorem{prop}{Proposici\'on}[chapter]
-\newtheorem{proposicion}{Proposici\'on}[chapter]
-\newtheorem{cor}{Corolario}[chapter]
-\newtheorem{coro}{Corolario}[chapter]
-\newtheorem{corolario}{Corolario}[chapter]
-\newtheorem{remark}{Observaci\'on}[chapter]
-\newtheorem{rem}{Observaci\'on}[chapter]
-\newtheorem{observacion}{Observaci\'on}[chapter]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{proposicion}[teorema]{Proposici\'on}
+\newtheorem{corolario}[teorema]{Corolario}
+\newtheorem{observacion}[teorema]{Observaci\'on}
+
+%\newtheorem{observacion}{Observaci\'on}[subsection]
+%\newtheorem{proposicion}{Proposici\'on}[subsection]
+%\newtheorem{cor}{Corolario}[chapter]
+%\newtheorem{corolario}{Corolario}[chapter]
+%\newtheorem{remark}{Observaci\'on}[chapter]
 
 \newtheoremstyle{def2}{6pt}{6pt}{}{}{\scshape}{.}{.5em}{}
 \theoremstyle{def2}
-\newtheorem{ejemplo}{Ejemplo}[chapter]
-\newtheorem{aplicacion}{Aplicaci\'on}[chapter]
-\newtheorem{defi}{Definici\'on}[chapter]
-\newtheorem{definicion}{Definici\'on}[chapter]
-\newtheorem{ej}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
-\newtheorem{ejercicio}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\newtheorem{aplicacion}[teorema]{Aplicaci\'on}
+\newtheorem{definicion}[teorema]{Definici\'on}
+\newtheorem{ejercicio}[teorema]{Ejercicio} %numera os 'Ejercicios' reseteando
+%\newtheorem{ejercicio}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
 %en cada 'capítulo'.
 %\newtheorem{ej}{Ejercicio}[section] %numera os 'Ejercicios' reseteando
 %en cada 'capítulo'.
+%\newtheorem{defi}{Definici\'on}[subsection]
 
 
 %% User definitions:
@@ -335,11 +343,11 @@ su-pon-ga-mos su-pon-ga su-pu-sie-ra}
 \include{sectionMatrices}
 \include{chapterTransformaciones}
 \include{chapterNumerosMaquina}
-%%ojo cambie el nomre no es ProductoInterno
+          %%ojo cambie el nomre no es ProductoInterno
 \include{chapterProdInterno}
 \include{chapterMetodosDirectos}
 \include{chapterDiagonalizacion}
-%\include{chapterFactorizacion}
+          %\include{chapterFactorizacion}
 \include{chapterMetodosIterativos}
 \include{chapterSVD}
 \include{chapterCuadMinimos}

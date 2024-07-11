@@ -133,12 +133,12 @@ Repasando,
     que el autovalor $\lambda$ tiene un único autovector.
 \end{itemize}
 
-\begin{defi}
+\begin{definicion}
 Dada $\Ab \in  \Knn$, llamamos \emph{polinomio característico} de $\Ab$ al determinante
 $$
 \chi_{\Ab}(\lambda) = \det(\Ab - \lambda \Ib).
 $$
-\end{defi}
+\end{definicion}
 
 Los autovalores de $\Ab$ son las raíces de $\chi_{\Ab}(\lambda)$. El polinomio $\det(\lambda \Ib - \Ab)$ es un polinomio mónico con las mismas raíces que $\det(\lambda \Ib - \Ab)$, y llamamos indistintamente polinomio característico a cualquiera de estos dos polinomios.
 
@@ -180,9 +180,9 @@ asociados a cada autovalor para las siguientes matrices.
 
 Vamos a utilizar la siguiente propiedad más adelante.
 
-\begin{prop}
+\begin{proposicion}
 Para $\Ab \in \Rnn$, los autovalores de $\Ab$ y $\Ab^T$ son los mismos.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Recordemos que para cualquier $\Ab \in \Rnn$, $\det(\Ab) = \det(\Ab^T)$.
@@ -237,14 +237,14 @@ $$
 
 En general, tenemos el siguiente resultado.
 
-\begin{prop}
+\begin{proposicion}
 Sea $\Ab \in \Knn$ tal que existe una base $\B = \{\wb_1, \dots, \wb_n\}$ de $\Kn$ formada por autovectores de $\Ab$, con autovalores $\lambda_1, \dots, \lambda_n \in \C$ (no necesariamente distintos). Sea $f: \Kn \rightarrow \Kn$ la transformación asociada, $f(\vb) = \Ab \vb$. La matriz de la $f$ en la base $\B$ es diagonal,
 $$
 [f]_\B =
 \begin{pmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{pmatrix}
 $$
 
-\end{prop}
+\end{proposicion}
 
 Estudiamos ahora la relación entre la matriz original $\Ab$ y la matriz $[f]_\B$ en la base de autovectores.
 
@@ -315,7 +315,7 @@ print("A_B = \n", C_EB @ A @ C_BE)
 
 La siguiente propiedad resume lo que acabamos de ver.
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab \in \K^{n \times n}$ y $\B = \{\bb_1, \dots, \bb_n\}$
 es una base de $\K^n$ formada por autovectores de $\Ab$ con autovalores
 $\{\lambda_1, \dots, \lambda_n\}$, entonces tomando
@@ -330,7 +330,7 @@ $$
 \Ab = \Cb \Db \Cb^{-1} \quad \text{y} \quad \Db = \Cb^{-1} \Ab \Cb.
 $$
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 \begin{ejercicio} Calcular en Python los autovalores y autovectores de las
 siguientes matrices. Según los resultados obtenidos, ¿alguna de estas
@@ -418,9 +418,9 @@ Dada una matriz $\Ab \in \Knn$ y un autovalor $\lambda$ de $\Ab$, definimos:
 \item La \emph{multiplicidad geométrica} de $\lambda$ es la dimensión del espacio de autovectores asociado a $\lambda$, o equivalentemente, la dimensión de $\Nu(\Ab - \lambda \Ib)$.
 \end{itemize}
 
-\begin{prop}
+\begin{proposicion}
 Dada una matriz $\Ab \in  \Knn$ y un autovalor $\lambda$ de $\Ab$, la multiplicidad geométrica es siempre menor o igual que la multiplicidad aritmética.
-\end{prop}
+\end{proposicion}
 
 \begin{proof} Sea $s$ la multiplicidad geométrica de $\lambda$ y $\{\vb_1, \dots, \vb_s\}$ una base de autovectores de $E_{\lambda}$, el espacio de autovectores asociados a $\lambda$. Completamos la base de $E_{\lambda}$ a una base de $\Kn$:
 $$
@@ -449,10 +449,10 @@ $$
 
 Para una matriz $\Ab \in \Knn$, el polinomio característico tiene grado $n$ y por lo tanto $n$ raíces contando sus multiplicidades. Es decir, que la suma de las multiplicidades aritméticas de todos los autovalores es siempre exactamente $n$. Más aún, autovectores correspondientes a autovalores distintos son linealmente independientes.
 
-\begin{prop}
+\begin{proposicion}
 Dada $\Ab \in \Knn$, sean $\vb_1, \dots, \vb_s$ autovectores de $\Ab$ correspondientes a autovalores distintos $\lambda_1, \dots, \lambda_s$.
 El conjunto $\{\vb_1, \dots, \vb_s\}$ es linealmente independiente.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Consideramos una relación de dependencia lineal:
@@ -473,22 +473,22 @@ que es una relación con menos términos no nulos que la anterior, lo cual es un
 
 Combinando este resultado con la propiedad anterior, obtenemos el siguiente resultado.
 
-\begin{prop}
+\begin{proposicion}
 Una matriz $\Ab$ es diagonalizable si para todo autovalor $\lambda$ de $\Ab$, la multiplicidad artimética y la multiplicidad geométrica coinciden.
-\end{prop}
+\end{proposicion}
 
 \
 
 \subsection{Propiedades de las matrices diagonalizables}
 
-\begin{prop} Si $\Ab = \Cb^{-1} \Db \Cb$,
+\begin{proposicion} Si $\Ab = \Cb^{-1} \Db \Cb$,
 \begin{itemize}
 \item   $\Ab^2 = \Cb^{-1} \Db \Cb \Cb^{-1} \Db \Cb = \Cb^{-1} \Db \Db \Cb = \Cb^{-1} \Db^2 \Cb$
 \item   Inductivamente, $\Ab^k = \Cb^{-1} \Db \Cb \dots \Cb^{-1} \Db \Cb = \Cb^{-1} \Db^k \Cb$
 \item   Si $\Ab$ inversible, $\Ab^{-1} = (\Cb^{-1} \Db \Cb)^{-1} = \Cb^{-1} \Db^{-1} \Cb$.
 \item   Si $p(x) \in \R[x]$, $p(\Ab) = \Cb^{-1} p(\Db) \Cb$.
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 En todos estos casos, como vimos anteriormente, la función aplicada a
 una matriz diagonal se puede calcular fácilmente aplicando la función a
@@ -571,13 +571,13 @@ Vemos en particular que los términos de la sucesión crecen con velocidad expon
 \section{Descomposición de Schur}
 Si bien vimos que no toda matriz es diagonalizable, es decir, semejante a una matriz diagonal, vamos a ver que toda la matriz es semejante a una matriz triangular superior con los autovalores en la diagonal. Más aun, la matriz de cambio de base se puede tomar unitaria. En este caso, decimos que las matrices son unitariamente equivalentes. Concretamente, tenemos el siguiente resultado.
 
-\begin{teo}
+\begin{teorema}
 Dada una matriz $\Ab \in \Knn$ con autovalores $\lambda_1, \dots, \lambda_n$ (no necesariamente distintos), existen matrices $\Ub$ unitaria y $\Tb$ triangular superior tales que
 $$
 \Ab = \Ub \Tb \Ub^*
 $$
 y $t_{ii} = \lambda_i$. Es decir, $\Ab$ es unitariamente equivalente a una matriz $\Tb$ triangular superior con los autovalores de $\Ab$ en la diagonal en cualquier orden arbitrario. Si $\Ab \in \Rnn$ y los autovalores de $\Ab$ son reales, la matriz $\Ub$ se puede tomar real y ortogonal.
-\end{teo}
+\end{teorema}
 
 Recordemos que para una matriz $\Ub$ unitaria, vale $\Ub^{-1} = \Ub^*$, por lo tanto las matrices $\Ab$ y $\Tb$ son semejantes.
 
@@ -654,10 +654,10 @@ $$
 \Ub^* \Ab \Ub = \Bb.
 $$
 
-\begin{prop}
+\begin{proposicion}
 \label{prop:normal}
 Si $\Ab$ es normal y $\Bb$ es unitariamente equivalente a $\Ab$, entonces $\Bb$ es normal.
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Tenemos que existe $\Ub$ unitaria tal que $\Ub^* \Ab \Ub = \Bb$. Por lo tanto,
 $$
@@ -667,9 +667,9 @@ $$
 
 Decimos que una matriz $\Ab$ es \emph{unitariamente diagonalizable} si existe una matriz $\Ub$ unitaria tal que $\Ub \Ab \Ub^*$ es diagonal. Esto es equivalente a decir que $\Ab$ tiene una base ortonormal de autovectores.
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab$ es normal, entonces $\Ab$ es unitariamente diagonalizable. En particular, autovectores de $\Ab$ correspondientes a autovalores distintos son ortogonales.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Por la descomposición de Shur, sabemos que existe $\Tb$ triangular superior unitariamente equivalente a $\Ab$.
@@ -746,14 +746,14 @@ porque $\Tb$ es triangular superior, concluimos que $\Tb$ es diagonal.
 
 \subsection{Matrices simétricas y hermitianas.} Una matriz $\Ab \in \Rnn$ es simétrica si $\Ab = \Ab^T$. Más generalmente, $\Ab \in \Cnn$ es Hermitiana si $\Ab = \Ab^*$.
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab$ es Hermitiana, entonces
 \begin{enumerate}
 \item \label{item:real} $\xb^* \Ab \xb$ es real para todo $\xb \in \Cn$,
 \item \label{item:realav} todos los autovalores de $\Ab$ son reales,
 \item $\Sb^* \Ab \Sb$ es Hermitiana para toda $\Sb \in \Cnn$.
 \end{enumerate}
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Para \ref{item:real}, calculamos
@@ -811,23 +811,23 @@ diagonal tales que $\Ab = \Qb^T \Db \Qb$.
 
 %QUITAR
 
-Decimos que una matriz $\Ab \in \C^{n \times n}$ es \emph{semidefinida positiva} si es hermitiana y 
+Decimos que una matriz $\Ab \in \C^{n \times n}$ es \emph{semidefinida positiva} si es hermitiana y
     $\vb^T \Ab \vb \ge 0$ para todo $\vb \in \R^n$. Si $\vb^T \Ab \vb > 0$ para todo $\vb \in \R^n$ decimos que $\Ab$ es \emph{definida positiva}.
 
-Como $\Ab$ es hermitiana, todos los autovalores de $\Ab$ son reales. 
+Como $\Ab$ es hermitiana, todos los autovalores de $\Ab$ son reales.
 
-\begin{prop} Para $\Ab$ hermitiana con autovalores $\lambda_1, \dots, \lambda_n$, 
+\begin{proposicion} Para $\Ab$ hermitiana con autovalores $\lambda_1, \dots, \lambda_n$,
 \begin{itemize}
 \item   $\Ab$ es \emph{definida positiva} si y solo si $\lambda_i(\Ab) > 0$ para todo
     $1 \le i \le n$.
 \item  $\Ab$ es \emph{semidefinida positiva} si y solo si $\lambda_i(\Ab) \ge 0$ para todo
     $1 \le i \le n$.
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 
-Lo vemos en el caso $\Ab \in \R^{2 \times 2}$. 
+Lo vemos en el caso $\Ab \in \R^{2 \times 2}$.
 Si $\Ab = \begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}$, y
 $v = (v_1, v_2)$,
 $$ \begin{aligned} \vb^T \Ab \vb &=
@@ -840,9 +840,9 @@ $\lambda_1, \lambda_2 \ge 0$.
 
 \end{proof}
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab \in \R^{n \times m}$, $\Ab^T\Ab$ y $\Ab\Ab^T$ son matrices simétricas y semidefinidas positivas.
- \end{prop}
+ \end{proposicion}
 
 \begin{proof}Ejercicio.\end{proof}
 
@@ -1068,9 +1068,9 @@ $\Ab \in \C^{n \times n}$, $\vb^{(0)} \in \C^n$\;
 \end{algorithm}
 
 
-\begin{teo}
+\begin{teorema}
 Sea $\Ab \in \Cnn$ una matriz diagonalizable con base de autovectores $\B = \{\wb_1, \dots, \wb_n\}$ y autovalores correspondientes $\{\lambda_1, \dots, \lambda_n\}$ con $|\lambda_1| > |\lambda_2| \ge \dots \ge |\lambda_n| \ge 0$ (existe un único autovalor de módulo máximo). Dado un vector $\vb^{(0)} \in \C^n$ tal que en su escritura en la base $\B$ el coeficiente de $\wb_1$ es no nulo, el algoritmo \ref{algo:potencia} satisface $|r_k - \lambda_1| \rightarrow 0$ cuando $k \rightarrow \infty$.
-\end{teo}
+\end{teorema}
 
 \begin{proof}
 Por hipótesis, podemos escribir
@@ -1119,7 +1119,7 @@ $$
 
 En el caso de matrices diagonales, el cálculo de normas matriciales es muy simple.
 
-\begin{prop} Si $\Ab$ diagonal,
+\begin{proposicion} Si $\Ab$ diagonal,
   $$\Ab=
  \begin{pmatrix}
   \lambda_1&0&0&\dots&0\\
@@ -1133,7 +1133,7 @@ En el caso de matrices diagonales, el cálculo de normas matriciales es muy simp
  $$
  \|\Ab\|_2 = \max\{|\lambda_i|\}.
  $$
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Ejercicio.
 \end{proof}
@@ -1141,12 +1141,12 @@ Ejercicio.
 Esa simple observación motiva la siguiente definición.
 
 \tccdefi
-\begin{defi}
+\begin{definicion}
  Dada $\Ab\in \Knn$ definimos el radio espectral de $\Ab$ como
  $$
  \rho(\Ab)=\max\{|\lambda|, \, \mbox{con}\, \lambda \,\mbox{autovalor de}\, \Ab\}
  $$
-\end{defi}
+\end{definicion}
 
 \etcc
 Supongamos que $\Ab\in \Rnn$ es simétrica, sea $\mathcal{B}=\{\vb_1,\cdots,\vb_n\}$ una base ortonormal de autovectores y  $\{\lambda_1, \lambda_2,\cdots \lambda_n\}\subset \R$ los respectivos autovalores.
@@ -1215,17 +1215,17 @@ $$
 \|\Ab\|_2=\sqrt{\rho(\Ab^T\Ab)}.
 $$
 \etcc
-\begin{ej}
+\begin{ejercicio}
  Verifique que de la última expresión se obtiene como caso particular la de las matrices simétricas.
-\end{ej}
+\end{ejercicio}
 Otra propiedad importante es la siguiente
-\begin{prop}
+\begin{proposicion}
  \label{prop:infmat=rho}
 Sea $\Ab\in\Knn$, entonces
 $$
 \rho(\Ab)=\inf
 \{\|\Ab\|:\, \|\cdot \|\,  \mbox{es una norma subordinada}\}.$$
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada. La otra desigualdad es mas complicada y no la probaremos aquí.
 
@@ -1243,7 +1243,7 @@ Solo vamos a probar que  $\rho(\Ab)\le \|\Ab\|$ para cualquier norma subordinada
  $$
  \|\Ab\|\ge \rho(\Ab).
  $$
- 
+
  Si $\K=\R$ hay un problema si intentamos repetir el argumento previo vemos que funciona perfectamente si $\lambda \in \R$, sin embargo el autovalor y el autovector podrían ser complejos y no tener sentido la expresión $\|\vb\|$ si se trata de una norma en $\Rn$.
  Supongamos entonces que $\lambda=a+ib\in \C$ y escribamos entonces, \footnote{Debemos este argumento a Ariel Lombardi, colega de la UNR.}
 $$
@@ -1276,7 +1276,7 @@ y
  $$
  \|\Ab\|_2^2\ge (a^2+b^2)=|\lambda|^2.
  $$
- 
+
  Es decir -ya que $\lambda$ es arbitrario-
  $$\|\Ab\|_2\ge \rho(\Ab).$$
  Sea ahora $\|\cdot\|$ una norma arbitaria en $\Rn$ y $k\in \N$: por un lado sabemos que\footnote{En realidad vale el igual. Para ver la desigualdad basta notar que si $\lambda$ es autovalor de $ \Ab$ entonces $\lambda^k$ lo es de $\Ab^k$. }
@@ -1300,14 +1300,14 @@ y
 Como aplicación, obtenemos un criterio para determinar cuándo las potencias de una matriz tienden a la matriz nula.
 
 \tcc
-\begin{prop}
+\begin{proposicion}
  Sea $\Mb\in \Knn$, se tiene que
  $$
  \lim_{k\to \infty}\|\Mb^k\|=0
  $$
 para cierta norma $\|\cdot\|$ (y por ende para cualquier otra ya que son todas equivalentes) sí y solo sí
  $\rho(\Mb)<1$.
-\end{prop}
+\end{proposicion}
 
 \etcc
 
@@ -1388,8 +1388,8 @@ $$
 $$
 obtenemos $\langle \tilde \ub_2^{(k)} \rangle \rightarrow \langle \wb_2 \rangle$.
 
-\begin{remark} $\{\tilde \ub_1^{(k)}, \tilde \ub_2^{(k)} \}$ es el resultado de aplicar Gram-Schmidt a $\{\vb_1^{(k)}, \vb_2^{(k)} \}$.
-\end{remark}
+\begin{observacion} $\{\tilde \ub_1^{(k)}, \tilde \ub_2^{(k)} \}$ es el resultado de aplicar Gram-Schmidt a $\{\vb_1^{(k)}, \vb_2^{(k)} \}$.
+\end{observacion}
 
 Analizamos ahora el caso de matrices simétricas.
 
@@ -1460,16 +1460,16 @@ $\Ab^{(k+1)} = \Rb^{(k)} \Qb^{(k)}$
  \caption{Método QR}
 \end{algorithm}
 
-\begin{prop}
+\begin{proposicion}
 La matriz $\Ab^{(k)}$ tiende a una matriz triangular superior con los autovalores de $\Ab$ en la diagonal.
-\end{prop}
+\end{proposicion}
 
-\begin{remark} La matriz que se obtiene en cada paso es semejante a la matriz del paso anterior:
+\begin{observacion} La matriz que se obtiene en cada paso es semejante a la matriz del paso anterior:
 $$
 (\Qb^{(k)})^T \Ab^{(k)} \Qb^{(k)} = (\Qb^{(k)})^T (\Qb^{(k)} \Rb^{(k)}) \Qb^{(k)} = \Rb^{(k)} \Qb^{(k)} = \Ab^{(k+1)},
 $$
 por lo tanto las matrices $\Ab^{(k)}$ tiene los mismos autovalores para todo $k = 0, 1, 2, \dots$
-\end{remark}
+\end{observacion}
 
 \begin{ejercicio} Aplicar el algoritmo a una matriz $\Ab$ arbitraria y comparar los autovalores obtenidos con los que se obtienen por el comando $\texttt{eig}$ de \python. ¿Cómo podemos calcular los autovectores?
 \end{ejercicio}
@@ -1490,8 +1490,8 @@ $$
 
 Llamamos $D(a_{ii}, R_{i}) \subset \C$ al disco cerrado centrado en $a_{ii}$ de radio $R_{i}$.
 
-\begin{teo} Todos los autovalores de $\Ab$ están en alguno de los discos de Gershgorin $D(a_{ii}, R_{i})$.
-\end{teo}
+\begin{teorema} Todos los autovalores de $\Ab$ están en alguno de los discos de Gershgorin $D(a_{ii}, R_{i})$.
+\end{teorema}
 
 
 
@@ -1642,13 +1642,13 @@ Para contestar estas preguntas vamos a estudiar los llamados procesos de Markov.
 
 \section{Matrices de Markov}
 
-\begin{defi}
+\begin{definicion}
 Decimos que una matriz $\Ab \in \Rnn$ es \emph{de Markov} (o estocástica) si
 \begin{itemize}
 \item Todas las casillas de $\Ab$ son números reales no negativos
 \item La suma de las casillas en cualquier columna de $\Ab$ es siempre 1.
 \end{itemize}
-\end{defi}
+\end{definicion}
 
 En particular, estas dos condiciones implican que todas las coordenadas de la matriz deben ser números entre 0 y 1. Observamos que la matriz del ejemplo cumple estas condiciones.
 
@@ -1658,9 +1658,9 @@ Observamos que si $\vb^{\infty}$ es el límite de un proceso de Markov, debe cum
 
 Estudiamos ahora entonces los autovalores y autovectores de las matrices estocásticas.
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab$ es una matriz de Markov, $\lambda = 1$ es un autovalor de $\Ab$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Como las columnas de $\Ab$ suman 1, si $\vb = (1,1,1, \dots, 1)$,
@@ -1668,9 +1668,9 @@ $$\Ab^T \vb = \vb,$$
 luego $\vb$ es autovector de $\Ab^T$ con autovalor $1$. Como los autovalores de $\Ab$ y $\Ab^T$ son los mismos, concluimos que $\lambda = 1$ es autovalor de $\Ab$ (aunque no necesariamente el autovector correspondiente es $\vb = (1, 1, \dots, 1)$).
 \end{proof}
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab$ es una matriz de Markov y $\lambda$ es un autovalor de $\Ab$, entonces $|\lambda| \le 1$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Si $\Ab \vb = \lambda \vb$, para $1 \le i \le n$,
@@ -1691,9 +1691,9 @@ $$
 Como $|v_1| + \dots + |v_n| \ge 0$, obtenemos $|\lambda| < 1$.
 \end{proof}
 
-\begin{prop}
+\begin{proposicion}
 Si $\Ab$ es una matriz de Markov, $\lambda \neq 1$ es un autovalor de $\Ab$ y $\vb$ es un autovector asociado a $\lambda$, entonces $v_1 + \dots + v_n = 0$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Si $\Ab \vb = \lambda \vb$, para $1 \le i \le n$,
@@ -1740,13 +1740,13 @@ $$
 $$
 que podemos pensar como vectores de probabilidades.
 
-\begin{prop}
+\begin{proposicion}
 Si $\pib \in \mathcal{P}_n$ y $\Mb \in \Rnn$ es una matriz de Markov, $\Mb \pib \in \mathcal{P}_n$.
-\end{prop}
+\end{proposicion}
 
-\begin{prop}
+\begin{proposicion}
 Si $\Mb \in \Rnn$, existe $\pib \in \mathcal{P}_n$ tal que $\Mb \pib = \pib$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof} Ver que si $\pib = (\pi_1, \dots, \pi_n)$ satisface $\Mb \pib = \pib$, entonces también
 $|\pib| = (|\pi_1|, \dots, |\pi_n|)$ satisface $\Mb |\pib| = |\pib|$ (ejercicio).
@@ -1855,7 +1855,7 @@ con $\Cb_{\B\E} = \begin{pmatrix} \vert & & \vert \\ \wb_1 & \dots & \wb_n \\ \v
 
 Notamos $\Mb^{\infty} = \lim_{k \rightarrow \infty} \Mb^k$, cuando ese límite existe.
 
-\begin{prop} Se cumplen las siguientes propiedades.
+\begin{proposicion} Se cumplen las siguientes propiedades.
 \begin{itemize}
 \item Si existe $\Mb^{\infty}$, $\pib^{\infty} = \Mb^{\infty} \pib^{(0)}$ para cualquier vector inicial de estados.
 \item Existe $\Mb^{\infty}$ si y solo si $\lambda = 1$ es el único autovalor de módulo 1.
@@ -1868,7 +1868,7 @@ $$
 \Mb^{\infty} = \begin{pmatrix} \vert & & \vert \\ \wb & \dots & \wb \\ \vert & & \vert \end{pmatrix}.
 $$
 \end{itemize}
-\end{prop}
+\end{proposicion}
 
 \begin{ejercicio}
 Para estudiar la relevancia de 4 páginas, se utiliza el modelo de Google Page Rank.

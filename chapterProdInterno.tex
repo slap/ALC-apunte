@@ -18,24 +18,24 @@ $$
 lo cual nos da una expresión aplicable a los complejos.
 
 \tccdefi
-\begin{defi}
+\begin{definicion}
 Una norma de un $K$-espacio vectorial es una función $\| \cdot \| : V \rightarrow \R_{\ge 0}$ que cumple las siguientes propiedades:
 \begin{enumerate}
 \item $\|a \vb\| = |a| \|\vb\|$, para $a \in \K$ y $\vb \in V$.
 \item Si $\|\vb\| = 0$, entonces $\vb = 0$.
 \item $\|\ub + \vb\| \le \|\ub\| + \|\vb\|$, para todo $\ub, \vb \in V$ \qquad (desigualdad triangular)
 \end{enumerate}
-\end{defi}
+\end{definicion}
 \etcc
 Es fácil ver que la norma-2 cumple las primeras dos propiedades.  La tercera propiedad puede probarse usando la siguiente desigualdad clásica.
 
-\begin{prop}[Desigualdad de Cauchy-Schwarz]
+\begin{proposicion}[Desigualdad de Cauchy-Schwarz]
 \label{prop:CS}
 Dados $\ub, \vb \in \K^n$,
 $$
 \left|\sum_{i=1}^{n} \overline u_{i}v_{i}\right|\leq \|\ub\|_2\|\vb\|_2.
 $$
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Asumamos primero que $\K=\R$. Consideremos el siguiente polinomio de grado 2 en la variable $x$
 $$
@@ -58,14 +58,14 @@ $$
 $$
 y la desigualdad sale ahora usando el caso real con los vectores $(|u_1|,\cdots,|u_n|)$,$(|v_1|,\cdots,|v_n|)$.
 \end{proof}
-\begin{rem}
+\begin{observacion}
 Notar que la desigualdad de Cauchy-Schwarz vale también tomando a la izquierda
 $\sum _{i}\overline{u_{i}}{v_{i}}$, puesto que $\sum _{i}\overline{u_{i}}{v_{i}}=\overline{\sum _{i}u_{i}\overline{v_{i}}}$ y el módulo de un complejo es igual al de su conjugado.
-\end{rem}
-\begin{cor}
+\end{observacion}
+\begin{corolario}
  Para todo $\ub,\vb\in \K^n$ vale,
  $\|\ub+\vb\|_2\le\|\ub\|_2+\|\vb\|_2.$
-\end{cor}
+\end{corolario}
 \begin{proof}
 La hacemos en $\C$ y en $\R$  sale como caso particular.
 $$
@@ -105,10 +105,10 @@ En el siguiente gr\'afico podemos ver la diferencia entre las 3 normas m\'as usu
 \caption{``Círculos''  de radio 1 en diferentes normas. Es decir $\vb\in \R^2$ tales que $\|\vb\|=1$.}
 \end{figure}
 En la siguiente figura observamos distintas curvas de nivel\footnote{Las curvas en las cuales la norma respectiva permanece constante.} para distintas normas.
-\begin{ej}
+\begin{ejercicio}
  Examinando los gráficos de las curvas de
 nivel de las normas$-p$ se puede intuir que  $\lim_{p\to +\infty}\|\vb\|_p=\|\vb\|_\infty$. De una demostración de este hecho.
-\end{ej}
+\end{ejercicio}
 \begin{figure}
  \includegraphics[scale=.4]{nivelNormas.png}
 \caption{Curvas de nivel de diferentes normas$-p$.}
@@ -123,42 +123,42 @@ nivel de las normas$-p$ se puede intuir que  $\lim_{p\to +\infty}\|\vb\|_p=\|\vb
 % \end{aplicacion}
 Para nosotros va a ser relevante medir \emph{errores} en espacios vectoriales, para ello recordemos que dados $\ub,\vb\in \R^n$
 $\|\ub-\vb\|_2$ da la distancia entre ellos. En ocasiones, sin embargo, vamos a notar que es mas sencillo trabajar con una norma diferente a la norma-$2$, por lo que resulta natural ver que relación hay entre las diferentes normas-$p$. Puede probarse muy fácilmente lo siguiente.
-\begin{ej}
+\begin{ejercicio}
 Verificar que para todo $\xb\in \K^n$
 \begin{enumerate}
 \item $\|\xb\|_2 \le \|\xb\|_1 \le \sqrt{n} \|\xb\|_2$
 \item $\|\xb\|_\infty \le \|\xb\|_2 \le \sqrt{n} \|\xb\|_\infty$
 \item $\|\xb\|_\infty \le \|\xb\|_1 \le n \|\xb\|_\infty$
 \end{enumerate}
-\end{ej}
+\end{ejercicio}
 Ese resultado es un caso particular de uno mucho mas general. Primero definamos \emph{equivalencia de normas}.
 \tccdefi
-\begin{defi}
+\begin{definicion}
  Sean $\|\cdot\|$ y $\|\cdot\|_{*}$ dos normas en un $\K$-espacio vectorial $V$. Decimos que son equivalentes si existen dos constantes $0<c,C$ tales que para todo $\xb\in V$
  $$
  c\|\xb\|_* \le \|\xb\| \le C \|\xb\|_*
  $$
-\end{defi}
+\end{definicion}
 \etcc
 Vale lo siguiente,
-\begin{prop}
+\begin{proposicion}
 \label{prop:equivnorm}
  En un $\K$-espacio vectorial de dimensión finita todas la normas son equivalentes\footnote{Las constantes que relacionan las normas dependen de la dimensión $n$, típicamente se deterioran si $n\to \infty$}.
-\end{prop}
+\end{proposicion}
 Este resultado nos es útil en muchos contextos.  Veamos primero la siguiente definición.
 \tccdefi
-\begin{defi}
+\begin{definicion}
 Decimos que una sucesi\'on de vectores $\{v_n\}_{n \in \N}$ converge bajo una norma $\|\cdot\|$ a un vector $v$ si
 $$
 \|v_n - v\| \rightarrow 0 \quad \text{ cuando } n \rightarrow \infty.
 $$
-\end{defi}
+\end{definicion}
 \etcc
 Como consecuencia de la Proposición \ref{prop:equivnorm}, la convergencia en una norma cualquiera implica la convergencia en todas las normas.
 
 \section{Producto interno}
 \tccdefi
-\begin{defi}
+\begin{definicion}
 Dados dos vectores $\ub, \vb \in \K^n$ definimos\footnote{Recordemos que asociamos los vectores con las matrices columna.} el producto interno (canónico) por la fórmula\footnote{En muchos casos se suele conjugar los coeficientes del $\vb$ en la sumatoria en vez de los de $\ub$  en la definición de $\langle \ub,\vb\rangle$. Para nuestros intereses no cambia en absoluto la definición utilizada que por lo demas coinciden sobre $\R$.} $$
 \langle \ub, \vb \rangle = \ub^*\vb\in \K,
 $$
@@ -166,12 +166,12 @@ es decir
 $$
 \langle \ub, \vb \rangle=\overline{u_1} v_1 + \overline{u_2} v_2 + \dots + \overline{u_n} v_n = \sum_{i=1}^{n} \overline{u_i}v_i.
 $$
-\end{defi}
+\end{definicion}
 \etcc
 Tenemos las siguientes propiedades inmediatas.
 
 \tcc
-\begin{rem}
+\begin{observacion}
 \label{obs:interno}
 Notar que para $\xb,\yb,\zb \in \K^n$, $\wb\in \K^m$ $a,b \in \K$,  $\Ab\in \K^{n \times m}$, resulta
 
@@ -184,7 +184,7 @@ Notar que para $\xb,\yb,\zb \in \K^n$, $\wb\in \K^m$ $a,b \in \K$,  $\Ab\in \K^{
 \item La desigualdad de Cauchy-Schwarz se escribe
 $|\langle \vb,\wb\rangle|\le \|\vb\|_2\|\wb\|_2,$
  \end{enumerate}
-\end{rem}
+\end{observacion}
 \etcc
 
 \begin{ejemplo}
@@ -219,14 +219,14 @@ Las normas nos han permitido incorporar al \emph{álgebra} (el espacio vectorial
 \etcc
 De \eqref{eq:calculodeAng} vemos que $\theta=\pi/2$ si y solo si $\vb^*\wb=0$, de ahí la siguiente definición que la extendemos a los complejos.
 \tccdefi
-\begin{defi}
+\begin{definicion}
  Dados $\vb,\wb\in\K^n$, no nulos. Decimos que son ortogonales sí y solo sí  $\vb^*\wb=\langle \vb,\wb\rangle=0.$ En este caso también usaremos la notación $\vb\perp \wb$.
-\end{defi}
+\end{definicion}
 \etcc
 \tccdefi
-\begin{defi}
+\begin{definicion}
  Una colección de vectores  $\{\vb_i\}_{1\le i\le k}\subset \K^{n}$ se dice \emph{ortogonal} si $\langle \vb_i,\vb_j\rangle = 0 para i \neq j$. Si además $\|\vb_i\|_2=1$ para todo $1\le i\le k$ (es decir, $\langle \vb_i,\vb_j\rangle = \delta_i^j$ para todo $1 \le i, j \le n$) decimos que el conjunto es \emph{ortonormal.}
-\end{defi}
+\end{definicion}
 \etcc
 Los conjuntos ortogonales tienen muchas propiedades que pueden explotarse, tanto teóricamente como en la práctica.
 
@@ -262,14 +262,14 @@ $$
 [\Qb^*\Qb]_{ij}=\vb_i^*\vb_j=\delta_i^j.
 $$
 Estas matrices tienen un nombre particular.
-\begin{defi}
+\begin{definicion}
 \label{def:de_unitaria}
  Una matriz $\Qb\in \K^{n\times n}$ se dice \emph{unitaria} (suele llamarse \emph{ortogonal} cuando $\K=\R$) si
  $\Qb^*\Qb=\Ib$ ($\Qb^T\Qb=\Ib$ si $\K=\R$).
-\end{defi}
-\begin{rem}
+\end{definicion}
+\begin{observacion}
 $\Qb$ es unitaria (resp. ortogonal) si y solo si $\Qb^*$ es unitaria (resp. ortogonal).
-\end{rem}
+\end{observacion}
 Estudiemos ahora el problema de calcular la proyección \emph{ortogonal} de un vector $\wb$ sobre la recta generada por otro vector $\vb\neq \cero$ (ver Figura \ref{fig:proyusobrev}).
 Es decir, que buscamos un vector $\beta\vb$
  tal que $(\beta\vb -\wb)\perp \vb$, esto equivale a
@@ -306,7 +306,7 @@ $$
 es decir el cuadrado de la suma de las longitudes de las coordenadas (los ``catetos'').
 Para resaltar este hecho que usaremos en lo sucesivo, lo recuadramos,
 \tcc
-\begin{rem}
+\begin{observacion}
 \label{obs:pitagoras}
 En toda base ortonormal $\mathcal{B}=\{\vb_1,\cdots,\vb_n\}$, si
 $$
@@ -316,25 +316,25 @@ entonces
 $$
 \|\wb\|^2=\sum_{i=1}^n|\alpha_i|^2.
 $$
-\end{rem}
+\end{observacion}
 \etcc
 Mas adelante volveremos sobre el tema de las proyecciones.
 
 Para finalizar la sección de producto interno definimos
 
-\tccdefi \begin{defi}
+\tccdefi \begin{definicion}
  Una matriz $\Ab\in \Cnn$ se dice \emph{Hermitiana} si $\Ab=\Ab^*$. En el caso de que $\Ab\in \Rnn$, $\Ab$ se dice \emph{simétrica}.
-\end{defi}
+\end{definicion}
 \etcc
 Si $\Ab\in \Knn$ es Hermitiana, entonces, para todo $\vb\in \Kn$, $\vb^*\Ab\vb\in \R$. En efecto, por un lado, debido a las dimensiones de los elementos que aparecen en el producto, se tiene  $z=\vb^*\Ab\vb\in \K$, por otro lado puesto que
 $$\overline{\vb^*\Ab\vb}=(\vb^*\Ab\vb)^*=\vb^*\Ab^*(\vb^*)^*=\vb^*\Ab\vb,$$
 resulta de la primera y ultima expresión de la cadena de igualdades que $\overline{z}=z$, es decir $z\in \R$.
 
 \tccdefi
-\begin{defi}
+\begin{definicion}
 \label{def:positiva}
  Una matriz $\Ab\in \Cnn$ ($\Ab\in \Rnn$)  se dice \emph{definida positiva} si es Hermitiana (simétrica) y además $\vb^*\Ab\vb>0$ para todo $\vb\neq 0$.  Si por otro lado $\vb^*\Ab\vb\ge0$ para todo $\vb$, la matriz se dice \emph{semi definida} positiva.
-\end{defi}
+\end{definicion}
 \end{tcolorbox}
 
 
@@ -356,15 +356,15 @@ Un caso usual en este curso es que la matriz sea cuadrada $\Ab \in \K^{n \times 
 Estas normas matriciales se dicen \emph{subordinadas} a la norma vectorial $\|\cdot\|$ que estamos utilizando
 en el espacio $\Kn$ . De su definición vemos que  la norma (subordinada) de una matriz mide en qué proporción puede aumentar como máximo la norma de un vector $\xb$ al multiplicarlo por $\Ab$.
 
-\begin{ej}
+\begin{ejercicio}
 Sea $\Ab\in \Knn$ y $\|\cdot\|$ una norma en $\Kn$, entonces
  \eqref{eq:defidenormaA} define una norma.
-\end{ej}
-\begin{ej}
+\end{ejercicio}
+\begin{ejercicio}
 \label{ej:idnorma1}
 Sea $\Ib\in \Knn$ la identidad, entonces
  $\|\Ib\|=1$ para toda norma subordinada (siempre que pensemos $\Kn$ con la misma norma vectorial como espacio de partida y llegada de la transformación $\Ib:\Kn\to \Kn$).
-\end{ej}
+\end{ejercicio}
 
 También resulta inmediato de la definición que para todo $\xb$
 \begin{equation}
@@ -454,23 +454,23 @@ $$
 \|\Qb\|_2=\sup_{\xb\neq\cero}\frac{\|\Qb\xb\|_2}{\|\xb\|_2}=1,
 $$
 lo que les da su nombre a las matrices unitarias.
-\begin{ej}Verificar que la matriz
+\begin{ejercicio}Verificar que la matriz
 $$
 \Ab = \begin{pmatrix}
 1 & 0 & 0 \\ 0 & \cos \alpha & -\sin \alpha \\ 0 & \sin \alpha & \cos \alpha
 \end{pmatrix}
 $$
 es una matriz ortogonal para cualquier valor de $\alpha$. Interpretar geométricamente la transformación lineal $\Ab\xb$.
-\end{ej}
+\end{ejercicio}
 
 Como ya hemos señalado, las normas subordinadas son las mas útiles. Sin embargo la norma euclídea aplicada a matrices -que es no subordinada- tiene importantes aplicaciones y un nombre propio.
 \tccdefi
-\begin{defi}
+\begin{definicion}
  Dada $\Ab\in \K^{n\times m}$ definimos la norma de Frobenius
  $$
  \|\Ab\|_F=\sqrt{\sum_{1\le i\le n}\sum_{i\le j\le m} |a_{i,j}|^2}
  $$
-\end{defi}
+\end{definicion}
 \etcc
 Notar que
 $$
@@ -493,7 +493,7 @@ $$\|\Ab\Bb\|_F\le \|\Ab\|_F\|\Bb\|_F.$$
 Cerramos esta sección con propiedades de las normas de matrices unitarias (algunas las hemos ya probado pero las ponemos en recuadro para recordarlas).
 De todas la matrices, las unitarias poseen propiedades especiales que las hacen muy favorables para su uso en los algoritmos.
 \tcc
-\begin{prop}
+\begin{proposicion}
  \label{prop:unitarias}
  Sea $\Ab\in \K^{n\times m}$, $\Qb\in \Knn$, $\Qb$ unitaria/ortogonal, resulta
  \begin{enumerate}
@@ -503,7 +503,7 @@ De todas la matrices, las unitarias poseen propiedades especiales que las hacen 
   \item $\|\Qb\Ab\|_2=\|\Ab\|_2$
   \item $\|\Qb\Ab\|_F=\|\Ab\|_F$
  \end{enumerate}
-\end{prop}
+\end{proposicion}
 \etcc
 \begin{proof} Las propiedades $(1)$ y $(2)$ ya las hemos probado.
 
@@ -540,16 +540,16 @@ $$
 $$
 Notemos que argumentando con $\Ab^{-1}$, vemos que el mismo número mayora a la condición de evaluar $\Ab^{-1}\wb$. Esto motiva la siguiente definición.
 
-\begin{defi}{(Condición de una matriz)}
+\begin{definicion}{(Condición de una matriz)}
 Dada $\Ab\in \Knn$ invertible definimos la condición de $\Ab$, $\kappa(\Ab)$, asociada a una norma subordinada $\|\cdot\|$, como
 $$
 \kappa(\Ab)=\|\Ab\|\|\Ab^{-1}\|.
 $$
 Si $\Ab$ no es invertible definimos $\kappa(\Ab)=+\infty$.
 
-\end{defi}
+\end{definicion}
 Que ocurre si $\Ab\in \K^{n\times m}$? podremos definir algo similar?.  Volveremos sobre este caso mas adelante cuando definamos la \emph{pseudoinversa}.
-\begin{remark}
+\begin{observacion}
 \label{rem:deCondicion}
 Observemos que
 \begin{enumerate}
@@ -561,7 +561,7 @@ Observemos que
 $\kappa(\Qb)=1$. (ver item (2) en Proposición \ref{prop:unitarias})
 \item $\kappa(\Ab)=\kappa(\Ab^{-1})$
 \end{enumerate}
-\end{remark}
+\end{observacion}
 Consideremos por un segundo los problemas que pueden aparecer cuando resolvemos un sistema
 $$
 \Ab\xb=\bb
@@ -603,20 +603,20 @@ Resumiendo
 \tcc
 $$\frac{1}{\kappa(\Ab)}\frac{\|\Delta \bb\|}{\|\bb\|}\le \frac{\|\Delta \xb\|}{\|\xb\|}\le \kappa(\Ab)\frac{\|\Delta \bb\|}{\|\bb\|}.$$
 \etcc
-\begin{ej}
+\begin{ejercicio}
  Verifique con ejemplos que las desigualdades previas se alcanzan (Sug.: use matrices diagonales adecuadas).
-\end{ej}
+\end{ejercicio}
 Teniendo en cuenta el ejercicio previo, vemos que la cota superior puede alcanzarse en la pŕactica. En particular nos dice de un modo simplificado que podemos perder $\log_{10}(\kappa(\Ab))$ dígitos significativos al resolver el sistema\footnote{Por ejemplo, si $\kappa(\Ab)\sim 10^{16}$ no tenemos la garantía de tener ni un dígito correcto en nuestro resultado.}.
 
 El siguiente resultado da una idea cualitativa de $\kappa(\Ab)$ como el recíproco de la distancia relativa de $\Ab$ a las matrices singulares.
-\begin{teo}
+\begin{teorema}
  $\Ab\in \Rnn$, se tiene,
  \begin{equation}
  \label{eq:minimoasing}
 \frac{1}{\kappa(\Ab)}=\inf_{\Bb\,  \mbox{singular}} \frac{\|\Ab-\Bb\|}{\|\Ab\|},
  \end{equation}
  y en donde asumimos $\frac{1}{\kappa(\Ab)}=0$ en caso de que $\Ab$ no sea invertible.
- \end{teo}
+ \end{teorema}
  \begin{proof}
   Si $\Ab$ es no invertible el resultado es evidente. Supongamos entonces que $\Ab$ es invertible. Probaremos únicamente que vale  el $\le$  en \eqref{eq:minimoasing}.
 
@@ -766,10 +766,10 @@ Esta familia de vectores verifica,
 
 Ya hemos hemos notado que las proyecciones ortogonales de vectores sobre subespacios  resultaban aplicaciones lineales.  Vamos a describir las matrices asociadas a esas aplicaciones.
 \tccdefi
-\begin{defi}
+\begin{definicion}
 Una matriz $\cero \neq \Pb\in \Knn$ se dice un proyector si
 $\Pb^2=\Pb$.
-\end{defi}
+\end{definicion}
 \etcc
 
 Notar que  dados dos subespacios $S_1,S_2$ tales que $S_1\oplus S_2=\Kn$, siempre es posible construir un proyector $\Pb$ tal que $Im(\Pb)=S_1$ y $Nu(\Pb)=S_2$. En efecto, como los subespacios están en suma directa, para todo $\vb\in \Cn$ existen únicos $\vb_i\in S_i$ tales que
@@ -795,15 +795,15 @@ $$
 \Kn=Ker(\Pb)\oplus Rg(\Pb).
 $$
 \tccdefi
-\begin{defi}
+\begin{definicion}
  Un proyector $\Pb$ se dice \emph{ortogonal} si $Ker(\Pb)\perp Rg(\Pb)$. En otro caso, se dice \emph{oblícuo}.
-\end{defi}
+\end{definicion}
 \etcc
 \tcc
-\begin{prop}
+\begin{proposicion}
 \label{prop:ortssiautoadjunto}
 Un proyector $\Pb$ es ortogonal sí y solo sí $\Pb=\Pb^*$.
-\end{prop}
+\end{proposicion}
 \etcc
 \begin{proof}
  Si $\Pb$ es ortogonal, $\forall, \vb,\wb$
@@ -824,14 +824,14 @@ Un proyector $\Pb$ es ortogonal sí y solo sí $\Pb=\Pb^*$.
 \end{proof}
 
 \tcc
-\begin{teo}
+\begin{teorema}
  Sea $\Pb$ un proyector. Son equivalentes:
  \begin{enumerate}
   \item $\Pb$ es ortogonal
   \item $\|\vb\|_2=\|(\Ib-\Pb)\vb\|_2+\|\Pb\vb\|_2$ para todo $\vb$
   \item $\|\Pb\|_2=1$
  \end{enumerate}
-\end{teo}
+\end{teorema}
 \etcc
 \begin{proof}
  $(1)\rightarrow (2)$: para todo $\vb$ escribimos
@@ -859,7 +859,7 @@ absurdos. Luego $Im(\Pb)\perp Nu(\Pb)$ y $\Pb$ es ortogonal.
  \end{proof}
 
  \begin{tcolorbox}
-\begin{rem}
+\begin{observacion}
 Dada una matriz $\Ab\in\C^{n\times k}$ con columnas \emph{ortonormales}, se tiene que
 $\Pb=\Ab\Ab^*\in\C^{n\times n}$ es un proyector ortogonal, ya que al ser $\Ab^*\Ab=\Ib\in \C^{k\times k}$, resulta  $$\Pb^2=\Ab(\Ab^*\Ab)\Ab^*=\Ab\Ab^*=\Pb,$$
 i.e. un proyector, además ortogonal por ser
@@ -870,7 +870,7 @@ $$
 \Pb\vb=\Ab\Ab^*\vb=\sum_{1\le i\le k}(\qb_i^*\vb)\qb_i
 $$
 que clarifica el efecto de multiplicar por $\Pb$.
-\end{rem}
+\end{observacion}
 \etcc
 Vamos a construir una herramienta de  mucha utilidad.  Notemos que para todo $\vb$ de norma uno (de no ser de norma uno dedemos dividir por $\vb^*\vb$ ), podemos definir el proyector ortogonal de rango uno
 $$
@@ -911,7 +911,7 @@ $$
 \vb_j=\Pb_{\qb_{j-1}^{\perp}}\Pb_{\qb_{j-2}^{\perp}}\cdots \Pb_{\qb_{1}^{\perp}}\ab_j.
 $$
 se obtiene de la aplicación sucesiva de proyectores de este tipo.
-\begin{rem}
+\begin{observacion}
 Gram-Schmidt es ampliamente utilizado en la forma descripta, su costo es $\sim 2n^3$.
-\end{rem}
+\end{observacion}
 %\end{tcolorbox}

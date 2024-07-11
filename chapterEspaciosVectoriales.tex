@@ -732,9 +732,9 @@ $$
 $$
 es un subespacio $U$ de $V$ llamado el espacio generado por $\{\vb_1, \dots, \vb_m\}$.
 
-\begin{prop}
+\begin{proposicion}
 Si los vectores $\{\vb_1, \dots, \vb_m\}$ son linealmente independientes, cualquier elemento de $U = \langle \vb_1, \dots, \vb_m \rangle$ se escribe de forma única como combinación lineal de los vectores $\{\vb_i: i = 1, \dots, m\}$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Supongamos por el absurdo que $\vb$ puede escribirse de dos formas distintas $\vb = a_1 \vb_1 + \dots + a_m \vb_m = b_1 \vb_1 + \dots + b_m \vb_m$, entonces restando obtenemos
@@ -745,17 +745,17 @@ donde los coeficientes no son todos 0 (porque $(a_1, \dots, a_m) \neq (b_1, \dot
 \end{proof}
 
 
-\begin{defi}
+\begin{definicion}
 Si $\B = \{\vb_1, \dots, \vb_m\} \subset V$ es un conjunto linealmente independiente, decimos que $\B$ es una \emph{base} de $U = \langle \vb_1, \dots, \vb_m \rangle \subset U$.
-\end{defi}
+\end{definicion}
 
 A continuación veremos que si un espacio vectorial $V$ tienen una base con una cantidad finita de elementos, cualquier otra base de $V$ tiene la misma cantidad de elementos.
 
 Comenzamos con el siguiente lema.
 
-\begin{prop}[Lema de intercambio]
+\begin{proposicion}[Lema de intercambio]
 Si $\B = \{\vb_1, \dots, \vb_m\}$ es un base de $V$ y $\wb \in V$, entonces existe $1 \le i \le m$ tal que reemplazando en $\B$ a $\vb_i$ por $\wb$, el conjunto resultante sigue siendo una base de $V$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Como $\wb \in V$ y $\B$ es una base, existen $a_1, \dots, a_m$ en $\K$ tales que
@@ -780,9 +780,9 @@ Concluimos que $\{\vb_1, \dots, \wb, \dots, \vb_m\}$ es un conjunto linealmente 
 
 Ahora podemos probar el siguiente resultado.
 
-\begin{prop}
+\begin{proposicion}
 Dado un espacio vectorial $V$, sea $\B = \{\vb_1, \dots, \vb_s\}$ una base de $V$ de $s$ elementos, y sea $\tilde\B$ otra base de $V$. Luego $\tilde\B$ tiene exactamente $s$ elementos.
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Queremos usar el Lema de Intercambio e ir reemplazando uno a uno los vectores de $\B$ por los vectores de $\tilde\B$. El \'unico cuidado que tenemos que tener es que vayamos reemplazando en cada paso un vector distinto de $\B$.
 Para ver que esto siempre es posible, supongamos que ya reemplazamos $k$ vectores y, por simplicidad, supongamos que reemplazamos los primeros $k$ vectores de $\B$ por los primeros $k$ vectores de $\tilde\B$.. Es decir, tenemos que
@@ -810,9 +810,9 @@ Cuando $V$ tiene una base finita, llamamos dimensión de $V$ a la cantidad de el
 
 En esta materia vamos a trabajar sobre espacios de dimensión finita.
 
-\begin{prop}
+\begin{proposicion}
  Todo $\mathbb{R}$-espacio vectorial de dimensión finita $n$ es isomorfo a $\mathbb{R}^n$ como espacio vectorial (es decir, si solo consideramos las operaciones de espacio vectorial).
- \end{prop}
+ \end{proposicion}
 
 \begin{ejemplo} \leavevmode
 \begin{enumerate}
@@ -837,9 +837,9 @@ Esto implica los siguientes resultados directos, cuya demostración dejamos como
 
 M\'as a\'un, tenemos el siguiente resultado.
 
-\begin{prop} \label{prop:subbase}
+\begin{proposicion} \label{prop:subbase}
 Si $V$ es un espacio de dimensi\'on $n$ y $S \subset V$ es un conjunto de generadores de $m$ elementos, con $m > n$, podemos extraer de $S$ un subconjunto $\B$ de $n$ elementos que forma una base de $V$.
-\end{prop}
+\end{proposicion}
 
 \begin{proof}
 Veamos que si $m > n$, podemos eliminar alg\'un vector de $S$ y seguir teniendo un sistema de generadores.
@@ -905,14 +905,14 @@ Por lo tanto una base de $S$ es $\B = \{(1, 4, 3, -1), (0, 1, 1/2, -1/4), (0, 0,
 
 A partir de la Proposici\'on \ref{prop:subbase}, podemos deducir el siguiente resultado de extensión de una base.
 
-\begin{prop}[Extensión de una base]
+\begin{proposicion}[Extensión de una base]
 \label{prop:extension}
 Dado un espacio vectorial $V$ de dimensión $n$ y una base $\B = \{\vb_1, \dots, \vb_s\}$ de un subespacio $S$, es posible encontrar vectores $\{\wb_1, \dots, \wb_{n-s}\}$ tales que
 $$
-\{\vb_1, \dots, \vb_s\, \wb_1, \dots, \wb_{n-s}\}
+\{\vb_1, \dots, \vb_s, \wb_1, \dots, \wb_{n-s}\}
 $$
 forman una base de $V$.
-\end{prop}
+\end{proposicion}
 \begin{proof} Ejercicio.
 \end{proof}
 
@@ -1057,13 +1057,13 @@ $$
 Como aplicación de las últimas dos secciones veamos cómo calcular sumas e intersecciones de subespacios vectoriales.
 
 \tccdefi
-\begin{defi}
+\begin{definicion}
 Dados subespacios $S, T$ de un $\K$ espacio vectorial $W$, definimos
 \begin{itemize}
 \item \textbf{Suma.} $S + T = \{ \sbb + \tbb : \sbb \in S, \tbb \in T\}$, el conjunto de todas las sumas posibles entre un elemento de $S$ y un elemento de $T$.
 \item \textbf{Intersección.} $S \cap T = \{ \vb \in W: \vb \in S \text{ y } \vb \in T\}$.
 \end{itemize}
-\end{defi}
+\end{definicion}
 \etcc
 Queda como ejercicio verificar que estos dos conjuntos son subespacios vectoriales de $W$.
 
@@ -1082,12 +1082,12 @@ Con métodos similares podemos realizar otras operaciones entre subespacios. Por
 Dados los subespacios de $\R^4$, $S = \langle (1, 0, -3, 1), (2, 0, 3, -2)\rangle$ y $T = \{(x_1, x_2, x_3, x_4): x_1+x_2-x_4 = 0, x_2 + x_3 = 0\}$, hallar generadores de $S+T$ y $S \cap T$. Determinar si $S \subset T$.
 \end{ejercicio}
 Es simple determinar la relación entre las dimensiones de los espacios $S$,$U$, su suma y su intersección. De eso trata el siguiente resultado.
-\begin{prop}\label{prop:dimsum}
+\begin{proposicion}\label{prop:dimsum}
 Sean $U$ y $V$ dos subespacios de un $\K$ espacio vectorial de dimensión finita. Entonces
 $$
 dim(U+ V)=dim(U)+dim(V)-dim(U\cap V).
 $$
-\end{prop}
+\end{proposicion}
 \begin{proof}
 Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $dim(U\cap V)=0$, por lo cual basta ver que $dim(U+ V)=dim(U)+dim(V)$.
 
