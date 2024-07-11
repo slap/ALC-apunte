@@ -1,20 +1,12 @@
 \documentclass[11pt,leqno]{amsbook}
 \renewcommand{\thesection}{\thechapter.\arabic{section}}
 \renewcommand{\sectionmark}[1]{\markright{\thechapter.\arabic{section} #1}}
-%\usepackage{tocloft}
-%\addtolength{\cftsecnumwidth}{10pt}
-
-%\usepackage{fancyhdr}
-%\pagestyle{fancy}
-
-% This codes produces an error if some include file is not founded
-\makeatletter
-\def\mkfilename#1{%
-  \if\relax\detokenize\expandafter{#1}\relax\else#1/\fi}
-\AddToHook{include/before}%
-  {\IfFileExists{\mkfilename\CurrentFilePath\CurrentFile}{}
-     {\GenericError{}{Error: File \mkfilename\CurrentFilePath\CurrentFile.tex not found!}{\@gobble}{}}}
-\makeatother
+\vsize=27.9cm \hsize=21cm \setlength{\textwidth}{16cm}
+\setlength{\textheight}{21.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+%\setlength{\topmargin}{-1.5cm}
+\parskip 5pt
 
 
 \usepackage{graphicx}
@@ -25,21 +17,6 @@
 
 % No indent at first paragraph
 %\usepackage[noindentafter]{titlesec}
-
-% No indent at first paragraph of proof
-\makeatletter
-\renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist
-  %\itemindent\normalparindent
-  \item[\hskip\labelsep
-        \scshape
-    #1\@addpunct{.}]\ignorespaces
-}{%
-  \popQED\endtrivlist\@endpefalse
-}
-\makeatother
 
 \usepackage{t1enc}
 \usepackage{color}
@@ -88,14 +65,29 @@ literate=%
 
 %\usepackage{breqn}   %% OJO NO COMPILA!
 
+% This codes produces an error if some include file is not founded
+\makeatletter
+\def\mkfilename#1{%
+  \if\relax\detokenize\expandafter{#1}\relax\else#1/\fi}
+\AddToHook{include/before}%
+  {\IfFileExists{\mkfilename\CurrentFilePath\CurrentFile}{}
+     {\GenericError{}{Error: File \mkfilename\CurrentFilePath\CurrentFile.tex not found!}{\@gobble}{}}}
+\makeatother
 
-
-\vsize=27.9cm \hsize=21cm \setlength{\textwidth}{16cm}
-\setlength{\textheight}{21.5cm}
-\setlength{\oddsidemargin}{0.0cm}
-\setlength{\evensidemargin}{0.0cm}
-%\setlength{\topmargin}{-1.5cm}
-\parskip 5pt
+% No indent at first paragraph of proof
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  %\itemindent\normalparindent
+  \item[\hskip\labelsep
+        \scshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
 
 \newtheoremstyle{noind}{6pt}{6pt}{}{}{\scshape}{.}{.5em}{}
 
@@ -107,24 +99,11 @@ literate=%
 \newtheorem{corolario}[teorema]{Corolario}
 \newtheorem{observacion}[teorema]{Observaci\'on}
 
-%\newtheorem{observacion}{Observaci\'on}[subsection]
-%\newtheorem{proposicion}{Proposici\'on}[subsection]
-%\newtheorem{cor}{Corolario}[chapter]
-%\newtheorem{corolario}{Corolario}[chapter]
-%\newtheorem{remark}{Observaci\'on}[chapter]
-
-\newtheoremstyle{def2}{6pt}{6pt}{}{}{\scshape}{.}{.5em}{}
-\theoremstyle{def2}
+\theoremstyle{noind}
 \newtheorem{ejemplo}[teorema]{Ejemplo}
 \newtheorem{aplicacion}[teorema]{Aplicaci\'on}
 \newtheorem{definicion}[teorema]{Definici\'on}
-\newtheorem{ejercicio}[teorema]{Ejercicio} %numera os 'Ejercicios' reseteando
-%\newtheorem{ejercicio}{Ejercicio}[chapter] %numera os 'Ejercicios' reseteando
-%en cada 'capítulo'.
-%\newtheorem{ej}{Ejercicio}[section] %numera os 'Ejercicios' reseteando
-%en cada 'capítulo'.
-%\newtheorem{defi}{Definici\'on}[subsection]
-
+\newtheorem{ejercicio}[teorema]{Ejercicio}
 
 %% User definitions:
 %\newcommand{\texorpdfstring}[2]{#1}
@@ -339,13 +318,13 @@ su-pon-ga-mos su-pon-ga su-pu-sie-ra}
 
 \pagebreak
 
-\include{chapterEspaciosVectoriales} %\include{sectionMatrices} %\include{chapterTransformaciones}
+\include{chapterEspaciosVectoriales}
 \include{chapterNumerosMaquina}
-\include{chapterProdInterno}  %%ojo cambie el nomre no es ProductoInterno
+\include{chapterProdInterno}  
 \include{chapterMetodosDirectos}
 \include{chapterDiagonalizacion}
 \include{chapterMarkov} 
-\include{chapterMetodosIterativos}           %\include{chapterFactorizacion}
+\include{chapterMetodosIterativos} 
 \include{chapterSVD}
 \include{chapterCuadMinimos}
 
