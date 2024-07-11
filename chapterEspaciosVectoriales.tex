@@ -928,7 +928,7 @@ forman una base de $V$.
 
 \subsection{Espacios dados por ecuaciones homog\'eneas}
 
-Dado un sistema de ecuaciones $\Ab \xb = \cero$, con $\Ab \in \R^{m \times n}$ y $\bb \in \R^n$, es fácil ver que el conjunto $S$ de soluciones es un subespacio vectorial de $\R^n$.
+Dado un sistema de ecuaciones $\Ab \xb = \cero$, con $\Ab \in \R^{m \times n}$ y $\cero \in \R^m$ el vector nulo, es fácil ver que el conjunto $S$ de soluciones es un subespacio vectorial de $\R^n$.
 
 Por lo tanto, podemos encontrar una base de $S$ como subespacio de $\R^n$. Una forma de encontrar una base es triangular el sistema. Cada fila no nula en la matriz escalonada impone una restricción en el espacio y reduce en uno la dimensión. Es decir, que la dimensión de $S$ es $n - k$ donde $k$ es la cantidad de filas no nulas en la triangulación.
 
@@ -1079,17 +1079,19 @@ Concentremos un poco nuestra atención en el caso en que $W=\K^n$. Dependiendo s
 Con métodos similares podemos realizar otras operaciones entre subespacios. Por ejemplo, ¿cómo podemos determinar si $S \subset T$? Ahora el caso más simple es si $S$ está dado por generadores y $T$ por ecuaciones. En este caso, alcanza verificar si todos los generadores de $S$ son elementos de $T$ verificando si cumplen las ecuaciones que definen a $T$.
 
 \begin{ejercicio}
-Dados los subespacios de $\R^4$, $S = \langle (1, 0, -3, 1), (2, 0, 3, -2)\rangle$ y $T = \{(x_1, x_2, x_3, x_4): x_1+x_2-x_4 = 0, x_2 + x_3 = 0\}$, hallar generadores de $S+T$ y $S \cap T$. Determinar si $S \subset T$.
+Dados los subespacios de $\R^4$, 
+$$S = \langle (1, 0, -3, 1), (2, 0, 3, -2)\rangle \quad \text{ y } \quad T = \{(x_1, x_2, x_3, x_4): x_1+x_2-x_4 = 0, x_2 + x_3 = 0\},$$
+hallar generadores de $S+T$ y $S \cap T$. Determinar si $S \subset T$.
 \end{ejercicio}
 Es simple determinar la relación entre las dimensiones de los espacios $S$,$U$, su suma y su intersección. De eso trata el siguiente resultado.
 \begin{proposicion}\label{prop:dimsum}
 Sean $U$ y $V$ dos subespacios de un $\K$ espacio vectorial de dimensión finita. Entonces
 $$
-dim(U+ V)=dim(U)+dim(V)-dim(U\cap V).
+\dim(U+ V) = \dim(U) + \dim(V) - \dim(U\cap V).
 $$
 \end{proposicion}
 \begin{proof}
-Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $dim(U\cap V)=0$, por lo cual basta ver que $dim(U+ V)=dim(U)+dim(V)$.
+Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $\dim(U\cap V)=0$, por lo cual basta ver que $\dim(U+ V)=\dim(U)+\dim(V)$.
 
 Para ello consideramos $\B=\{\ub_1,\cdots,\ub_k\}$ y $\B'=\{\vb_1,\cdots,\vb_n\}$ bases de $U$ y $V$ respectivamente y notemos que si tomamos un $\wb \in U+V$ deben existir $\ub \in U$ y $\vb\in V$ de modo tal que $\wb=\ub+\vb$. En particular, como $\B$ y $\B'$ son bases de $U$ y $V$,  deben existir escalares $\{\alpha_i\}_{1\le i\le k}$ y $\{\beta_j\}_{1\le j\le n}$ de modo tal que
 $$
@@ -1097,7 +1099,7 @@ $$
 $$
 de donde conclu\'imos que el conjunto
 $$\tilde{\B}=\B\cup \B'=\{ \ub_1,\cdots,\ub_k, \vb_1,\cdots,\vb_n\}$$
-es un sistema de generadores de $U+V$. Decimos que $\tilde{\B}$ es L.I. con lo cual resultaría una base y por ende $dim(U+V)=\# \B + \#\B'=dim(U)+dim(V)$ como queríamos probar. Para ver que $\tilde{\B}$ es L.I. suponemos que para cierta combinación lineal, se tiene
+es un sistema de generadores de $U+V$. Decimos que $\tilde{\B}$ es L.I. con lo cual resultaría una base y por ende $\dim(U+V)=\# \B + \#\B'=\dim(U)+\dim(V)$ como queríamos probar. Para ver que $\tilde{\B}$ es L.I. suponemos que para cierta combinación lineal, se tiene
 $$
 \sum_{i_1}^k\alpha_i\ub_i + \sum_{j=1}^n\beta_j\vb_j=\cero,
 $$
@@ -1136,5 +1138,1023 @@ U \ni  \sum_{i=1}^r\gamma_i \zb_i +\sum_{j=r+1}^{k}\alpha_j \ub_j =\sum_{l=r+1}^
   Hemos probado que
   $$\tilde{\B}=\{\zb_1,\cdots,\zb_r,\ub_{r+1},\cdots, \ub_k, \vb_{r+1},\cdots, \vb_n\}$$
   es una base de $U+V$, por lo tanto
-  $$dim(U+V)=r+(k-r)+(n-r)=k+n-r=dim(U)+dim(V)-dim(U\cap V),$$
+  $$\dim(U+V)=r+(k-r)+(n-r)=k+n-r=\dim(U)+\dim(V)-\dim(U\cap V),$$
   como queríamos probar. \end{proof} 
+  
+  
+\section{Operaciones con matrices}
+
+\subsection{Multiplicación de matrices}
+
+Dadas matrices $A \in \K^{m \times n}$ y $B \in \K^{n \times p}$
+
+$$
+\Ab =\begin{pmatrix}a_{11}&a_{12}&\cdots &a_{1n}\\a_{21}&a_{22}&\cdots &a_{2n}\\\vdots &\vdots &\ddots &\vdots \\a_{m1}&a_{m2}&\cdots &a_{mn}\\\end{pmatrix},\quad  {\Bb} ={\begin{pmatrix}b_{11}&b_{12}&\cdots &b_{1p}\\b_{21}&b_{22}&\cdots &b_{2p}\\\vdots &\vdots &\ddots &\vdots \\b_{n1}&b_{n2}&\cdots &b_{np}\\\end{pmatrix}}
+$$ el producto $\Cb = \Ab\Bb$ es la matriz de $m$ filas y $p$ columnas
+
+$$
+\Cb =\begin{pmatrix}c_{11}&c_{12}&\cdots &c_{1p}\\c_{21}&c_{22}&\cdots &c_{2p}\\\vdots &\vdots &\ddots &\vdots \\c_{m1}&c_{m2}&\cdots &c_{mp}\\\end{pmatrix} \in \K^{m \times p},
+$$
+con
+$$
+c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots +a_{in}b_{nj}=\sum _{k=1}^{n}a_{ik}b_{kj}
+$$
+(en la casilla $(i,j)$ de $\Cb$ ponemos el producto de la fila $i$ de $\Ab$ con la columna $j$ de $\Bb$) .
+
+
+Si multiplicamos dos matrices o vectores en \python con $*$ ...
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A1 = np.array([[1,2],[3,4]])
+A2 = np.array([[1,0],[0,1]])
+print(A1)
+print(A2)
+print(A1 * A2)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% A1 =
+%%  [[1 2]
+%%  [3 4]]
+%% A2 =
+%%  [[1 0]
+%%  [0 1]]
+%% A1 * A2 =
+%%  [[1 0]
+%%  [0 4]]
+\end{verbatim}
+
+La operación $*$ en \python calcula el producto coordenada a coordenada. Esta operación se llama producto de Hadamard, y es útil en muchos casos, pero no es el producto usual de matrices.
+
+Para el producto usual de matrices usamos en Python el símbolo @.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+print("A1 @ A2 = \n", A1 @ A2)   # Producto usual de matrices
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% A1 @ A2 =
+%%  [[1 2]
+%%  [3 4]]
+\end{verbatim}
+
+¡Revisar siempre que estemos usando el producto correcto en \python!
+
+\begin{ejercicio} \label{ejer:productos}
+Realizar (a mano) los siguientes productos de matrices:
+\begin{enumerate}
+\item  $\begin{pmatrix}3&5\\ 2 & -9 \end{pmatrix} \cdot \begin{pmatrix}1&-1\\ 0 & 2 \end{pmatrix}$
+\item  $\begin{pmatrix}3&5\end{pmatrix} \cdot \begin{pmatrix}4\\ -3\end{pmatrix}$
+\item  $\begin{pmatrix}4\\ -3\end{pmatrix} \cdot \begin{pmatrix}3&5\end{pmatrix}$
+\item \label{item:sistema}  $\begin{pmatrix}3&5\\ 2 & -9 \end{pmatrix} \cdot \begin{pmatrix}x\\ y \end{pmatrix}$
+\end{enumerate}
+\end{ejercicio}
+
+\textbf{Observaciones:}
+
+\begin{itemize}
+\item El producto de matrices es asociativo. Es decir $\Ab(\Bb\Cb) = (\Ab\Bb)\Cb$, para matrices con los tamaños apropiados para realizar los productos.
+\item El producto de matrices no es conmutativo. En general, no vale $\Ab \Bb = \Bb \Ab$, ni siquiera en el caso de matrices cuadradas. Lo verificamos en \python.
+\end{itemize}
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1, 2], [2, 3]])
+B = np.array([[2, 5], [1, 4]])
+print("A @ B = \n", A @ B)
+print("B @ A = \n", B @ A)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+A @ B =
+ [[ 4 13]
+ [ 7 22]]
+B @ A =
+ [[12 19]
+ [ 9 14]]
+\end{verbatim}
+
+\begin{itemize}
+\item Si bien vimos que el conjunto de matrices $\K^{m \times n}$ es un espacio vectorial, el producto de matrices no es una operación de espacio vectorial.
+\end{itemize}
+
+\subsection{Matrices transpuesta y conjugada}
+
+La matriz transpuesta de $\Ab = (a_{ij}) \in {\R^{m \times n}}$ es la matriz que se obtienen a partir de $\Ab$ intercambiando filas por columnas, es decir $\Ab^T = (a_{ji}) \in \R^{n \times m}$.
+
+\begin{ejemplo}\leavevmode
+\begin{itemize}
+\item Si $\Ab =\begin{pmatrix}a_{11}&a_{12}&a_{13} \\ a_{21}&a_{22}&a_{23}\end{pmatrix}$ , $\Ab^T = \begin{pmatrix}a_{11}&a_{21}\\a_{12} & a_{22} \\ a_{13} & a_{23}\end{pmatrix}$.
+\item Si $\Ab =\begin{pmatrix}5&7 \\ 3&-1\end{pmatrix}$ , $\Ab^T = \begin{pmatrix}5&3\\7 & -1 \end{pmatrix}$.
+\end{itemize}
+\end{ejemplo}
+
+\begin{proposicion}\leavevmode
+\begin{itemize}
+\item $(\Ab^T)^T = \Ab$.
+\item $(\Ab \Bb)^T = \Bb^T \Ab^T$.
+\end{itemize}
+\end{proposicion}
+
+En \python calculamos la transpuesta de una matriz con el comando \texttt{transpose} de \texttt{numpy}.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[5,7],[3,-1]])
+print(np.transpose(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[ 5  3]
+##  [ 7 -1]]
+\end{verbatim}
+
+En lo que sigue resulta de utilidad definir lo siguiente: consideremos $\vb\in \Kn$, $\Ab\in \Knn$, con $\overline{\vb}\in \Kn$ (resp. $\overline{\Ab}\in \Knn$), denotamos el vector (resp. matrix) que tiene los mismos elementos que $\vb$ (resp. $\Ab$) pero conjugados. Obviamente si $\K=\R$, $\overline{\vb}=\vb$,  $\overline{\Ab}=\Ab$.
+
+La siguiente definición generaliza a la traspuesta en las matrices y a la conjugación en los escalares.
+
+Dada $\Ab\in \K^{n\times m}$, la \emph{matriz conjugada} de $\Ab$, denotada con $\Ab^*$
+ se define como $\Ab^*=\overline{\Ab^T}$.
+
+Notar que si $a\in \K^{1\times 1}$ ( o sea, es un escalar, $a\in \K$) entonces $a^*=\overline{a}$. La conjugación hereda las propiedades de la traspuesta:
+\begin{itemize}
+ \item $(\Ab^*)^*=\Ab$
+ \item Si $\K=\R$, $\Ab^*=\Ab^T$.
+ \item $(\Ab\Bb)^*=\Bb^*\Ab^*$
+ \item $(a\Ab+b\Bb)^*=\overline{a}\Ab^*+ \overline{b}\Bb^*$.
+\end{itemize}
+
+
+
+
+\subsection{Sistemas lineales y ecuaciones matriciales}
+
+Observando el producto del punto \ref{item:sistema} del Ejercicio \ref{ejer:productos}, vemos que podemos plantear el sistema de ecuaciones lineales
+
+$$
+\left\{ {\begin{alignedat}{5}3x&&\;+\;&&5y&&\;=\;&&4&\\2x&&\;-\;&&9y&&\;=\;&&15&.\end{alignedat}} \right.
+$$
+en forma matricial
+$$\begin{pmatrix}3&5\\ 2 & -9 \end{pmatrix} \cdot \begin{pmatrix}x\\ y \end{pmatrix} = \begin{pmatrix}4\\ 15 \end{pmatrix},$$
+o en general, $\Ab \xb = \bb$, donde $\Ab \in \mathbb{R}^{m \times n}$ es la matriz de coeficientes, $\xb$ es un vector o matriz columna de incógnitas y $\bb \in \mathbb{R}^{n}$ es el vector de términos constantes.
+
+\textbf{Pregunta:} ¿cuántas incógnitas y cuántas ecuaciones tiene el sistema $\Ab \xb = \bb$ con los tamaños dados?
+
+Para resolver sistemas de ecuaciones en \python podemos usar el comando \texttt{solve} (vamos a volver a esto más adelante).
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[3,2],[5,-4]])
+b = np.array([22, -11])
+print(np.linalg.solve(A, b))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+## [3.  6.5]
+\end{verbatim}
+
+\subsection{Rango de una matriz}
+
+Para saber si un sistema de ecuaciones puede tener solución única, infinitas soluciones o ninguna solución, calculamos el \emph{rango} de la matriz $A$. Pensando las filas de una matriz como ecuaciones, el rango de la matriz nos indica cuantas ecuaciones "independientes" tenemos.
+
+El rango de una matriz es la máxima cantidad de filas o columnas linealmente independientes que posee la matriz.
+
+\begin{proposicion} La máxima cantidad de filas linealmente independientes de una matriz coincide con la máxima cantidad de columnas linealmente independientes.
+\end{proposicion}
+
+Por lo tanto, no es necesario distinguir rango-fila de rango-columna, y hablamos simplemente de \emph{rango}.
+
+\begin{ejemplo}\leavevmode
+\begin{enumerate}
+\item $\rank\left(\begin{pmatrix}1&4&7\\0&2&6\end{pmatrix}\right) = 2$
+\item $\rank\left(\begin{pmatrix}1&0&1 \\ 0&1&2 \\ 1 & 2 & 5\end{pmatrix}\right) = 1$
+\end{enumerate}
+\end{ejemplo}
+
+\subsubsection{¿Cómo calcular el rango?}
+
+Para calcular el rango de una matriz, triangulamos la matriz y contamos cuántas filas no nulas quedan.
+
+\begin{proposicion}
+El espacio vectorial generado por las filas de una matriz antes o después de triangular es el mismo.
+\end{proposicion}
+
+En \python, calculamos el rango de una matriz con el comando \texttt{matrix\_rank} de \texttt{numpy.linalg}.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1,0,1],[0,1,2],[1,2,5]])
+print("Rango de A = ", np.linalg.matrix_rank(A))
+
+B = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print("Rango de B = ", np.linalg.matrix_rank(B))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rango de A =  2
+## Rango de B =  2
+\end{verbatim}
+
+\subsubsection{Sistemas de ecuaciones y rango de matrices}
+
+Si $\rank(\Ab)$ es igual a la cantidad de filas, el sistema $\Ab \xb = \bb$ siempre tiene solución. Todas las ecuaciones son independientes entre sí.
+
+Si la matriz $\Ab$ es cuadrada y $\rank(\Ab)$ es igual a la cantidad de filas, decimos que $\Ab$ tiene rango máximo. En este caso, el sistema $\Ab \xb = \bb$ tiene solución única para todo $\bb$.
+
+\subsubsection{Rango de un producto de matrices}
+
+Dadas matrices $\Ab \in \mathbb{R}^{m \times n}$ y $\Bb \in \mathbb{R}^{n \times p}$,
+
+\begin{enumerate}
+\item  $\rank(\Ab) = \rank(\Ab^T) = \rank(\Ab^T\Ab) = \rank(\Ab\Ab^T)$
+\item  $\rank(\Ab \Bb) \le \min\{\rank(\Ab), \rank(\Bb)\}$.
+\item  Si $\rank(\Bb) = n$, entonces $\rank(\Ab \Bb) = \rank(\Ab)$.
+\item  Si $\Bb \in \R^{n \times n}$, y $\Bb$ tiene rango máximo, entonces $\rank(\Ab \Bb) = \rank(\Ab)$.
+\end{enumerate}
+
+Idea de las demostración: las filas de $\Ab \Bb$ son combinaciones de las filas de $\Bb$ y las columnas de $\Ab\Bb$ son combinaciones de las columnas de $\Ab$.
+
+
+\subsection{Matrices especiales}
+
+\subsubsection{Matriz diagonal}
+
+Una matriz $\Ab \in \R^{n \times n}$ se dice diagonal si $a_{ij} = 0$ para todo $i \neq j$, es decir:
+
+$$
+\Ab =\begin{pmatrix}a_{11}&0&\cdots &0\\0&a_{22}&\cdots &0\\\vdots &\vdots &\ddots &\vdots \\0&0&\cdots &a_{nn}\\\end{pmatrix}
+$$
+
+\begin{ejercicio} Calcular a mano pero sin hacer muchas cuentas:
+\begin{enumerate}
+\item   $\begin{pmatrix}1&0&0 \\ 0&2&0 \\ 0& 0 & 3\end{pmatrix}^3$,
+\item   $\begin{pmatrix}1&0&0 \\ 0&2&0 \\ 0& 0 & 3\end{pmatrix} \cdot \begin{pmatrix}1&1&1 \\ 2&2&2 \\ 3& 3 & 3\end{pmatrix}$,
+\item   $\begin{pmatrix}1&1&1 \\ 2&2&2 \\ 3& 3 & 3\end{pmatrix} \cdot \begin{pmatrix}1&0&0 \\ 0&2&0 \\ 0& 0 & 3\end{pmatrix}$.
+\end{enumerate}
+\end{ejercicio}
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+# Usamos el comando diag para definir matrices diagonales
+D = np.diag(np.array([1,2,3]))
+print("D = \n", D)
+print("D^2 = \n", D @ D)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% D =
+%%  [[1 0 0]
+%%  [0 2 0]
+%%  [0 0 3]]
+%% D^2 =
+%%  [[1 0 0]
+%%  [0 4 0]
+%%  [0 0 9]]
+\end{verbatim}
+
+\subsubsection{Matriz identidad}
+
+Para cada $n \in \mathbb{N}$, la matriz $I_n \in \R^{n \times n}$ es la matriz diagonal con $a_{ii} = 1$ para todo $1 \le i \le n$ y $a_{ij} = 0$ para $i \ne j$, es decir:
+$$
+I_n =\begin{pmatrix}1&0&\cdots &0\\0&1&\cdots &0\\\vdots &\vdots &\ddots &\vdots \\0&0&\cdots &1\\\end{pmatrix}
+$$
+
+\begin{proposicion}
+Para toda $\Bb \in \R^{n \times n}$ , $I_n \cdot \Bb = \Bb \cdot I_n = \Bb$.
+\end{proposicion}
+
+Podemos usar el comando \texttt{eye} de \texttt{numpy} para definir una matriz identidad.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+id = np.eye(3)
+
+# Creamos una matriz de 3 x 3 con números aleatorios entre 0 y 1
+A = np.random.rand(3,3)
+print("A = \n", A)
+print("id * A = \n", id @ A)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% A =
+%%  [[0.91836939 0.31101594 0.48474114]
+%%  [0.00093026 0.37622722 0.91214465]
+%%  [0.6293026  0.20801675 0.6855896 ]]
+%% id * A =
+%%  [[0.91836939 0.31101594 0.48474114]
+%%  [0.00093026 0.37622722 0.91214465]
+%%  [0.6293026  0.20801675 0.6855896 ]]
+\end{verbatim}
+
+\subsubsection{Mas Matrices especiales}
+
+\begin{itemize}
+\item \textbf{Triangular superior:} Una matriz $\Ub \in \R^{n \times n}$ se llama triangular superior si $a_{ij} = 0$ para todo $i > j$ (es decir, todas las entradas abajo de la diagonal son 0).
+\item \textbf{Triangular inferior:} Una matriz $\Lb \in \R^{n \times n}$ se llama triangular inferior si $a_{ij} = 0$ para todo $i > j$ (es decir, para todas las entradas arriba de la diagonal son 0).
+\item \textbf{Matriz simétrica:} $\Ab\in \R^{n\times n}$ es simétrica si $\Ab^T = \Ab$.
+\item \textbf{Matriz Hermitiana:} $\Ab\in \C^{n\times n}$ es Hermitiana si $\Ab^* = \Ab$.
+\item \textbf{Matriz ortogonal:} $\Ab$ es ortogonal si $\Ab\Ab^T = \Ab^T\Ab = \Id_n$.
+\item \textbf{Matriz unitaria:} $\Ab\in \C^{n\times n}$ es unitaria si $\Ab\Ab^* = \Ab^*\Ab = \Id_n$.
+\end{itemize}
+
+    \subsubsection{Inversa de una matriz}
+
+Dada una matriz $\Ab \in \R^{n \times n}$, si existe una matriz $\Bb \in \R^{n\times n}$ tal que
+$$
+\Ab\Bb = \Id_n = \Bb\Ab,
+$$
+decimos que $\Ab$ es inversible y $\Bb$ es la inversa de $\Ab$. Si $\Ab$ es inversible, la inversa es única y la notamos $\Ab^{-1}$. Si $\Ab$ no es inversible, decimos que $\Ab$ es singular.
+
+Para calcular la inversa de una matriz podemos aplicar eliminación gaussiana, observando que encontrar una matriz $B$ tal que $\Ab \Bb = \Id_n$ es equivalente a resolver los $n$ sistemas de ecuaciones
+$$
+\Ab \begin{pmatrix} b_{1j} \\ b_{2j} \\ \vdots \\ b_{nj} \end{pmatrix} = \eb_j,
+$$
+donde $\eb_j$ es el $j$-ésimo vector canónico, que coinicide con la $j$-ésima columna de la matriz $\Id_n$.
+
+\begin{ejemplo}
+Calculamos la inversa de la matriz
+$$
+\Ab = \begin{pmatrix} 2 & 0 & -2 \\ 1 & -1 & 1 \\ 0 & 2 & 1\end{pmatrix}.
+$$
+Podemos resolver los sistemas $\Ab \bb_j = \eb_j$, $1 \le j \le 3$, simultáneamente considerando una matriz ampliada con los 3 vectores $\eb_j$ a la derecha:
+$$
+\left(\begin{array}{ccc|ccc} 2 & 0 & -2 & 1 & 0 & 0 \\ 1 & -1 & 1 & 0 & 1 & 0\\ 0 & 2 & 1 & 0 & 0 & 1\end{array}\right).
+$$
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1, 4, 3, -1,], [1, 0, 1, 0], [3, 3, 2, 7], [2, 6, 0, 14], [2, 3, 1, 7]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[ 2.  0. -2.  1.  0.  0.]
+%%  [ 1. -1.  1.  0.  1.  0.]
+%%  [ 0.  2.  1.  0.  0.  1.]]
+%% Matriz escalonada:
+%%  [[ 1.   0.  -1.   0.5  0.   0. ]
+%%  [ 0.   1.  -2.   0.5 -1.  -0. ]
+%%  [ 0.   0.   1.  -0.2  0.4  0.2]]
+\end{verbatim}
+
+La función \texttt{row\_echelon} que estamos utilizando coloca 1's como primer elemento no nulo de cada fila, dividiendo cada fila por el escalar apropiado.
+
+A partir de la matriz escalonada podemos ahora encontrar fácilmente las casillas $b_{ij}$ de $\Bb$. Por ejemplo, la última fila será $[-0.2 0.4 0.2]$. Para las filas anteriores, podemos realizar ahora la triangulación hacia arriba:
+$$
+\left(\begin{array}{ccc|ccc}
+ 1. &  0. & -1. &  0.5 &  0.  &  0.  \\
+ 0. &  1. & -2. &  0.5 & -1.  & 0.  \\
+ 0. &  0. &  1. & -0.2 &  0.4 &  0.2 \\
+\end{array}\right)
+\xrightarrow{\substack{f_2 + 2f_3 \rightarrow f_2 \\ f_1 + f_3 \rightarrow f_1}}
+\left(\begin{array}{ccc|ccc}
+ 1. &  0. & 0. &  0.5 &  0.4  &  0.2  \\
+ 0. &  1. & 0. &  0.5 & 0.2  & 0.4.  \\
+ 0. &  0. &  1. & -0.2 &  0.4 &  0.2 \\
+ \end{array}\right).
+$$
+
+Ahora la matriz que estamos buscando es exactamente la matriz formada por las últimas 3 columnas de la matriz ampliada.
+$$
+\Bb = \begin{pmatrix}
+ 0.3 &  0.4  &  0.2  \\
+ 0.1 & 0.2  & 0.4.  \\
+ -0.2 &  0.4 &  0.2 \\
+\end{pmatrix}.
+$$
+
+Lo verificamos en \python.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+B = np.array([[0.3, 0.4, 0.2], [0.1, -0.2, 0.4], [-0.2, 0.4, 0.2]])
+print(A @ B)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[ 1.00000000e+00  0.00000000e+00  0.00000000e+00]
+%%  [-2.77555756e-17  1.00000000e+00  0.00000000e+00]
+%%  [ 0.00000000e+00  0.00000000e+00  1.00000000e+00]]
+\end{verbatim}
+
+\end{ejemplo}
+
+\begin{aplicacion}
+Si $\Ab \in \R^{n \times n}$ es inversible, la solución del sistema
+$$
+\Ab\xb = \bb
+$$
+es $\xb = \Ab^{-1}\bb$.
+\end{aplicacion}
+
+Para calcular la inversa en \python usamos el comando \texttt{inv} del paquete \texttt{numpy.linalg} (o podemos usar el comando \texttt{solve} del mismo paquete para resolver la ecuación matricial $\Ab\Xb = \Id_n$).
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+# Probando...
+A = np.array([[1,7],[2,3]])
+print("A = \n", A)
+
+A_inv = np.linalg.inv(A)
+print("A^(-1) = \n", A_inv)
+
+print("A * A^(-1) = \n", A @ A_inv)
+
+print("La solución de AX = Id_2 es")
+print(np.linalg.solve(A, np.eye(2)))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+## A =
+##  [[1 7]
+##  [2 3]]
+## A^(-1) =
+##  [[-0.27272727  0.63636364]
+##  [ 0.18181818 -0.09090909]]
+## A * A^(-1) =
+##  [[1. 0.]
+##  [0. 1.]]
+## La solución de AX = Id_2 es
+##  [[-0.27272727  0.63636364]
+##  [ 0.18181818 -0.09090909]]
+\end{verbatim}
+\textbf{Nota:} En la práctica, es mejor resolver un sistema por eliminación gaussiana que invirtiendo la matriz.
+
+\subsubsection{Traza de una matriz}
+
+La traza de una matriz \emph{cuadrada} es la suma de los elementos de la diagonal.
+
+Si $\Ab = (a_{ij}) \in \R^{n \times n}$, $\tr(\Ab) = a_{11} + a_{22} + \dots + a_{nn} = \sum_{i=1}^n a_{ii}$ .
+
+\begin{proposicion} Si $\Ab, \Bb \in \R^{n \times n}$:
+\begin{itemize}
+\item $\tr(\Ab^T)=\tr(\Ab)$
+\item $\tr(\Ab+\Bb) = \tr(\Ab) + \tr(\Bb)$.
+\end{itemize}
+\end{proposicion}
+
+Calculamos la traza en \python con el comando \texttt{trace} de \texttt{numpy}.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[1,5,1],[-6,7,8],[0,9,-2]])
+print("A = \n", A)
+print("Traza de A = ", tr(A)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% A =
+%%  [[ 1  5  1]
+%%  [-6  7  8]
+%%  [ 0  9 -2]]
+%% Traza de A =  6
+\end{verbatim}
+
+\subsection{Determinante de una matriz}
+
+El determinante de una matriz \emph{cuadrada} se puede definir recursivamente por la siguiente fórmula
+
+$$
+\det(\Ab)= \begin{cases}
+a_{11} & \text{si } n = 1 \\
+\sum _{j=1}^{n}(-1)^{i+j}a_{ij} \det(\Mb_{ij}) & \text{si } n > 1,
+\end{cases}
+$$
+donde $\Mb_{ij}$ es la matrix de $(n-1) \times (n-1)$ que se obtiene al eliminar la fila $i$ y la columna $j$ de $\Ab$.
+
+\begin{ejemplo}\leavevmode
+\begin{enumerate}
+\item $\det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc$
+\item $\det\begin{pmatrix} 1 & 2 & 3 \\ 3 & 0 & 7 \\ 0 & -1 & 4 \end{pmatrix} = \det\begin{pmatrix} 0 & 7 \\ -1 & 4 \end{pmatrix} - 3 \det\begin{pmatrix} 2 & 3 \\ -1 & 4 \end{pmatrix} = 7 - 3 \cdot 11=-26$
+\end{enumerate}
+\end{ejemplo}
+
+\begin{proposicion} Si $\Ab \in  \R^{n \times n}$ y $f_i$, $1 \le i \le n$, son las filas de $\Ab$, las siguientes operaciones en la matriz modifican el determinante:
+\begin{itemize}
+\item transponer la matriz: $\det(\Ab^T) = \det(\Ab)$
+\item multiplicar una fila por un escalar: $\det\begin{pmatrix} \text{---} & f_1 & \text{---}\\ & \vdots & \\ \text{---} & f_{i-1} & \text{---}\\ \text{---} & \alpha f_i & \text{---}\\ \text{---} & f_{i+1} & \text{---} \\ & \vdots & \\ \text{---} & f_n  & \text{---}\end{pmatrix} = \alpha \det(A)$
+\item sumar un múltiplo de una fila a otra fila: $\det\begin{pmatrix} \text{---} & f_1 & \text{---}\\ & \vdots & \\ \text{---} & f_{i-1} & \text{---}\\ \text{---} & f_i + \beta f_j & \text{---}\\ \text{---} & f_{i+1} & \text{---} \\ & \vdots & \\ \text{---} & f_n  & \text{---}\end{pmatrix} = \det(A)$
+\item intercambiar dos filas: $\det\begin{pmatrix} \text{---} & f_1   & \text{---}\\ & \vdots   & \\ \text{---} & f_{i}   & \text{---}\\ & \vdots & \\ \text{---} & f_{j}   & \text{---}\\  & \vdots   & \\ \text{---} & f_n   & \text{---} \end{pmatrix} = - \det\begin{pmatrix} \text{---} & f_1   & \text{---}\\ & \vdots   & \\ \text{---} & f_{j}   & \text{---}\\ & \vdots & \\ \text{---} & f_{i}   & \text{---}\\  & \vdots   & \\ \text{---} & f_n   & \text{---} \end{pmatrix}$
+\item multiplicar toda la matriz por un escalar: $\det(k\Ab)=k^n \det(\Ab)$, para $k \in \R$.
+\item multiplicar toda la matriz por $(-1)$: $\det(-\Ab)=(-1)^n \det(\Ab)$.
+\end{itemize}
+\end{proposicion}
+
+En base a esta propiedad podemos demostrar f\'acilmente las siguientes propiedades.
+
+\begin{corolario}\leavevmode
+\begin{itemize}
+\item Si $\Ab$ tiene dos filas iguales, $\det(\Ab)= 0$.
+\item Si $\Ab$ tiene una fila de ceros, $\det(\Ab)= 0$.
+\item $\det(\Ab) = 0$ si y solo si $\Ab$ es singular.
+\end{itemize}
+\end{corolario}
+
+\begin{proposicion}
+Si $\Ab, \Bb \in \R^{n \times n}$,
+$$\det(\Ab \Bb) = \det(\Ab)\det(\Bb).$$
+\end{proposicion}
+
+Calculamos determinantes en \python con el comando \texttt{det} de \texttt{numpy.linalg}.
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A = np.array([[1,5,0],[-1,-3,8],[0,1,-2]])
+B = np.array([[0,4,2],[2,6,1],[1,5,-1]])
+print("det(A) = ", np.linalg.det(A));
+print("det(B) = ", np.linalg.det(B));
+print("det(AB) = ", np.linalg.det(A @ B));
+
+# No hay relación con los determinantes de A y B
+print("det(A + B) = ", np.linalg.det(A + B));
+
+M = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print("det(M) = ", np.linalg.det(M));
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% det(A) =  -12.0
+%% det(B) =  19.999999999999996
+%% det(AB) =  -240.0000000000002
+%% det(A + B) =  51.0
+%% det(M) =  -9.51619735392994e-16
+\end{verbatim}
+
+\begin{ejercicio}
+Para $\Ab = \begin{pmatrix} 3 & 2 & -1 \\ 3 & 0 & 7 \\ 0 & -1 & 4 \end{pmatrix}$ , probar que el sistema $\Ab\xb = \bb$ tiene solución única para todo $\bb \in \R^3$
+\end{ejercicio}
+
+\subsubsection{Determinante de una matriz triangular superior o inferior}
+
+Si $\Ab \in \R^{n \times n}$ es triangular inferior o superior su determinante es igual al producto de los elementos de la diagonal.
+
+$$
+\det\begin{pmatrix}a_{11}&a_{12}&\cdots & a_{1n} \\ 0 &a_{22}&\cdots & a_{2n}\\\vdots &\vdots &\ddots &\vdots \\0&0 & \cdots &a_{nn}\\\end{pmatrix} = \det\begin{pmatrix}a_{11}& 0&\cdots &0 \\ a_{21} &a_{22}&\cdots & 0\\\vdots &\vdots &\ddots &\vdots \\a_{n1}&a_{n2} & \cdots &a_{nn}\\\end{pmatrix} = \prod_{i=1}^n a_{ii}
+$$
+
+
+
+
+\section{Cambio de base}
+
+Dado un espacio vectorial $V$ de dimensión $n$ llamamos base canónica de $V$ al conjunto $\E= \{\eb_1, \dots, \eb_n\}$ de vectores canónicos, $\eb_i(j) = \begin{cases} 1 & \text{ si } i = j \\ 0 & \text{ si } i \neq j \end{cases}$, donde $\eb_i(j)$ es la $j$-ésima coordenada del vector $\eb_i$.
+
+Dada otra base $\B$ de $V$, queremos saber cómo escribir en la base $\B$ a un vector $\vb$ del cual conocemos sus coordenadas en la base $\E$. Y viceversa, cómo escribir en la base canónica a un vector del cual conocemos sus coordenadas en la base $\B$.
+
+\subsubsection{Cambio de base de $\B$ a $\E$}
+
+Analizamos un ejemplo. Consideramos la base de $\R^3$
+$$\B= \{(1,2,5), (0, 1, 7), (0,0,-1)\}$$  y el vector
+$$\vb = (3, -2, 1)_\B.$$
+
+Para averiguar las coordenadas de $\vb$ en la base canónica, hacemos la cuenta
+$$\vb = 3 (1,2,5) + (-2) (0, 1, 7) + 1 (0, 0, -1) = (3, 4, 0)$$
+(en general omitimos el subíndice $\E$ cuando escribimos un vector en las coordenadas de la base canónica).
+
+Podemos escribirlo matricialmente:
+$$
+\vb = \begin{pmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+5 & 7 & -1\end{pmatrix} \begin{pmatrix} 3 \\ -2 \\ -1 \end{pmatrix} =  \begin{pmatrix} 3 \\ 4 \\ 0 \end{pmatrix}.
+$$
+Observamos que la matriz $\begin{pmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 5 & 7 & -1 \end{pmatrix}$ posee los vectores de $\B$ como columnas y es la matriz que nos permite pasar un vector en coordenadas de una base $\B$ a la base canónica. Llamamos $\Cb_{\B\E}$ a esta matriz. Obtenemos
+$$
+\vb_\E= \Cb_{\B\E} \vb_\B.
+$$
+
+\begin{ejercicio}\leavevmode
+\begin{enumerate}
+ \item Dada la base $\B = \{(1,3,7), (4, 0, 1), (5, -7, 0)\}$ de $\R^3$ y el vector $\vb$ de $\R^3$ de coordenadas $(1,2,-5)$ en la base $\B$, hallar las coordenadas de $\vb$ en la base canónica.
+\item Dada la base $\B = \{1, (x-1), (x-1)^2\}$ de $\R[x]_2$ y el polinomio $p(x)$ de coordenadas $(7, -2, 1)$ en la base $\B$, hallar las coordenadas de $p$ en la base canónica de $\R[x]_2$. Observar que esto equivale a escribir como suma de potencias de $x$ a un polinomio que viene dado como suma de potencias de $(x-1)$.
+\end{enumerate}
+\end{ejercicio}
+
+\subsubsection{Cambio de base de $\B$ a $\E$}
+
+Ahora queremos escribir a $\vb = (3,7, -1)_\E$ en la base $\B$. Para esto, necesitamos resolver el sistema de ecuaciones $$
+(3, 7, -1) = \sum_{i=1}^{3} a_i b_i = a_1 (1,2,5) + a_2 (0, 1, 7) + a_3 (0,0,-1)
+$$ Esto nos da un sistema de 3 ecuaciones y 3 incógnitas, que podemos plantear en forma matricial:
+$$
+\begin{pmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+5 & 7 & -1
+\end{pmatrix} \begin{pmatrix} a_1 \\ a_2 \\a_3 \end{pmatrix}  = \begin{pmatrix} 3 \\ 7 \\ -1 \end{pmatrix}.
+$$
+
+Observamos que la matriz $\begin{pmatrix} 1 & 0 & 0 \\ 2 & 1 & 0 \\ 5 & 7 & -1 \end{pmatrix}$ de coeficientes posee los vectores de $\B$ como columnas, es decir, es la matriz $\Cb_{\B\E}$. Como $\B$ es una base, la matriz $\Cb_{\B\E}$ es inversible (¿por qué?).
+
+Por lo tanto,
+$$
+ \begin{pmatrix} a_1 \\ a_2 \\a_3 \end{pmatrix}  = \begin{pmatrix}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+5 & 7 & -1
+\end{pmatrix}^{-1} \begin{pmatrix} 3 \\ 7 \\ -1 \end{pmatrix} = (\Cb_{\B\E})^{-1} \begin{pmatrix} 3 \\ 7 \\ -1 \end{pmatrix}.
+$$
+
+Obtenemos que la matriz de cambio de base de la base canónica $\E$ a una base $\B$ es $\Cb_{\E\B} = \Cb_{\B\E}$.
+
+%```{r}
+%C_BE = matrix(c(1,0,0,2,1,0,5,7,-1), nrow = 3, byrow=TRUE)
+%C_EB = solve(C_BE)
+%\vb = c(3,7,-1)
+%\vb_B = C_EB %*% \vb   # El vector en la base B
+%print(\vb_B)
+%
+%# Podemos convertir nuevamente a la base canónica
+%print(C_BE %*% \vb_B)
+%
+%```
+
+{\bf En resumen:}
+Tenemos una base $\B=\{b_1, \dots, b_n\}$ de un espacio vectorial $V$ de dimensión $n$.
+
+\begin{enumerate}
+\item Construimos la matriz $\Cb_{\B\E} = \begin{pmatrix} \mid & \mid & & \mid \\ {\bb}_{1} & {\bb}_{2} & \cdots & {\bb}_{n}\\ \mid & \mid & & \mid \\ \end{pmatrix}$.
+\item Para pasar un vector en base $\B$ a base canónica, usamos $\vb_\E= \Cb_{\B\E} \vb_\B$.
+\item Para pasar un vector en base base canónica a la base $\B$, definimos $\Cb_{\E\B} = (\Cb_{\B\E})^{-1}$ y usamos $\vb_\B= \Cb_{\E\B} \vb_\E$.
+\end{enumerate}   
+
+\section{Transformaciones lineales}
+
+\subsection{Matrices y transformaciones lineales}
+
+Una matriz $\Ab \in \R^{m \times n}$ define una funci\'on $T_{\Ab}: \mathbb{R}^n \rightarrow \mathbb{R}^m$ dada por
+$$
+T_{\Ab}(\vb) = \Ab\vb.
+$$
+(tomando a $\vb$ como matriz columna).
+
+\begin{ejemplo}
+Si $\Ab = \begin{pmatrix} 1 & 3 & 0 \\ 2 & -1 & -4\end{pmatrix} \in \mathbb{R}^{2 \times 3}$ y $\vb = (1, 0, -2)$, entonces $$
+T_{\Ab}(\vb) = \begin{pmatrix} 1 & 3 & 0 \\ 2 & -1 & -4\end{pmatrix} \begin{pmatrix} 1 \\ 0 \\ -2\end{pmatrix} = \begin{pmatrix} 1 \\ 10 \end{pmatrix}
+$$
+
+Si multiplicamos la matriz $\Ab$ por un vector genérico $\vb = (x_1, x_2, x_3) \in \R^3$, obtenemos
+$$
+T_{\Ab}(\vb) = \begin{pmatrix} 1 & 3 & 0 \\ 2 & -1 & -4\end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ x_3\end{pmatrix} = \begin{pmatrix} 1 x_1 + 3 x_2 + 0x_3 \\ 2 x_1 - x_2 - 4x_3 \end{pmatrix}.
+$$
+
+Entonces podemos escribir $$
+T_{\Ab}(x_1, x_2, x_3) = (x_1 + 3x_2, 2x_1-x_2 - 4x_3).
+$$
+\end{ejemplo}
+
+\textbf{Ejercicio.} Escribir a la función $f(x_1, x_2) = (3x_1, x_2 - x_1, x_2 + 2x_1)$ de $\R^2$ en $\R^3$ en forma matricial.
+
+Estas funciones reciben el nombre de \emph{transformaciones lineales}.
+
+\begin{definicion}
+Dados dos espacios vectoriales $V$ y $W$, una función $f: V \rightarrow W$ se llama \textbf{transformación lineal} si cumple:
+\begin{enumerate}
+\item  $f(\vb + \vb')= f(\vb) + f(\vb')$ para todos $\vb, \vb' \in V$.
+\item  $f(a \cdot \vb) = a \cdot f(\vb)$ para todos $a \in \R$ y $\vb \in V$.
+\end{enumerate}
+\end{definicion}
+
+El producto de matrices verifica $\Ab(\vb+\wb) = \Ab\vb + \Ab\wb$ y $\Ab(a\vb) = a(\Ab\vb)$, por lo tanto se cumplen los axiomas de transformación lineal.
+
+\begin{ejemplo}
+La función $f(x_1, x_2) = (3x_1 + 1, x_2 - x_1, x_2 + 3x_1)$ \textbf{no} es una transformación lineal de $\R^2$ en $\R^3$.\
+Por ejemplo, $f(2 \cdot (1,1)) = f(2,2) = (7, 0, 8)$ y $2f(1,1) = 2(4, 0, 4)= (8,0,8)$.
+\end{ejemplo}
+
+\textbf{Observación.} Las columnas de $\Ab$ son las imágenes de los vectores canónicos $\eb_i$, $1 \le i \le n$.
+
+\begin{proposicion} Si $\B = \{\vb_1, \dots, \vb_n\}$ es una base de $V$, podemos definir una transformación lineal definiendo la imagen de cada elemento de la base.
+\end{proposicion}
+
+Para un elemento $\vb \in V$, si $\vb = a_1 \vb_1 + \dots + a_n \vb_n$, entonces $f(\vb) = a_1 f(\vb_1) + \dots + a_n f(\vb_n)$.
+
+\begin{ejemplo} $\B = \{(1,2), (2, -1)\}$ es una base de $\R^2$. Si $f: \R^2 \rightarrow \R^2$ es una transformación lineal, $f(1,2) = (0, 1)$ y $f(2, -1) = (1,3)$, entonces
+$$f(3, 1) = f((1,2) + (2, -1)) = f(1,2) + f(2, -1)= (0,1) + (1,3) = (1, 4).$$
+\end{ejemplo}
+
+\subsection{Imagen y núcleo de matrices y transformaciones lineales}
+
+En base a esto, hacemos las siguientes definiciones
+
+\begin{definicion}
+El subespacio de $\K^m$
+$$
+\im(A) =\{\bb \in \K^m : \bb = \Ab \xb \text{ para algún } \xb \in \K^n\}
+$$
+es la imagen de $\Ab$ (o rango de $\Ab$, pero trae confusión con el rango que ya definimos). La imagen de una matriz $\Ab$ está generada por las columnas de $\Ab$ (¿por qué?).
+
+El subespacio de $\K^n$
+$$
+\ker(\Ab)=\{\xb \in \K^n: \Ab\xb = 0\}
+$$
+es el núcleo o kernel de $\Ab$. Podemos calcular el núcleo de $\Ab$ resolviendo el sistema homogéneo $\Ab\xb = 0$.
+\end{definicion}
+
+
+
+\textbf{Propiedad.} $\rank(\Ab) = \dim(\im(\Ab))$.
+
+\begin{teorema}[Teorema de la dimensión.] Dada una matriz $\Ab \in \K^{m \times n}$,
+$$
+n = \dim(\ker(\Ab)) + \dim(\im(\Ab))
+$$
+\end{teorema}
+
+\begin{proof}
+Utilizamos la Proposición \ref{prop:extension} de extensión de bases. Suponemos que el núcleo de $\Ab$ tiene dimensión $t$ y consideramos una base $\{\ub_1, \dots, \ub_t\} \subset \K^n$ del núcleo de $\Ab$. Extendemos dicha base a una base de $\R^n$:
+$$
+\B = \{\ub_1, \dots, \ub_t, \wb_1, \dots, \wb_{n-t}\}.
+$$
+Veamos que
+$$
+\{\Ab \wb_1, \dots, \Ab \wb_{n-t}\}
+$$
+forman una base de $\im(A)$.
+
+Dado un vector $v \in \R^n$, podemos escribirlo como combinación de elementos de la base:
+$$
+v = a_1 \ub_1 + \dots +a_t \ub_t  + b_1 \wb_1 + \dots + b_{n-t} \wb_{n-t}.
+$$
+
+Como $\Ab \ub_i = \cero$ para $1 \le i \le t$, obtenemos que
+$$
+\Ab\vb = + b_1 \Ab \wb_1 + \dots + b_{n-t} \Ab\wb_{n-t},
+$$
+y por lo tanto $\{\Ab \wb_1, \dots, \Ab \wb_{n-t}\}$ es un conjunto de generadores de $\im(A)$. Solo falta ver que es un conjunto linealmente independiente.
+
+Supongamos $c_1 \Ab \wb_1 + \dots + c_{n-t} \Ab \wb_{n-t} = 0$. Luego
+$$
+\Ab (c_1 \wb_1 + \dots + c_{n-t} \wb_{n-t}) = 0,
+$$
+es decir $c_1 \wb_1 + \dots + c_{n-t} \wb_{n-t} \in \ker(A)$.
+
+Por lo tanto, existen $d_i$, $1 \le i \le t$ tales que
+$$
+c_1 \wb_1 + \dots + c_{n-t} \wb_{n-t} = d_1 \ub_1  + \dots + d_t \ub_t.
+$$
+Pero los vectores de $\B$ forman una base de $\R^n$, por lo tanto debe ser $c_i=0$ para todo $1 \le i \le n-t$, y concluimos que los vectores $\Ab \wb_1, \dots, \Ab \wb_{n-t}$ son linealmente independientes.
+\end{proof}
+
+
+\begin{ejemplo} Dada la matriz $\Ab = \begin{pmatrix} 1 & 0 & -2 & 1 \\ 0 & 2 & -1 & -2 \\ 2 & 1 & 1 & 1 \end{pmatrix}$,
+\begin{enumerate}
+\item los conjuntos $\im(\Ab)$ y $\ker(\Ab)$, ¿son subespacios de qué espacios vectoriales?
+\item hallar generadores de $\im(\Ab)$ y calcular $\dim(\im(\Ab))$.
+\item hallar generadores de $\ker(\Ab)$ y calcular $\dim(\ker(\Ab))$.
+\item verificar si se cumple el teorema de la dimensión.
+\end{enumerate}
+
+\textbf{Respuestas}
+\begin{enumerate}
+\item   $\im(\Ab) \subset \R^3$ y $\ker(\Ab) \subset \R^4$.
+\item   $\im(\Ab) = \langle (1,0,2), (0, 2, 1), (-2, -1, 1), (1, -2, 1)\rangle$. Para calcular la dimensión, triangulamos.
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A = np.array([[1, 0, -2, 1], [0, 2, -1, -2], [2, 1, 1, 1]])
+At = np.transpose(A)
+print(At)
+
+At_echelon = row_echelon(At)
+print("Matriz A transpuesta escalonada:\n", At_echelon)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[ 1  0  2]
+%%  [ 0  2  1]
+%%  [-2 -1  1]
+%%  [ 1 -2  1]]
+%% Matriz A transpuesta escalonada:
+%%  [[1.  0.  2. ]
+%%  [0.  1.  0.5]
+%%  [0.  0.  1. ]
+%%  [0.  0.  0. ]]
+\end{verbatim}
+
+Obtenemos que $\dim(\im(\Ab)) = 3$, porque quedan 3 filas no nulas.
+
+\item Para resolver el sistema $\Ab\xb = 0$, triangulamos $\Ab$:
+
+
+\begin{Shaded}
+\begin{lstlisting}[language=python]
+A = np.array([[1, 0, -2, 1], [0, 2, -1, -2], [2, 1, 1, 1]])
+A_echelon = row_echelon(A)
+print("Matriz A escalonada:\n", A_echelon)
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+Matriz A escalonada:
+ [[ 1.   0.  -2.   1. ]
+ [ 0.   1.  -0.5 -1. ]
+ [ 0.   0.   1.   0. ]]
+\end{verbatim}
+
+
+
+Obtenemos $x_3 = 0$, $x_2 - x_4 = 0$ y $x_1 + x_4=0$. Podemos despejar todas las variables $x_1$, $x_2$ y $x_3$ en función de $x_4$:
+\begin{align*}
+x_1 &= -x_4 \\
+x_2 &= x_4  \\
+x_3 &= 0   \\
+\end{align*}
+
+Luego, las soluciones del sistema son $\{(-x_4, x_4, 0, x_4): x_4 \in \R\} = \{x_4(-1, 1, 0, 1): x_4 \in \R\}$. Obtenemos $$
+\ker(\Ab) = \langle (-1, 1, 0, 1) \rangle
+$$ y $\dim(\ker(A)) = 1$.
+
+En \python podemos calcular una base del núcleo de una matriz con el comando \texttt{null\_space} del paquete \texttt{scipy.linalg}. Para calcular una solución particular usamos eliminación gaussiana.
+
+\item Tenemos $\dim(\ker(\Ab)) + \dim(\im(\Ab)) = 1 + 3 = 4$, se cumple el teorema.
+
+\end{enumerate}
+
+\end{ejemplo}
+
+
+
+
+\section{Espacios afines}
+
+Dada $\Ab \in \K^{m \times n}$, ya vimos que las soluciones de un sistema
+homogéneo de ecuaciones
+
+$$
+\Ab\xb = 0
+$$
+
+forman un subespacio de $\K^n$. Veamos qué pasa para un sistema
+no-homogéneo
+
+$$
+\Ab\xb = \bb, \text{ con } \bb \in \K^n.
+$$
+
+\begin{ejemplo} Resolvemos el siguiente sistema de ecuaciones:
+
+$$
+\left\{\begin{aligned}
+5x_1 + 3x_2 &= 11 \\
+15x_1 + 9x_2 &= 33 \\
+20x_1 + 12x_2 &= 44
+\end{aligned}\right.
+$$
+
+Construimos la matriz ampliada
+
+$$
+\left(\begin{array}{rr|r}5&3&11\\15&9&33\\20&12&44\end{array}\right)
+$$
+
+y escalonamos usando \python.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+A = np.array([[5,3,11],[15,9,33],[20,12,44]])
+print(row_echelon(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% [[1.  0.6 2.2]
+%%  [0.  0.  0. ]
+%%  [0.  0.  0. ]]
+\end{verbatim}
+Vemos que se eliminaron las últimas dos ecuaciones, y nos queda solo una
+ecuación:
+$$
+x_1 + 0.6 x_2 = 2.2
+$$
+de donde podemos despejar $x_1 = 2.2 - 0.6x_2$.
+
+Podemos entonces escribir el conjunto de soluciones en función de $x_2$:
+\begin{align*}
+S &= \{(2.2 - 0.6 x_2, x_2) : x_2 \in \R\} \\
+&= \{(2.2, 0) + (-0.6 x_2, x_2) : x_2 \in \R\} \\
+&= \{(2.2, 0) + (-0.6, 1) x_2 : x_2 \in \R\}
+\end{align*}
+
+Esto no es un subespacio de $\R^2$ (por ejemplo, $(0,0) \not\in S$),
+pero es un subespacio ``corrido'': el conjunto
+
+$$
+ \{(-0.6, 1) x_2 : x_2 \in \R\} = \langle (-0.6, 1) \rangle,
+$$
+
+es un subespacio de $\R^2$ y los puntos de $S$ se obtienen sumandole el
+vector $(2.2, 0)$ a cualquier punto de $\langle (-0.6, 1)\rangle$, es
+decir,
+
+$$
+S = (2.2, 0) + \langle (-0.6, 1) \rangle
+$$
+
+\end{ejemplo}
+
+Estos conjuntos se llaman \textbf{espacios lineales afines}, se obtienen
+trasladando un subespacio vectorial en la dirección de un vector del
+espacio. El espacio vectorial podría estar generado por varios vectores,
+es decir, puede tener cualquier dimensión.
+
+Observamos:
+
+\begin{itemize}
+\item   $(2.2, 0)$ es una solución del sistema no-homogéneo $\Ab\xb = \bb$.
+\item   El subespacio $\langle (-0.6, 1) \rangle$ es el conjunto de
+    soluciones del sistema homogéneo $\Ab\xb = 0$.
+\end{itemize}
+y esto vale en general:
+
+\begin{proposicion}
+Dado el sistema $\Ab\xb = \bb$, si $\tilde \xb$ es una solución
+particular del sistema, el conjunto de todas las soluciones del sistema
+es
+$$
+S = \{\tilde \xb + \vb: \vb \text{ una solución cualquiera del sistema homogéneo } \Ab\xb = 0\}.
+$$
+\end{proposicion}
+
+\textbf{Idea de la demostración:} si $\xb, \yb$ son soluciones del sistema no
+homogéneo, entonces
+
+$$
+\Ab\xb - \Ab\yb = \bb - \bb = 0,
+$$
+
+Por lo tanto $\zb = \xb-\yb$ es solución del sistema homogéneo y $\xb = \yb + \zb$.
+
+\begin{ejemplo} Resolver el sistema de ecuaciones
+
+$$
+\left\{
+\begin{aligned}
+3x + 2y + 6z &= 12 \\
+x - 3y + z &= 10.
+\end{aligned}
+\right.
+$$
+
+En \python podemos calcular una base del núcleo de una matriz con el comando \texttt{null\_space} del paquete \texttt{scipy.linalg}. Para calcular una solución particular usamos eliminación gaussiana.
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+import scipy.linalg
+A = np.array([[3, 2, 6],[1, -2, 1]])
+print("Núcleo de A: \n", scipy.linalg.null_space(A))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+Núcleo de A:
+ [[-0.85359507]
+ [-0.18291323]
+ [ 0.48776861]]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{lstlisting}[language=Python]
+b = np.array([12, 10])
+Ab = np.c_[A,b]
+print("Matriz ampliada escalonada: \n", row_echelon(Ab))
+\end{lstlisting}
+\end{Shaded}
+
+\begin{verbatim}
+%% Matriz ampliada escalonada:
+%%  [[ 1.          0.66666667  2.          4.        ]
+%%  [ 0.          1.          0.375      -2.25      ]]
+\end{verbatim}
+
+Obtenemos las ecuaciones
+$$
+\left\{
+\begin{aligned}
+x + 2/3y + 2z &= 4 \\
+y + 0.375z &= -2.25,
+\end{aligned}
+\right.
+$$
+y tomando $z=1$ obtenemos la solución $(x,y,z) = (3.75, -2.625, 1)$.
+
+Concluimos que el conjunto de soluciones es
+$$
+S = (3.75, -2.625, 1) + \langle (-0.8535951, -0.1829132,  0.4877686) \rangle.
+$$
+\end{ejemplo}
+
