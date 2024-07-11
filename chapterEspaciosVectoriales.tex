@@ -907,7 +907,7 @@ A partir de la Proposici\'on \ref{prop:subbase}, podemos deducir el siguiente re
 
 \begin{proposicion}[Extensión de una base]
 \label{prop:extension}
-Dado un espacio vectorial $V$ de dimensión $n$ y una base $\B = \{\vb_1, \dots, \vb_s\}$ de un subespacio $S$, es posible encontrar vectores $\{\wb_1, \dots, \wb_{n-s}\}$ tales que
+Dado un espacio vectorial $V$ de dimensión $n$ y una base $\B = \{\vb_1, \dots, \vb_s\}$ de un subespacio $S \subset V$, es posible encontrar vectores $\{\wb_1, \dots, \wb_{n-s}\}$ tales que
 $$
 \{\vb_1, \dots, \vb_s, \wb_1, \dots, \wb_{n-s}\}
 $$
@@ -1095,21 +1095,21 @@ Probemos primero el caso en que $U\cap V=\{\cero\}$. En ese caso, $\dim(U\cap V)
 
 Para ello consideramos $\B=\{\ub_1,\cdots,\ub_k\}$ y $\B'=\{\vb_1,\cdots,\vb_n\}$ bases de $U$ y $V$ respectivamente y notemos que si tomamos un $\wb \in U+V$ deben existir $\ub \in U$ y $\vb\in V$ de modo tal que $\wb=\ub+\vb$. En particular, como $\B$ y $\B'$ son bases de $U$ y $V$,  deben existir escalares $\{\alpha_i\}_{1\le i\le k}$ y $\{\beta_j\}_{1\le j\le n}$ de modo tal que
 $$
-\ub= \sum_{i_1}^k\alpha_i\ub_i \qquad \vb=\sum_{j=1}^n\beta_j\vb_j,
+\ub= \sum_{i=1}^k\alpha_i\ub_i \qquad \vb=\sum_{j=1}^n\beta_j\vb_j,
 $$
 de donde conclu\'imos que el conjunto
 $$\tilde{\B}=\B\cup \B'=\{ \ub_1,\cdots,\ub_k, \vb_1,\cdots,\vb_n\}$$
-es un sistema de generadores de $U+V$. Decimos que $\tilde{\B}$ es L.I. con lo cual resultaría una base y por ende $\dim(U+V)=\# \B + \#\B'=\dim(U)+\dim(V)$ como queríamos probar. Para ver que $\tilde{\B}$ es L.I. suponemos que para cierta combinación lineal, se tiene
+es un sistema de generadores de $U+V$. Afirmamos que $\tilde{\B}$ es L.I. con lo cual resultaría una base y por ende $\dim(U+V)=\# \B + \#\B'=\dim(U)+\dim(V)$ como queríamos probar. Para ver que $\tilde{\B}$ es L.I. suponemos que para cierta combinación lineal, se tiene
 $$
-\sum_{i_1}^k\alpha_i\ub_i + \sum_{j=1}^n\beta_j\vb_j=\cero,
+\sum_{i=1}^k\alpha_i\ub_i + \sum_{j=1}^n\beta_j\vb_j=\cero,
 $$
 y notamos que en ese caso
 $$
- U \ni \sum_{i_1}^k\alpha_i\ub_i = \sum_{j=1}^n(-\beta_j)\vb_j \in V,
+ U \ni \sum_{i=1}^k\alpha_i\ub_i = \sum_{j=1}^n(-\beta_j)\vb_j \in V,
 $$
 lo que dice que ambos miembros (que son iguales) pertenecen tanto a $U$ como a $V$ y por ende a $U\cap V=\{\cero\}$. Luego
 $$
-\sum_{i_1}^k\alpha_i\ub_i = \cero= \sum_{j=1}^n(-\beta_j)\vb_j,
+\sum_{i=1}^k\alpha_i\ub_i = \cero= \sum_{j=1}^n(-\beta_j)\vb_j,
 $$
 y resulta $\alpha_1=\cdots=\alpha_k=\beta_1=\cdots=\beta_n=0$, indicando que $\tilde{\B}$ es L.I.
 
@@ -1159,7 +1159,7 @@ con
 $$
 c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots +a_{in}b_{nj}=\sum _{k=1}^{n}a_{ik}b_{kj}
 $$
-(en la casilla $(i,j)$ de $\Cb$ ponemos el producto de la fila $i$ de $\Ab$ con la columna $j$ de $\Bb$) .
+(en la casilla $(i,j)$ de $\Cb$ ponemos la suma del producto de las casillas de fila $i$ de $\Ab$ con las casillas de la columna $j$ de $\Bb$) .
 
 
 Si multiplicamos dos matrices o vectores en \python con $*$ ...
@@ -1302,7 +1302,7 @@ $$
 $$
 en forma matricial
 $$\begin{pmatrix}3&5\\ 2 & -9 \end{pmatrix} \cdot \begin{pmatrix}x\\ y \end{pmatrix} = \begin{pmatrix}4\\ 15 \end{pmatrix},$$
-o en general, $\Ab \xb = \bb$, donde $\Ab \in \mathbb{R}^{m \times n}$ es la matriz de coeficientes, $\xb$ es un vector o matriz columna de incógnitas y $\bb \in \mathbb{R}^{n}$ es el vector de términos constantes.
+o en general, $\Ab \xb = \bb$, donde $\Ab \in \mathbb{R}^{m \times n}$ es la matriz de coeficientes, $\xb$ es un vector o matriz columna de incógnitas y $\bb \in \mathbb{R}^{m}$ es el vector de términos constantes.
 
 \textbf{Pregunta:} ¿cuántas incógnitas y cuántas ecuaciones tiene el sistema $\Ab \xb = \bb$ con los tamaños dados?
 
@@ -1334,7 +1334,7 @@ Por lo tanto, no es necesario distinguir rango-fila de rango-columna, y hablamos
 \begin{ejemplo}\leavevmode
 \begin{enumerate}
 \item $\rank\left(\begin{pmatrix}1&4&7\\0&2&6\end{pmatrix}\right) = 2$
-\item $\rank\left(\begin{pmatrix}1&0&1 \\ 0&1&2 \\ 1 & 2 & 5\end{pmatrix}\right) = 1$
+\item $\rank\left(\begin{pmatrix}1&0&1 \\ 0&1&2 \\ 1 & 2 & 5\end{pmatrix}\right) = 2$
 \end{enumerate}
 \end{ejemplo}
 
@@ -1456,11 +1456,11 @@ print("id * A = \n", id @ A)
 %%  [0.6293026  0.20801675 0.6855896 ]]
 \end{verbatim}
 
-\subsubsection{Mas Matrices especiales}
+\subsubsection{Más Matrices especiales}
 
 \begin{itemize}
 \item \textbf{Triangular superior:} Una matriz $\Ub \in \R^{n \times n}$ se llama triangular superior si $a_{ij} = 0$ para todo $i > j$ (es decir, todas las entradas abajo de la diagonal son 0).
-\item \textbf{Triangular inferior:} Una matriz $\Lb \in \R^{n \times n}$ se llama triangular inferior si $a_{ij} = 0$ para todo $i > j$ (es decir, para todas las entradas arriba de la diagonal son 0).
+\item \textbf{Triangular inferior:} Una matriz $\Lb \in \R^{n \times n}$ se llama triangular inferior si $a_{ij} = 0$ para todo $i > j$ (es decir, todas las entradas arriba de la diagonal son 0).
 \item \textbf{Matriz simétrica:} $\Ab\in \R^{n\times n}$ es simétrica si $\Ab^T = \Ab$.
 \item \textbf{Matriz Hermitiana:} $\Ab\in \C^{n\times n}$ es Hermitiana si $\Ab^* = \Ab$.
 \item \textbf{Matriz ortogonal:} $\Ab$ es ortogonal si $\Ab\Ab^T = \Ab^T\Ab = \Id_n$.
@@ -1469,7 +1469,7 @@ print("id * A = \n", id @ A)
 
     \subsubsection{Inversa de una matriz}
 
-Dada una matriz $\Ab \in \R^{n \times n}$, si existe una matriz $\Bb \in \R^{n\times n}$ tal que
+Dada una matriz $\Ab \in \K^{n \times n}$, si existe una matriz $\Bb \in \K^{n\times n}$ tal que
 $$
 \Ab\Bb = \Id_n = \Bb\Ab,
 $$
@@ -1715,7 +1715,7 @@ Dado un espacio vectorial $V$ de dimensión $n$ llamamos base canónica de $V$ a
 
 Dada otra base $\B$ de $V$, queremos saber cómo escribir en la base $\B$ a un vector $\vb$ del cual conocemos sus coordenadas en la base $\E$. Y viceversa, cómo escribir en la base canónica a un vector del cual conocemos sus coordenadas en la base $\B$.
 
-\subsubsection{Cambio de base de $\B$ a $\E$}
+\subsection{Cambio de base de $\B$ a $\E$}
 
 Analizamos un ejemplo. Consideramos la base de $\R^3$
 $$\B= \{(1,2,5), (0, 1, 7), (0,0,-1)\}$$  y el vector
@@ -1744,7 +1744,7 @@ $$
 \end{enumerate}
 \end{ejercicio}
 
-\subsubsection{Cambio de base de $\B$ a $\E$}
+\subsection{Cambio de base de $\B$ a $\E$}
 
 Ahora queremos escribir a $\vb = (3,7, -1)_\E$ en la base $\B$. Para esto, necesitamos resolver el sistema de ecuaciones $$
 (3, 7, -1) = \sum_{i=1}^{3} a_i b_i = a_1 (1,2,5) + a_2 (0, 1, 7) + a_3 (0,0,-1)
@@ -1859,9 +1859,9 @@ es la imagen de $\Ab$ (o rango de $\Ab$, pero trae confusión con el rango que y
 
 El subespacio de $\K^n$
 $$
-\ker(\Ab)=\{\xb \in \K^n: \Ab\xb = 0\}
+\ker(\Ab)=\{\xb \in \K^n: \Ab\xb = \cero\}
 $$
-es el núcleo o kernel de $\Ab$. Podemos calcular el núcleo de $\Ab$ resolviendo el sistema homogéneo $\Ab\xb = 0$.
+es el núcleo o kernel de $\Ab$. Podemos calcular el núcleo de $\Ab$ resolviendo el sistema homogéneo $\Ab\xb = \cero$.
 \end{definicion}
 
 
