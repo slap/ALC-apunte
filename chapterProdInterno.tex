@@ -225,7 +225,7 @@ De \eqref{eq:calculodeAng} vemos que $\theta=\pi/2$ si y solo si $\vb^*\wb=0$, d
 \etcc
 \tccdefi
 \begin{definicion}
- Una colección de vectores  $\{\vb_i\}_{1\le i\le k}\subset \K^{n}$ se dice \emph{ortogonal} si $\langle \vb_i,\vb_j\rangle = 0 para i \neq j$. Si además $\|\vb_i\|_2=1$ para todo $1\le i\le k$ (es decir, $\langle \vb_i,\vb_j\rangle = \delta_i^j$ para todo $1 \le i, j \le n$) decimos que el conjunto es \emph{ortonormal.}
+ Una colección de vectores  $\{\vb_i\}_{1\le i\le k}\subset \K^{n}$ se dice \emph{ortogonal} si $\langle \vb_i,\vb_j\rangle = 0$ para $i \neq j$. Si además $\|\vb_i\|_2=1$ para todo $1\le i\le k$ (es decir, $\langle \vb_i,\vb_j\rangle = \delta_i^j$ para todo $1 \le i, j \le n$) decimos que el conjunto es \emph{ortonormal.}
 \end{definicion}
 \etcc
 Los conjuntos ortogonales tienen muchas propiedades que pueden explotarse, tanto teóricamente como en la práctica.
@@ -345,7 +345,7 @@ Dada una matriz $\Ab \in \K^{n \times m}$, y un par de normas vectoriales $\|\cd
 $$
 \|\Ab\|_{n,m} = \max_{\cero \neq \xb \in \K^m} \frac{\|\Ab\xb\|_n}{\|\xb\|_m} = \max_{\xb \in \K^m, \|\xb\|_m = 1} \|\Ab\xb\|_n.
 $$
-Un caso usual en este curso es que la matriz sea cuadrada $\Ab \in \K^{n \times m}$ y en ese caso usamos una sola norma vectorial $\|\cdot\|$
+Un caso usual en este curso es que la matriz sea cuadrada $\Ab \in \K^{n \times n}$ y en ese caso usamos una sola norma vectorial $\|\cdot\|$
 \tccdefi
 \begin{equation}
  \label{eq:defidenormaA}
@@ -408,12 +408,12 @@ $$\|\Ab\|_\infty =
  \max_{1\le i\le n}\{\sum_{j=1}^{n} |a_{ij}|\}=\sum_{j=1}^{n} |a_{kj}|,
  $$
  (si hay más de una tomamos cualquiera). Podemos suponer que
- $\sum_{j=1}^{n} |a_{kj}|>0$ de otro modo el resultado es inmediato. Llamemos $\zb$ al vector de los signos de los elementos de esa fila $\zb=(sg(a_{k,1}),\cdots ,sg(a_{k,n})$. Si algún $a_{k,i}=0$ tomamos $sg(a_{k,1})=0$. Como la fila no es nula, $\zb\neq\cero$. Luego $\|\zb\|_\infty=\max_{1\le i\le n}\{|z_i|\}=1$, y  haciendo
+ $\sum_{j=1}^{n} |a_{kj}|>0$ de otro modo el resultado es inmediato. Llamemos $\zb$ al vector de los signos de los elementos de esa fila $\zb=(sg(a_{k,1}),\cdots ,sg(a_{k,n}))$. Si algún $a_{k,i}=0$ tomamos $sg(a_{k,1})=0$. Como la fila no es nula, $\zb\neq\cero$. Luego $\|\zb\|_\infty=\max_{1\le i\le n}\{|z_i|\}=1$, y  haciendo
  $$
 \|\Ab\|_\infty =\max_{\xb \in \R^n, \|\xb\|_\infty = 1} \|\Ab\xb\|_\infty
  \ge \|\Ab\zb\|_\infty\ge \sum_{j=1}^n a_{i,j}sg(a_{i,j})=\sum_{j=1}^n |a_{i,j}|=\max_{1\le i\le n}\{\sum_{j=1}^{n} |a_{ij}|\},
  $$
- lo que prueba una desigualdad. Para a otra desigualdad, sea $\xb\in \R^n$ tal que $\|\xb\|_\infty=1$, luego para todo $1\le j\le n$ $|x_j|\le \|\xb\|_\infty=1$ y entonces, para cualquier elemento $i$ del vector $\Ab\xb$
+ lo que prueba una desigualdad. Para la otra desigualdad, sea $\xb\in \R^n$ tal que $\|\xb\|_\infty=1$, luego para todo $1\le j\le n$ $|x_j|\le \|\xb\|_\infty=1$ y entonces, para cualquier elemento $i$ del vector $\Ab\xb$
 $$
 |[\Ab\xb]_i|=|\sum_{j=1}^na_{i,j}x_j |\le \sum_{j=1}^n|a_{i,j}|\le \max_{1\le i\le n}\{\sum_{j=1}^{n} |a_{ij}|\},
 $$
@@ -736,7 +736,7 @@ Escribimos debajo el algoritmo de forma compacta llamando $\qb_i$ a los vectores
 \begin{center}
 \begin{tcolorbox}[width=\linewidth/3]
 \begin{center}
-{\bf Gramm-Schmidt}
+{\bf Gram-Schmidt}
 \end{center}
 
 
@@ -872,7 +872,7 @@ $$
 que clarifica el efecto de multiplicar por $\Pb$.
 \end{observacion}
 \etcc
-Vamos a construir una herramienta de  mucha utilidad.  Notemos que para todo $\vb$ de norma uno (de no ser de norma uno dedemos dividir por $\vb^*\vb$ ), podemos definir el proyector ortogonal de rango uno
+Vamos a construir una herramienta de  mucha utilidad.  Notemos que para todo $\vb$ de norma uno (de no ser de norma uno debemos dividir por $\vb^*\vb$ ), podemos definir el proyector ortogonal de rango uno
 $$
 \Pb_{\vb}=\vb\vb^*,
 $$
@@ -880,7 +880,7 @@ que proyecta sobre el subespacio generado por $\vb$, y con este su complementari
 $$\Pb_{\vb^\perp}=\Ib-\Pb_{\vb},$$
 de rango $n-1$ que proyecta sobre el ortogonal a $\vb$.
 
-Como aplicación de estos proyectores podemos reformular Gramm-Schmidt (recordemos que
+Como aplicación de estos proyectores podemos reformular Gram-Schmidt (recordemos que
 las columnas de $\Ab$ se donotan con $\ab_i$).
 \begin{center}
 \begin{tcolorbox}[width=\linewidth/2]
