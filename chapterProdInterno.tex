@@ -408,12 +408,12 @@ $$\|\Ab\|_\infty =
  \max_{1\le i\le n}\{\sum_{j=1}^{n} |a_{ij}|\}=\sum_{j=1}^{n} |a_{kj}|,
  $$
  (si hay más de una tomamos cualquiera). Podemos suponer que
- $\sum_{j=1}^{n} |a_{kj}|>0$ de otro modo el resultado es inmediato. Llamemos $\zb$ al vector de los signos de los elementos de esa fila $\zb=(sg(a_{k,1}),\cdots ,sg(a_{k,n})$. Si algún $a_{k,i}=0$ tomamos $sg(a_{k,1})=0$. Como la fila no es nula, $\zb\neq\cero$. Luego $\|\zb\|_\infty=\max_{1\le i\le n}\{|z_i|\}=1$, y  haciendo
+ $\sum_{j=1}^{n} |a_{kj}|>0$ de otro modo el resultado es inmediato. Llamemos $\zb$ al vector de los signos de los elementos de esa fila $\zb=(sg(a_{k,1}),\cdots ,sg(a_{k,n}))$. Si algún $a_{k,i}=0$ tomamos $sg(a_{k,1})=0$. Como la fila no es nula, $\zb\neq\cero$. Luego $\|\zb\|_\infty=\max_{1\le i\le n}\{|z_i|\}=1$, y  haciendo
  $$
 \|\Ab\|_\infty =\max_{\xb \in \R^n, \|\xb\|_\infty = 1} \|\Ab\xb\|_\infty
  \ge \|\Ab\zb\|_\infty\ge \sum_{j=1}^n a_{i,j}sg(a_{i,j})=\sum_{j=1}^n |a_{i,j}|=\max_{1\le i\le n}\{\sum_{j=1}^{n} |a_{ij}|\},
  $$
- lo que prueba una desigualdad. Para a otra desigualdad, sea $\xb\in \R^n$ tal que $\|\xb\|_\infty=1$, luego para todo $1\le j\le n$ $|x_j|\le \|\xb\|_\infty=1$ y entonces, para cualquier elemento $i$ del vector $\Ab\xb$
+ lo que prueba una desigualdad. Para la otra desigualdad, sea $\xb\in \R^n$ tal que $\|\xb\|_\infty=1$, luego para todo $1\le j\le n$ $|x_j|\le \|\xb\|_\infty=1$ y entonces, para cualquier elemento $i$ del vector $\Ab\xb$
 $$
 |[\Ab\xb]_i|=|\sum_{j=1}^na_{i,j}x_j |\le \sum_{j=1}^n|a_{i,j}|\le \max_{1\le i\le n}\{\sum_{j=1}^{n} |a_{ij}|\},
 $$
