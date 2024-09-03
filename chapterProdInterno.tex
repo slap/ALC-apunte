@@ -548,17 +548,16 @@ $$
 Si $\Ab$ no es invertible definimos $\kappa(\Ab)=+\infty$.
 
 \end{definicion}
-Que ocurre si $\Ab\in \K^{n\times m}$? podremos definir algo similar?.  Volveremos sobre este caso mas adelante cuando definamos la \emph{pseudoinversa}.
+Que ocurre si $\Ab\in \K^{n\times m}$? podremos definir algo similar?.  Volveremos sobre este caso m\'as adelante cuando definamos la \emph{pseudoinversa}.
 \begin{observacion}
 \label{rem:deCondicion}
-Observemos que
+Observemos que:
 \begin{enumerate}
  \item La condición de una matriz depende de la norma matricial elegida. Sin embargo, como en dimensión finita todas las normas son equivalentes las condiciones son equivalentes.
 \item Para todo $\cero\neq \alpha\in \K$, $\kappa(\alpha\Ab)=\kappa(\Ab)$.
 \item $\kappa(\Ib)=1$ para toda norma.
  \item Como consecuencia del ítem previo, para toda norma, $1\le \kappa(\Ab)$.
-\item Para toda $\Qb$ unitaria/ortogonal
-$\kappa(\Qb)=1$. (ver item (2) en Proposición \ref{prop:unitarias})
+\item Para toda $\Qb$ unitaria/ortogonal, $\kappa(\Qb)=1$ para la norma $\|\cdot\|_2$ (ver item (2) en Proposición \ref{prop:unitarias}).
 \item $\kappa(\Ab)=\kappa(\Ab^{-1})$
 \end{enumerate}
 \end{observacion}
@@ -772,7 +771,7 @@ $\Pb^2=\Pb$.
 \end{definicion}
 \etcc
 
-Notar que  dados dos subespacios $S_1,S_2$ tales que $S_1\oplus S_2=\Kn$, siempre es posible construir un proyector $\Pb$ tal que $Im(\Pb)=S_1$ y $Nu(\Pb)=S_2$. En efecto, como los subespacios están en suma directa, para todo $\vb\in \Cn$ existen únicos $\vb_i\in S_i$ tales que
+Notar que  dados dos subespacios $S_1,S_2$ tales que $S_1\oplus S_2=\Kn$, siempre es posible construir un proyector $\Pb$ tal que $\Im(\Pb)=S_1$ y $\Nu(\Pb)=S_2$. En efecto, como los subespacios están en suma directa, para todo $\vb\in \Cn$ existen únicos $\vb_i\in S_i$ tales que
 $\vb=\vb_1+\vb_2$. Definiendo $\Pb\vb=\vb_1$ obtenemos el proyector buscado.
 
 Si $\Pb$ es un proyector y $\Pb\neq \Ib$ entonces $\Ib-\Pb$ también es un proyector denominado \emph{proyector complementario}.
@@ -834,28 +833,32 @@ Un proyector $\Pb$ es ortogonal sí y solo sí $\Pb=\Pb^*$.
 \end{teorema}
 \etcc
 \begin{proof}
- $(1)\rightarrow (2)$: para todo $\vb$ escribimos
+ $(1)\Rightarrow (2)$: para todo $\vb$ escribimos
  $$
  \vb=(\Ib-\Pb)\vb+\Pb\vb,
  $$
- y como por ser proyector $Im(\Ib-\Pb)=Nu(\Pb)\perp Im(\Pb)$, se tiene inmediatamente
+ y como por ser proyector $\Im(\Ib-\Pb)=\Nu(\Pb)\perp \Im(\Pb)$, se tiene inmediatamente
  $$\|\vb\|_2=\|(\Ib-\Pb)\vb\|_2+\|\Pb\vb\|_2.$$
-$(2)\rightarrow (3)$:
+$(2)\Rightarrow (3)$:
 la identidad de $(2)$ dice que
 $\|\Pb \vb\|_2\le \| \vb\|_2,$ de donde
 $\|\Pb\|_2\le 1$. Como $\Pb$ es proyector,
-$\Pb\neq \cero$ y existe $\cero\neq\wb$ tal que $\vb=\Pb\wb\neq\cero$, para ese $\vb$, $\Pb\vb=\vb\neq\cero$ y luego $\|\Pb\|_2\ge 1$, lo dice $\|\Pb\|_2= 1$.
+$\Pb\neq \cero$ y existe $\cero\neq\wb$ tal que $\vb=\Pb\wb\neq\cero$. Para ese $\vb$, $\Pb\vb=\vb\neq\cero$ y luego $\|\Pb\|_2\ge 1$, lo que implica $\|\Pb\|_2= 1$.
 
-\noindent $(3)\rightarrow (1)$: asumamos que existen $\vb\in Im(\Pb)$ y
-$\wb\in Nu(\Pb)$ tales que $\vb^*\wb\neq 0$ y $\|\vb\|=1=\|\wb\|$. Definamos $\ub=\vb-(\wb^*\vb)\wb$, se tiene $\|\Pb\ub\|=\|\Pb\vb\|=\|\vb\|=1$ como $\|\Pb\|=1$ resulta
-$$1=\|\Pb\ub\|\le \|\ub\|^2=\|\vb\|^2-
-(\wb^*\vb)(\vb^*\wb)-\overline{(\wb^*\vb)}\wb^*\vb+|\wb^*\vb|^2\|\wb\|^2=
-$$
-$$
-1-\overline{(\vb\wb^*)}(\vb^*\wb)-\overline{(\wb^*\vb)}\wb^*\vb+|\wb^*\vb|^2
-=1-(\wb^*\vb)^2<1,
-$$
-absurdos. Luego $Im(\Pb)\perp Nu(\Pb)$ y $\Pb$ es ortogonal.
+\noindent $(3)\Rightarrow (1)$: asumamos que existen $\vb\in \Im(\Pb)$ y
+$\wb\in \Nu(\Pb)$ tales que $\vb^*\wb\neq 0$ y $\|\vb\|_2=1=\|\wb\|_2$. 
+Definamos $\ub=\vb-(\wb^*\vb)\wb$. Se tiene que $\|\Pb\ub\|_2=\|\Pb\vb\|_2=\|\vb\|_2=1$, y como $\|\Pb\|_2=1$, resulta
+\begin{align*}
+1 &=\|\Pb\ub\|_2^2 \\
+&\le \|\Pb\|_2^2 \|\ub\|_2^2 = \|\ub\|_2^2  = \langle \vb-(\wb^*\vb)\wb, \vb-(\wb^*\vb)\wb \rangle \\
+&= \|\vb\|_2^2- \langle \vb,  (\wb^*\vb)\wb \rangle - \langle (\wb^*\vb)\wb,   \vb\rangle + \|(\wb^*\vb)\wb\|_2^2 \\
+&= \|\vb\|_2^2- (\wb^*\vb)(\vb^*\wb)-\overline{(\wb^*\vb)}\wb^*\vb+|\wb^*\vb|^2\|\wb\|_2^2 \\
+&= 1-\overline{(\vb^*\wb)}(\vb^*\wb)-\overline{(\wb^*\vb)}\wb^*\vb+|\wb^*\vb|^2 \\
+&=1-|\vb^*\wb|^2-|\wb^*\vb|^2 + |\wb^*\vb|^2 \\
+&=1-|\vb^*\wb|^2 <1,
+\end{align*}
+
+absurdo. Luego $\Im(\Pb)\perp \Nu(\Pb)$ y $\Pb$ es ortogonal.
  \end{proof}
 
  \begin{tcolorbox}
